@@ -1,12 +1,13 @@
-from dojson import utils
-
+from invenio_initial_theses_conversion.nusl_overdo import extra_argument, single_value
 from ..model import old_nusl
 
 
-@old_nusl.over("lang", '04107')
-def language_code(self, key, value):
+@old_nusl.over("title", '24500')
+@single_value
+@extra_argument('language', '04107', single=True)
+def title_value(self, key, value, language):
     """Language Code."""
-
     return {
-         "language": value.get('a')
+        "value": value.get('a'),
+        "language": language.get('a') if language else 'unk'
     }
