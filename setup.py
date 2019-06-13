@@ -42,7 +42,8 @@ setup(
     platforms='any',
     entry_points={
         'invenio_initial_theses_conversion.rules.marc21': [
-            'b001 = invenio_initial_theses_conversion.rules.marc21.b001'
+            'b001 = invenio_initial_theses_conversion.rules.marc21.b001',
+            'bd01x09x = invenio_initial_theses_conversion.rules.marc21.bd01x09x'
         ],
         'dojson.cli.rule':
             [
@@ -66,4 +67,3 @@ setup(
         'Development Status :: 3 - Planning',
     ],
 )
-# xd
