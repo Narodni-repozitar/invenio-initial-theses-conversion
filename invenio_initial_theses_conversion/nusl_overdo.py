@@ -24,8 +24,6 @@ class NuslMarkOverdo(Overdo):
         if ignore_missing:
             handlers.setdefault(MissingRule, clean_missing)
 
-        output = {}
-
         if self.index is None:
             self.build()
 
@@ -38,6 +36,12 @@ class NuslMarkOverdo(Overdo):
         for key, value in items:
             original_data[key].append(value)
 
+        output = self._transform(original_data, handlers)
+
+        return output
+
+    def _transform(self, original_data, handlers):
+        output = {}
         for key, values in original_data.items():
             try:
                 result = self.index.query(key)
@@ -45,26 +49,7 @@ class NuslMarkOverdo(Overdo):
                     raise MissingRule(key)
 
                 name, creator = result
-                extra = {}
-                if hasattr(creator, '__extra__'):
-                    for name, marc, single in creator.__extra__:
-                        e = None
-                        if marc.startswith('^'):
-                            # regexp
-                            data = []
-                            for mk, mvals in original_data.items():
-                                if re.match(marc, mk):
-                                    data.extend(mvals)
-                            e = data
-                        else:
-                            e = original_data.get(marc)
-                        if single:
-                            if len(e) > 1:
-                                raise AttributeError('Extra (%s, marc %s) for rule %s requires only one value, has %s' % (
-                                    name, marc, key, e
-                                ))
-                            e = e[0] if e else None
-                        extra[name] = e
+                extra, name = self._get_extra_arguments(creator, key, name, original_data)
                 data = creator(output, key, values, **extra)
                 if getattr(creator, '__output_reduce__', False):
                     reduce_func = getattr(creator, '__output_reduce__', False)
@@ -78,8 +63,29 @@ class NuslMarkOverdo(Overdo):
                         handler(exc, output, key, values)
                 else:
                     raise
-
         return output
+
+    def _get_extra_arguments(self, creator, key, name, original_data):
+        extra = {}
+        if hasattr(creator, '__extra__'):
+            for name, marc, single in creator.__extra__:
+                if marc.startswith('^'):
+                    # regexp
+                    data = []
+                    for mk, mvals in original_data.items():
+                        if re.match(marc, mk):
+                            data.extend(mvals)
+                    e = data
+                else:
+                    e = original_data.get(marc)
+                if single:
+                    if len(e) > 1:
+                        raise AttributeError('Extra (%s, marc %s) for rule %s requires only one value, has %s' % (
+                            name, marc, key, e
+                        ))
+                    e = e[0] if e else None
+                extra[name] = e
+        return extra, name
 
 
 def result_setter(reduce_func):
