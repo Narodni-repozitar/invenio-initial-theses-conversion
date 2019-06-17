@@ -17,7 +17,8 @@ setup_requires = [
 
 install_requires = [
     'invenio-nusl-theses>=1.0.0',
-    "dojson>=1.4.0"
+    "dojson>=1.4.0",
+    "langdetect"
 ]
 
 packages = find_packages()
@@ -43,9 +44,15 @@ setup(
     entry_points={
         'invenio_initial_theses_conversion.rules.marc21': [
             'b001 = invenio_initial_theses_conversion.rules.marc21.b001',
-            'bd01x09x = invenio_initial_theses_conversion.rules.marc21.bd01x09x',
+            'bd24500 = invenio_initial_theses_conversion.rules.marc21.bd24500',
+            'bd586 = invenio_initial_theses_conversion.rules.marc21.bd586',
             'bd656 = invenio_initial_theses_conversion.rules.marc21.bd656',
             'bd650_653=invenio_initial_theses_conversion.rules.marc21.bd650_653',
+            'bd980 = invenio_initial_theses_conversion.rules.marc21.bd980',
+            'bd996 = invenio_initial_theses_conversion.rules.marc21.bd996',
+            'bd24633 = invenio_initial_theses_conversion.rules.marc21.bd24633',
+            'bd598 = invenio_initial_theses_conversion.rules.marc21.bd598',
+            'bd7102 = invenio_initial_theses_conversion.rules.marc21.bd7102',
         ],
         'dojson.cli.rule':
             [

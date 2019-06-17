@@ -68,7 +68,7 @@ class NuslMarkOverdo(Overdo):
     def _get_extra_arguments(self, creator, key, original_data):
         extra = {}
         if hasattr(creator, '__extra__'):
-            for name, marc, single in creator.__extra__:
+            for name, marc, single, defaultval in creator.__extra__:
                 if marc.startswith('^'):
                     # regexp
                     data = []
@@ -78,6 +78,14 @@ class NuslMarkOverdo(Overdo):
                     e = data
                 else:
                     e = original_data.get(marc)
+                if e is None and defaultval is not None:
+                    e = [defaultval] if not isinstance(defaultval, list) else defaultval
+
+                if e is None:
+                    raise AttributeError('Extra field(%s, marc %s) for rule %s not found' % (
+                        name, marc, key
+                    ))
+
                 if single:
                     if len(e) > 1:
                         raise AttributeError('Extra (%s, marc %s) for rule %s requires only one value, has %s' % (
@@ -143,11 +151,11 @@ def single_value(f):
     return wrapper
 
 
-def extra_argument(name, marc, single=True):
+def extra_argument(name, marc, single=True, default=None):
     def outer(f):
         if not hasattr(f, '__extra__'):
             f.__extra__ = []
-        f.__extra__.append((name, marc, single))
+        f.__extra__.append((name, marc, single, default))
 
         @functools.wraps(f)
         def wrapper(self, key, values, **kwargs):
@@ -170,7 +178,7 @@ def handled_values(*args):
             for value in test_values:
                 extra_args = set(value.keys()) - args
                 if extra_args:
-                    raise AttributeError(f"Unhandled case { {k: values.get(k) for k in extra_args} } ")
+                    raise AttributeError(f"Unhandled case { {k: value.get(k) for k in extra_args} } ")
 
             return f(self, key, values, **kwargs)
 
