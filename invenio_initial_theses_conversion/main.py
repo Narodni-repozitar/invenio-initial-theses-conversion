@@ -1,7 +1,10 @@
+import gzip
+import hashlib
 import logging
 import os
 import re
 import sys
+import traceback
 import uuid
 from io import BytesIO
 from logging import StreamHandler
@@ -63,16 +66,17 @@ logging.basicConfig(
 @click.option('--url',
               default='https://invenio.nusl.cz/search?ln=cs&p=&f=&action_search=Hledej&c=Vysoko%C5%A1kolsk%C3%A9+kvalifika%C4%8Dn%C3%AD+pr%C3%A1ce&rg=1000&sc=0&of=xm',
               help='Collection URL')
+@click.option('--cache-dir',
+              help='Cache dir')
 @click.option('--break-on-error/--no-break-on-error',
               default=True,
               help='Break on first error')
-def run(url, break_on_error):
+def run(url, break_on_error, cache_dir):
     start = 1
     while True:
         print('\r%08d' % start, end='', file=sys.stderr)
         sys.stderr.flush()
-        resp = requests.get(f'{url}&jrec={start}').content
-        parsed = ElementTree.fromstring(resp)
+        resp, parsed = fetch_nusl_data(url, start, cache_dir)
         count = len(list(parsed.iter('{http://www.loc.gov/MARC21/slim}record')))
         if not count:
             break
@@ -93,6 +97,32 @@ def run(url, break_on_error):
                     raise
 
         start += count
+
+
+def fetch_nusl_data(url, start, cache_dir):
+    full_url = f'{url}&jrec={start}'
+    if cache_dir:
+        hash_val = hashlib.sha512(full_url.encode('utf-8')).hexdigest()
+        if not os.path.exists(cache_dir):
+            os.makedirs(cache_dir)
+        cache_path = os.path.join(cache_dir, hash_val)
+        if os.path.exists(cache_path):
+            try:
+                with gzip.open(cache_path, 'rb') as f:
+                    ret = f.read()
+                    parsed = ElementTree.fromstring(ret)
+                    return ret, parsed
+            except:
+                traceback.print_exc()
+            
+    resp = requests.get(full_url).content
+    if cache_dir:
+        with gzip.open(cache_path, 'wb') as f:
+            f.write(resp)
+
+    parsed = ElementTree.fromstring(resp)
+
+    return resp, parsed
 
 
 if __name__ == '__main__':
