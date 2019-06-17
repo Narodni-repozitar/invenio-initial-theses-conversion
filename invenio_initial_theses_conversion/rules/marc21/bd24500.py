@@ -4,7 +4,7 @@ from ..model import old_nusl
 
 @old_nusl.over("title", '24500')
 @list_value
-@extra_argument('language', '04107', single=True)
+@extra_argument('language', '04107', single=True, default={'a': 'cze'})
 @handled_values('a', 'b')
 def title_value(self, key, value, language):
     """Language Code."""
