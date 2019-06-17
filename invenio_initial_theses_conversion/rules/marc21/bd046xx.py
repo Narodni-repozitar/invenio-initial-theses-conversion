@@ -9,9 +9,11 @@ from re import match
 def date_accepted(self, key, value):
     """dateAccepted"""
     date = value.get("k")
-    if match(f'\d\d\d\d-\d\d-\d\d', date) is not None:
+    if match(r'\d\d\d\d-\d\d-\d\d', date) is not None:
         return date
-    elif match(f'\d\d\d\d-\d\d', date) is not None:
+    elif match(r'\d\d\d\d-\d\d', date) is not None:
         return f"{date}-01"
-    else:
+    elif match(r'\d\d\d\d', date) is not None:
         return f"{date[0:4]}-01-01"
+    else:
+        raise AttributeError(f'Wrong date format: {date}')
