@@ -117,11 +117,20 @@ def list_value(f):
     return wrapper
 
 
-def flatten_dict_value(f):
+def merge_results(f):
     def dict_setter(output, name, key, data, original_value, **kwargs):
         output.update(data)
 
     return result_setter(dict_setter)(f)
+
+
+def append_results(f):
+    def list_setter(output, name, key, data, original_value, **kwargs):
+        if name not in output:
+            output[name] = []
+        output[name].extend(data)
+
+    return result_setter(list_setter)(f)
 
 
 def single_value(f):
@@ -142,6 +151,27 @@ def extra_argument(name, marc, single=True):
 
         @functools.wraps(f)
         def wrapper(self, key, values, **kwargs):
+            return f(self, key, values, **kwargs)
+
+        return wrapper
+
+    return outer
+
+
+def handled_values(*args):
+    args = set(args)
+    def outer(f):
+        @functools.wraps(f)
+        def wrapper(self, key, values, **kwargs):
+            if isinstance(values, list):
+                test_values = values
+            else:
+                test_values = [values]
+            for value in test_values:
+                extra_args = set(value.keys()) - args
+                if extra_args:
+                    raise AttributeError(f"Unhandled case { {k: values.get(k) for k in extra_args} } ")
+
             return f(self, key, values, **kwargs)
 
         return wrapper
