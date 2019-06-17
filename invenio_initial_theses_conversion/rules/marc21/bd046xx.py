@@ -6,7 +6,7 @@ from re import match
 @old_nusl.over('dateAccepted', '^046')
 @single_value
 @handled_values('k')
-def control_number(self, key, value):
+def modified(self, key, value):
     """dateAccepted"""
     date = value.get("k")
     if match(f'\d\d\d\d-\d\d-\d\d', date) is not None:

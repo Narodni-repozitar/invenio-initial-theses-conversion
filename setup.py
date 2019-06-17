@@ -56,6 +56,7 @@ setup(
             'bd24633 = invenio_initial_theses_conversion.rules.marc21.bd24633',
             'bd598 = invenio_initial_theses_conversion.rules.marc21.bd598',
             'bd7102 = invenio_initial_theses_conversion.rules.marc21.bd7102',
+            'bd005=invenio_initial_theses_conversion.rules.marc21.bd005',
         ],
         'dojson.cli.rule':
             [
