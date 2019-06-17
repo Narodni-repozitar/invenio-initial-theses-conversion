@@ -7,7 +7,6 @@ from ..model import old_nusl
 @handled_values('a', 'b')
 def language(self, key, value):
     """Language Code."""
-    print(value)
     languages = []
     if not value.get("a"):
         raise AttributeError("Subject name required (04107)")
