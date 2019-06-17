@@ -178,7 +178,7 @@ def handled_values(*args):
             for value in test_values:
                 extra_args = set(value.keys()) - args
                 if extra_args:
-                    raise AttributeError(f"Unhandled case { {k: value.get(k) for k in extra_args} } ")
+                    raise AttributeError(f"Unhandled case { {k: value.get(k) for k in extra_args} } in {f.__name__}")
 
             return f(self, key, values, **kwargs)
 
