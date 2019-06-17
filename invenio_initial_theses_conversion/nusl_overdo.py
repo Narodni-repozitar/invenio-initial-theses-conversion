@@ -97,6 +97,7 @@ def result_setter(reduce_func):
             return f(self, key, values, **kwargs)
 
         return wrapper
+
     return outer
 
 
@@ -114,6 +115,13 @@ def list_value(f):
         return parsed_values
 
     return wrapper
+
+
+def flatten_dict_value(f):
+    def dict_setter(output, name, key, data, original_value, **kwargs):
+        output.extend(data)
+
+    return result_setter(dict_setter)(f)
 
 
 def single_value(f):
