@@ -49,7 +49,7 @@ class NuslMarkOverdo(Overdo):
                     raise MissingRule(key)
 
                 name, creator = result
-                extra, name = self._get_extra_arguments(creator, key, name, original_data)
+                extra = self._get_extra_arguments(creator, key, original_data)
                 data = creator(output, key, values, **extra)
                 if getattr(creator, '__output_reduce__', False):
                     reduce_func = getattr(creator, '__output_reduce__', False)
@@ -65,7 +65,7 @@ class NuslMarkOverdo(Overdo):
                     raise
         return output
 
-    def _get_extra_arguments(self, creator, key, name, original_data):
+    def _get_extra_arguments(self, creator, key, original_data):
         extra = {}
         if hasattr(creator, '__extra__'):
             for name, marc, single in creator.__extra__:
@@ -85,7 +85,7 @@ class NuslMarkOverdo(Overdo):
                         ))
                     e = e[0] if e else None
                 extra[name] = e
-        return extra, name
+        return extra
 
 
 def result_setter(reduce_func):
@@ -97,6 +97,7 @@ def result_setter(reduce_func):
             return f(self, key, values, **kwargs)
 
         return wrapper
+
     return outer
 
 

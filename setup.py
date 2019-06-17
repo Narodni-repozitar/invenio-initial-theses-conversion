@@ -43,7 +43,8 @@ setup(
     entry_points={
         'invenio_initial_theses_conversion.rules.marc21': [
             'b001 = invenio_initial_theses_conversion.rules.marc21.b001',
-            'bd01x09x = invenio_initial_theses_conversion.rules.marc21.bd01x09x'
+            'bd01x09x = invenio_initial_theses_conversion.rules.marc21.bd01x09x',
+            'bd656 = invenio_initial_theses_conversion.rules.marc21.bd656'
         ],
         'dojson.cli.rule':
             [

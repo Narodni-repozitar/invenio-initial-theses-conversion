@@ -6,6 +6,4 @@ from ..model import old_nusl
 @single_value
 def control_number(self, key, value):
     """Control Number."""
-    return {
-        "value": value
-    }
+    return value
