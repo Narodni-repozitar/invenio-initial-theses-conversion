@@ -117,6 +117,13 @@ def list_value(f):
     return wrapper
 
 
+def flatten_dict_value(f):
+    def dict_setter(output, name, key, data, original_value, **kwargs):
+        output.extend(data)
+
+    return result_setter(dict_setter)(f)
+
+
 def single_value(f):
     @functools.wraps(f)
     def wrapper(self, key, values, **kwargs):
