@@ -5,13 +5,17 @@ from re import match
 
 @old_nusl.over('dateAccepted', '^046')
 @single_value
-@handled_values('k')
-def modified(self, key, value):
+@handled_values('k', 'j')
+def date_accepted(self, key, value):
     """dateAccepted"""
+    # j was decided not to be converted
+    
     date = value.get("k")
-    if match(f'\d\d\d\d-\d\d-\d\d', date) is not None:
+    if match(r'\d\d\d\d-\d\d-\d\d', date) is not None:
         return date
-    elif match(f'\d\d\d\d-\d\d', date) is not None:
+    elif match(r'\d\d\d\d-\d\d', date) is not None:
         return f"{date}-01"
-    else:
+    elif match(r'\d\d\d\d', date) is not None:
         return f"{date[0:4]}-01-01"
+    else:
+        raise AttributeError(f'Wrong date format: {date}')
