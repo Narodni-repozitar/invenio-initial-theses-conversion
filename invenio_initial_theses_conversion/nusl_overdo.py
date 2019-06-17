@@ -90,7 +90,7 @@ class NuslMarkOverdo(Overdo):
 
 def result_setter(reduce_func):
     def outer(f):
-        setattr(f, '__reduce__', reduce_func)
+        setattr(f, '__output_reduce__', reduce_func)
 
         @functools.wraps(f)
         def wrapper(self, key, values, **kwargs):
@@ -119,7 +119,7 @@ def list_value(f):
 
 def flatten_dict_value(f):
     def dict_setter(output, name, key, data, original_value, **kwargs):
-        output.extend(data)
+        output.update(data)
 
     return result_setter(dict_setter)(f)
 
