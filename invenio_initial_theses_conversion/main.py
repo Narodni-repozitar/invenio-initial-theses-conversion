@@ -81,14 +81,16 @@ def run(url, break_on_error):
             ch.setRecord(data)
             try:
                 transformed = old_nusl.do(create_record(data))
+
+                # TODO: validate via marshmallow
+
+                # TODO: validate marshmallowed via json schema
+
+                # TODO: import to invenio
             except:
                 logging.exception('Error in transformation')
                 if break_on_error:
                     raise
-
-            # TODO: validate
-
-            # TODO: import to invenio
 
         start += count
 

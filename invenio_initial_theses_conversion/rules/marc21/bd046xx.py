@@ -9,7 +9,7 @@ from re import match
 def date_accepted(self, key, value):
     """dateAccepted"""
     # j was decided not to be converted
-    
+
     date = value.get("k")
     if match(r'\d\d\d\d-\d\d-\d\d', date) is not None:
         return date
