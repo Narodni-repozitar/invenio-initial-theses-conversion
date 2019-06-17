@@ -17,6 +17,7 @@ from invenio_initial_theses_conversion.rules.model import old_nusl
 def path_safe(text):
     return "".join([c for c in text if re.match(r'\w', c)])
 
+
 class NuslLogHandler(StreamHandler):
     def __init__(self):
         StreamHandler.__init__(self)
@@ -41,6 +42,9 @@ class NuslLogHandler(StreamHandler):
         with open(f'/tmp/import-nusl-theses/{path_safe(recid)}.xml', 'w') as f:
             f.write(ElementTree.tostring(self.source_record, encoding='unicode', method='xml'))
 
+        with open(f'/tmp/import-nusl-theses/{path_safe(recid)}.txt', 'a') as f:
+            print(f'{msg} at {recid}', file=f)
+
 
 ch = NuslLogHandler()
 ch.setLevel(logging.INFO)
@@ -58,8 +62,11 @@ logging.basicConfig(
 @click.command()
 @click.option('--url',
               default='https://invenio.nusl.cz/search?ln=cs&p=&f=&action_search=Hledej&c=Vysoko%C5%A1kolsk%C3%A9+kvalifika%C4%8Dn%C3%AD+pr%C3%A1ce&rg=1000&sc=0&of=xm',
-              help='Number of greetings.')
-def run(url):
+              help='Collection URL')
+@click.option('--break-on-error/--no-break-on-error',
+              default=True,
+              help='Break on first error')
+def run(url, break_on_error):
     start = 1
     while True:
         print('\r%08d' % start, end='', file=sys.stderr)
@@ -76,7 +83,8 @@ def run(url):
                 transformed = old_nusl.do(create_record(data))
             except:
                 logging.exception('Error in transformation')
-                raise
+                if break_on_error:
+                    raise
 
             # TODO: validate
 

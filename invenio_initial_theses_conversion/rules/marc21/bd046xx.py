@@ -5,9 +5,11 @@ from re import match
 
 @old_nusl.over('dateAccepted', '^046')
 @single_value
-@handled_values('k')
+@handled_values('k', 'j')
 def date_accepted(self, key, value):
     """dateAccepted"""
+    # j was decided not to be converted
+    
     date = value.get("k")
     if match(r'\d\d\d\d-\d\d-\d\d', date) is not None:
         return date
