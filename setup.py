@@ -48,6 +48,7 @@ setup(
             'bd586 = invenio_initial_theses_conversion.rules.marc21.bd586',
             'bd656 = invenio_initial_theses_conversion.rules.marc21.bd656',
             'bd650_653=invenio_initial_theses_conversion.rules.marc21.bd650_653',
+            'bd04107=invenio_initial_theses_conversion.rules.marc21.bd04107',
             'bd980 = invenio_initial_theses_conversion.rules.marc21.bd980',
             'bd996 = invenio_initial_theses_conversion.rules.marc21.bd996',
             'bd24633 = invenio_initial_theses_conversion.rules.marc21.bd24633',
