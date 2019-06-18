@@ -12,8 +12,14 @@ def date_accepted(self, key, value):
 
     date = value.get("k")
     if not date:
-        date = value.get("j")
+        date = value.get("j", '')
 
+    date = date.strip()
+    if date.startswith('['):
+        date = date[1:]
+    if date.endswith(']'):
+        date = date[:-1]
+    date = date.strip()
     if match(r'\d\d\d\d-\d\d-\d\d', date) is not None:
         return date
     elif match(r'\d\d\d\d-\d\d', date) is not None:

@@ -25,28 +25,22 @@ class NuslLogHandler(StreamHandler):
     def __init__(self):
         StreamHandler.__init__(self)
 
-    def setRecord(self, record):
+    def setRecord(self, record, recid):
         self.source_record = record
+        self.recid = recid
 
     def emit(self, record):
         msg = self.format(record)
-        recid = None
-        for cf in self.source_record.iter('{http://www.loc.gov/MARC21/slim}controlfield'):
-            if cf.attrib['tag'] == '001':
-                recid = cf.text
-                break
-        else:
-            recid = str(uuid.uuid4())
 
-        print(f'{msg} at {recid}')
+        print(f'{msg} at {self.recid}')
         if not os.path.exists('/tmp/import-nusl-theses'):
             os.makedirs('/tmp/import-nusl-theses')
 
-        with open(f'/tmp/import-nusl-theses/{path_safe(recid)}.xml', 'w') as f:
+        with open(f'/tmp/import-nusl-theses/{path_safe(self.recid)}.xml', 'w') as f:
             f.write(ElementTree.tostring(self.source_record, encoding='unicode', method='xml'))
 
-        with open(f'/tmp/import-nusl-theses/{path_safe(recid)}.txt', 'a') as f:
-            print(f'{msg} at {recid}', file=f)
+        with open(f'/tmp/import-nusl-theses/{path_safe(self.recid)}.txt', 'a') as f:
+            print(f'{msg} at {self.recid}', file=f)
 
 
 ch = NuslLogHandler()
@@ -73,6 +67,7 @@ logging.basicConfig(
               help='Break on first error')
 def run(url, break_on_error, cache_dir):
     start = 1
+    processed_ids = set()
     while True:
         print('\r%08d' % start, end='', file=sys.stderr)
         sys.stderr.flush()
@@ -82,7 +77,22 @@ def run(url, break_on_error, cache_dir):
             break
 
         for data in split_stream(BytesIO(resp)):
-            ch.setRecord(data)
+
+            for cf in data.iter('{http://www.loc.gov/MARC21/slim}controlfield'):
+                if cf.attrib['tag'] == '001':
+                    recid = cf.text
+                    break
+            else:
+                recid = str(uuid.uuid4())
+            
+            ch.setRecord(data, recid)
+
+            if recid in processed_ids:
+                logging.warning('Record with id %s already parsed, probably end of stream', recid)
+                return
+
+            processed_ids.add(recid)
+
             try:
                 transformed = old_nusl.do(create_record(data))
 
