@@ -59,7 +59,6 @@ def _CC_license_EN(text):
 @handled_values('a', '9')
 def rights(self, key, values):
     """Rights."""
-    print(values)
     for value in values:
         licence = value.get("a")
         if "121/2000" in licence:

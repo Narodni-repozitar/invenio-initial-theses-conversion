@@ -6,7 +6,7 @@ from ..model import old_nusl
 @list_value
 @handled_values('a', '9')
 def abstract(self, key, value):
-    """Language Code."""
+    """Abstract"""
     return {
         "name": value.get("a"),
         "lang": value.get("9")
