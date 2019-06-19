@@ -7,7 +7,7 @@ from ..model import old_nusl
 @list_value
 @handled_values('0', '2', 'a', 'j', '7')
 def subject(self, key, value):
-    """Language Code."""
+    """Subject."""
     if not value.get("a"):
         raise AttributeError("Subject name required (650_7a)")
     subject = {"name": []}
