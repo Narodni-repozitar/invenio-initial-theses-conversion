@@ -56,9 +56,7 @@ def _CC_license_EN(text):
 
 
 @old_nusl.over("rights", '540')
-# @list_value
 @handled_values('a', '9')
-# @append_results
 def rights(self, key, values):
     """Rights."""
     print(values)
