@@ -10,17 +10,13 @@ def subject(self, key, value):
     """Subject."""
     if not value.get("a"):
         raise AttributeError("Subject name required (650_7a)")
-    subject = {"name": []}
+    subject = {}
     if "a" in value:
-        subject["name"].append({
-            "name": value.get("a"),
-            "lang": "cze"
-        })
+        subject["name"] = value.get("a")
+        subject["lang"] = "cze"
     if "j" in value:
-        subject["name"].append({
-            "name": value.get("j"),
-            "lang": "eng"
-        })
+        subject["name"] = value.get("j")
+        subject["lang"] = "eng"
     if "0" in value:
         if "7" in value:
             raise AttributeError("Id and URL must not be present in single subject (650_70, 650_77)")
@@ -38,7 +34,6 @@ def subject(self, key, value):
 @handled_values('a')
 def keyword(self, key, value):
     """Subject."""
-    print(value)
     if key == '653__':
         return {
             "name": value.get("a"),

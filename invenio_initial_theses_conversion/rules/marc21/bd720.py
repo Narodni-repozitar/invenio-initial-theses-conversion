@@ -1,35 +1,32 @@
-from invenio_initial_theses_conversion.nusl_overdo import extra_argument, single_value, list_value, handled_values
+from invenio_initial_theses_conversion.nusl_overdo import merge_results
 from ..model import old_nusl
 
 
-@old_nusl.over("creator", '720')
-@list_value
-@handled_values('a', 'i', 'e')
-def creator(self, key, value):
-    """Creator."""
-    # print(value)
-    if not value.get("i"):
-        return {
-            "name": value.get("a"),
-            "id": {
-                "value": None,
-                "type": None
-            }
-        }
-
-@old_nusl.over("contributor", '720')
-@list_value
-@handled_values('a', 'i', 'e')
-def contributor(self, key, value):
-    """Contributor"""
-    print(value)
-    if value.get("i"):
-        return {
-            "name": value.get("i"),
-            "role": value.get("e"),
-            "id": {
-                "value": None,
-                "type": None
-            }
-        }
-
+@old_nusl.over("creator", '^720')
+@merge_results
+def people(self, key, value):
+    """Creator and contributor"""
+    creator = []
+    contributor = []
+    for person in value:
+        if person.get('a'):
+            creator.append({
+                "name": person.get('a'),
+                "id": {
+                    "value": None,
+                    "type": None
+                }
+            })
+        if person.get('i'):
+            contributor.append({
+                "name": person.get('i'),
+                "role": person.get('e'),
+                "id": {
+                    "value": None,
+                    "type": None
+                }
+            })
+    return {
+        "creator": creator,
+        "contributor": contributor
+    }
