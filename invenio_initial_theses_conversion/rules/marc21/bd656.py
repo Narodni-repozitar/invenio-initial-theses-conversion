@@ -6,7 +6,7 @@ from ..model import old_nusl
 @merge_results
 @single_value
 def studyProgramme_Field(self, key, value):
-    """Language Code."""
+    """Study programme."""
     study = value.get("a")
     if "/" not in study:
         return {"studyField": {"name": study}}

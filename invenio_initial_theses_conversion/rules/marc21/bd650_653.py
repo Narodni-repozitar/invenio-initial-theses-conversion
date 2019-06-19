@@ -1,4 +1,4 @@
-from invenio_initial_theses_conversion.nusl_overdo import single_value, append_results, list_value, handled_values
+from invenio_initial_theses_conversion.nusl_overdo import append_results, list_value, handled_values
 from ..model import old_nusl
 
 
@@ -30,3 +30,23 @@ def subject(self, key, value):
     if "2" in value:
         subject["taxonomy"] = value.get("2")
     return subject
+
+
+@old_nusl.over("subject", '^653')
+@append_results
+@list_value
+@handled_values('a')
+def keyword(self, key, value):
+    """Subject."""
+    print(value)
+    if key == '653__':
+        return {
+            "name": value.get("a"),
+            "lang": "cze"
+        }
+
+    if key == '6530_':
+        return {
+            "name": value.get("a"),
+            "lang": "eng"
+        }
