@@ -49,7 +49,6 @@ setup(
             'bd656 = invenio_initial_theses_conversion.rules.marc21.bd656',
             'bd650_653=invenio_initial_theses_conversion.rules.marc21.bd650_653',
             'bd04107=invenio_initial_theses_conversion.rules.marc21.bd04107',
-            'bd856=invenio_initial_theses_conversion.rules.marc21.bd856',
             'bd046xx=invenio_initial_theses_conversion.rules.marc21.bd046xx',
             'bd980 = invenio_initial_theses_conversion.rules.marc21.bd980',
             'bd996 = invenio_initial_theses_conversion.rules.marc21.bd996',
@@ -62,6 +61,7 @@ setup(
             'bd540=invenio_initial_theses_conversion.rules.marc21.bd540',
             'bd998 = invenio_initial_theses_conversion.rules.marc21.bd998',
             'bd720=invenio_initial_theses_conversion.rules.marc21.bd720',
+            'identifiers=invenio_initial_theses_conversion.rules.marc21.identifiers'
         ],
         'dojson.cli.rule':
             [
