@@ -36,13 +36,4 @@ def identifier(self, key, value, originalOAI, nuslOAI, catalogue):
             "type": "catalogue"
         })
     return identifier
-    # if "a" in value:
-    #     return {
-    #         "name": value.get('a'),
-    #         "lang": language.get('a') if language else 'unk'
-    #     }
-    # if "b" in value:
-    #     return {
-    #         "name": value.get('b'),
-    #         "lang": "eng"
-    #     }
+
