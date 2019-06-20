@@ -6,8 +6,7 @@ from ..model import old_nusl
 @handled_values('a', 'b')
 @single_value
 def defended(self, key, value):
-
-    return {
-        'obhájeno': 'defended',
-        'neobhájeno': 'not defended',
-    }[value.get('a')]
+    if value.get("a") == "obhájeno":
+        return True
+    if value.get("a") == "neobhájeno":
+        return False

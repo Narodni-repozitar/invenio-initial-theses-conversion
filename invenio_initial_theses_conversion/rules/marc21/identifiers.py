@@ -21,10 +21,11 @@ def identifier(self, key, value, originalOAI, nuslOAI, catalogue):
                 "value": id.get("u"),
                 "type": "nusl"
             })
-    identifier.append({
-        "value": originalOAI.get("a"),
-        "type": "originalOAI"
-    })
+    if originalOAI is not None:
+        identifier.append({
+            "value": originalOAI.get("a"),
+            "type": "originalOAI"
+        })
     identifier.append({
         "value": nuslOAI.get("o"),
         "type": "nuslOAI"
