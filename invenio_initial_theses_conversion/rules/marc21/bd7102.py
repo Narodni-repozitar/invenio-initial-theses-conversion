@@ -5,10 +5,9 @@ from ..model import old_nusl
 @old_nusl.over('degreeGrantor', '^7102_')
 @handled_values('a', '9', 'g', 'b')
 def degree_grantor(self, key, values):
-    print(values)
     ret = []
     for item in values:
-        ret.append([
+        ret.append(
             {
                 "language": item.get("9"),
                 "university": {
@@ -23,9 +22,7 @@ def degree_grantor(self, key, values):
                     ]
                 }
             }
-        ])
+        )
     if len(ret) > 2:
         raise Exception("There is more then two records for degreeGrantor")
     return ret
-
-
