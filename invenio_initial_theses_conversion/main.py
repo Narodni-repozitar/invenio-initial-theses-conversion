@@ -15,6 +15,7 @@ import requests
 from dojson.contrib.marc21.utils import split_stream, create_record
 
 from invenio_initial_theses_conversion.rules.model import old_nusl
+from invenio_nusl_theses.marshmallow.json import ThesisMetadataSchemaV1
 
 
 def path_safe(text):
@@ -95,8 +96,11 @@ def run(url, break_on_error, cache_dir):
 
             try:
                 transformed = old_nusl.do(create_record(data))
+                print(transformed)
 
-                # TODO: validate via marshmallow
+                schema = ThesisMetadataSchemaV1(strict=True)
+                marshmallow = schema.load(transformed).data
+                print(marshmallow)
 
                 # TODO: validate marshmallowed via json schema
 
