@@ -23,6 +23,7 @@ from invenio_nusl_theses.marshmallow.json import ThesisMetadataSchemaV1
 
 ERROR_DIR = "/tmp/import-nusl-theses"
 IGNORED_ERROR_FIELDS = {"studyField", "studyProgramme", "degreeGrantor", "title", "dateAccepted"}
+LANGUAGE_EXCEPTIONS = {"scc":"srp", "scr":"hrv" }
 
 
 def path_safe(text):
@@ -120,6 +121,10 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                 processed_ids.add(recid)
 
                 try:
+                    for datafield in data:
+                        fix_language(datafield, "041", "0", "7", "a")
+                        fix_language(datafield, "520", " ", " ", "9")
+                        fix_language(datafield, "540", " ", " ", "9")
                     transformed = old_nusl.do(create_record(data))
                     ch.setTransformedRecord(transformed)
                     schema = ThesisMetadataSchemaV1(strict=True)
@@ -152,6 +157,13 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                 print(error, file=f)
                 print(" ".join([str(recid) for recid in recids]), file=f)
                 print(" ", file=f)
+
+
+def fix_language(datafield, tag, ind1, ind2, code):
+    if datafield.attrib["tag"] == tag and datafield.attrib["ind1"] == ind1 and datafield.attrib["ind2"] == ind2:
+        for subfield in datafield:
+            if subfield.attrib["code"] == code:
+                subfield.text = LANGUAGE_EXCEPTIONS.get(subfield.text, subfield.text)
 
 
 def session():
