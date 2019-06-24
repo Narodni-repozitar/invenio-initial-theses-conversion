@@ -6,4 +6,6 @@ from ..model import old_nusl
 @handled_values('a')
 @single_value
 def note(self, key, value):
-    return value.get('a')
+    ret = []
+    ret.append(value.get('a'))
+    return ret
