@@ -18,7 +18,8 @@ setup_requires = [
 install_requires = [
     'invenio-nusl-theses>=1.0.0',
     "dojson>=1.4.0",
-    "langdetect"
+    "langdetect",
+    "pycountry"
 ]
 
 packages = find_packages()

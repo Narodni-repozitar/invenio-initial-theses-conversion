@@ -27,10 +27,14 @@ def path_safe(text):
 class NuslLogHandler(StreamHandler):
     def __init__(self):
         StreamHandler.__init__(self)
+        self.transformed = None
 
     def setRecord(self, record, recid):
         self.source_record = record
         self.recid = recid
+
+    def setTransformedRecord(self, transformed):
+        self.transformed = transformed
 
     def emit(self, record):
         msg = self.format(record)
@@ -44,6 +48,11 @@ class NuslLogHandler(StreamHandler):
 
         with open(f'/tmp/import-nusl-theses/{path_safe(self.recid)}.txt', 'a') as f:
             print(f'{msg} at {self.recid}', file=f)
+
+        if self.transformed:
+            with open(f'/tmp/import-nusl-theses/{path_safe(self.recid)}.json', 'w') as fp:
+                json.dump(self.transformed, fp, indent=4, ensure_ascii=False)
+
 
 
 ch = NuslLogHandler()
@@ -99,18 +108,15 @@ def run(url, break_on_error, cache_dir):
 
             try:
                 transformed = old_nusl.do(create_record(data))
+                ch.setTransformedRecord(transformed)
                 schema = ThesisMetadataSchemaV1(strict=True)
                 marshmallowed = schema.load(transformed).data
-
-
 
                 # TODO: validate marshmallowed via json schema
 
                 # TODO: import to invenio
             except:
                 logging.exception('Error in transformation')
-                with open(f'/tmp/import-nusl-theses/{path_safe(recid)}.json', 'w') as fp:
-                    json.dump(transformed, fp)
                 if break_on_error:
                     raise
 
@@ -118,24 +124,27 @@ def run(url, break_on_error, cache_dir):
 
 
 def session():
-    i = 0
-    while True:
-        login = input("Enter your login: ")
-        passwd = input("Enter your password: ")
-        url = "https://invenio.nusl.cz/youraccount/login"
-        payload = {
-            "p_un": login,
-            "p_pw": passwd
-        }
-        ses = requests.Session()
-        page = ses.post(url, data=payload)
-        if "Váš účet" in page.text:
-            return ses
-        else:
-            print("Login or password were wrong. Please retry sign in again.")
-            i += 1
-        if i == 3:
-            raise Exception("Your credentials was inserted three times wrong. Run program again.")
+    if False:
+        i = 0
+        while True:
+            login = input("Enter your login: ")
+            passwd = input("Enter your password: ")
+            url = "https://invenio.nusl.cz/youraccount/login"
+            payload = {
+                "p_un": login,
+                "p_pw": passwd
+            }
+            ses = requests.Session()
+            page = ses.post(url, data=payload)
+            if "Váš účet" in page.text:
+                return ses
+            else:
+                print("Login or password were wrong. Please retry sign in again.")
+                i += 1
+            if i == 3:
+                raise Exception("Your credentials was inserted three times wrong. Run program again.")
+    else:
+        return requests.Session()
 
 
 def fetch_nusl_data(url, start, cache_dir, ses):

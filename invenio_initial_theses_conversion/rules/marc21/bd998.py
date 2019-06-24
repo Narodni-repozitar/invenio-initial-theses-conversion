@@ -9,8 +9,7 @@ from ..model import old_nusl
 def provider(self, key, value):
     institution = institution_taxonomy[value.get('a')]
     if not institution:
-        pass# raise Exception('No institution for', value.get('a'))
-
+        pass  # raise Exception('No institution for', value.get('a'))
     return {
         "id": {
             "value": value.get('a'),
