@@ -23,6 +23,7 @@ from dojson.contrib.marc21.utils import split_stream, create_record
 from marshmallow import ValidationError
 
 from invenio_initial_theses_conversion.rules.model import old_nusl
+from invenio_initial_theses_conversion.taxonomies.nusl_collections import institution_taxonomy
 from invenio_nusl_theses.marshmallow.json import ThesisMetadataSchemaV1
 
 ERROR_DIR = "/tmp/import-nusl-theses"
@@ -155,7 +156,6 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                     if set(e.field_names) - IGNORED_ERROR_FIELDS:
                         raise
                     continue
-                fix_degree_grantor(marshmallowed)
                 _records_state.validate(marshmallowed, "https://nusl.cz/schemas/invenio_nusl_theses/nusl-theses-v1.0.0.json")
 
                 # TODO: import to invenio
@@ -183,8 +183,6 @@ def fix_language(datafield, tag, ind1, ind2, code):
             if subfield.attrib["code"] == code:
                 subfield.text = LANGUAGE_EXCEPTIONS.get(subfield.text, subfield.text)
 
-def fix_degree_grantor(data):
-    print(data)
 
 
 def session():

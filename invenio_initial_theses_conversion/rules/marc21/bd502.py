@@ -2,8 +2,8 @@ from invenio_initial_theses_conversion.nusl_overdo import handled_values, single
 from ..model import old_nusl
 
 
-@old_nusl.over('degreeGrantor', '^502__')
-@handled_values('c')
+@old_nusl.over('degreeGrantor', '^502')
+@handled_values('c', 'b', 'a', 'g', 'd')
 @single_value
 def degree_grantor(self, key, value):
     ret = {}
