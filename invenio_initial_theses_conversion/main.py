@@ -84,8 +84,9 @@ logging.basicConfig(
               help='Break on first error')
 @click.option('--clean-output-dir/--no-clean-output-dir',
             default=True)
-def run(url, break_on_error, cache_dir, clean_output_dir):
-    start = 1
+@click.option('--start',
+            default=1)
+def run(url, break_on_error, cache_dir, clean_output_dir, start):
     processed_ids = set()
     ses = session()
     if clean_output_dir and os.path.exists(ERROR_DIR):
@@ -141,6 +142,8 @@ def run(url, break_on_error, cache_dir, clean_output_dir):
 
             start += count
     finally:
+        if not os.path.exists('/tmp/import-nusl-theses'):
+            os.makedirs('/tmp/import-nusl-theses')
         print("Most frequent errors: ", )
         for error_field in error_counts.most_common():
             print(error_field, error_counts[error_field])
