@@ -7,20 +7,25 @@ from ..model import old_nusl
 def degree_grantor(self, key, values):
     ret = []
     for item in values:
+        university = {
+            "name": item.get("a"),
+
+        }
+        if item.get("g"):
+            university["faculties"] = [
+                {
+                    "name": item.get("g"),
+
+                }
+            ]
+            if item.get("b"):
+                university["faculties"][0]["departments"] = [
+                    item.get("b")
+                ]
         ret.append(
             {
                 "language": item.get("9"),
-                "university": {
-                    "name": item.get("a"),
-                    "faculties": [
-                        {
-                            "name": item.get("g"),
-                            "departments": [
-                                item.get("b")
-                            ]
-                        }
-                    ]
-                }
+                "university": university
             }
         )
     if len(ret) > 2:
