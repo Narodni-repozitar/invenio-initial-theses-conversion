@@ -35,7 +35,7 @@ def _CC_license_CZ(text):
             ("Uveďte autora " in text):
         return "CC BY"
     else:
-        _CC_license_EN(text)
+        return _CC_license_EN(text)
 
 
 def _CC_license_EN(text):
