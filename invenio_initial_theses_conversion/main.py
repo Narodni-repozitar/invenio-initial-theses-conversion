@@ -4,9 +4,11 @@ import json
 import logging
 import os
 import re
+import shutil
 import sys
 import traceback
 import uuid
+from collections import Counter
 from io import BytesIO
 from logging import StreamHandler
 from xml.etree import ElementTree
@@ -14,9 +16,13 @@ from xml.etree import ElementTree
 import click
 import requests
 from dojson.contrib.marc21.utils import split_stream, create_record
+from marshmallow import ValidationError
 
 from invenio_initial_theses_conversion.rules.model import old_nusl
 from invenio_nusl_theses.marshmallow.json import ThesisMetadataSchemaV1
+
+ERROR_DIR = "/tmp/import-nusl-theses"
+IGNORED_ERROR_FIELDS = {"studyField", "studyProgramme"}
 
 
 def path_safe(text):
@@ -42,14 +48,14 @@ class NuslLogHandler(StreamHandler):
         if not os.path.exists('/tmp/import-nusl-theses'):
             os.makedirs('/tmp/import-nusl-theses')
 
-        with open(f'/tmp/import-nusl-theses/{path_safe(self.recid)}.xml', 'w') as f:
+        with open(f'{ERROR_DIR}/{path_safe(self.recid)}.xml', 'w') as f:
             f.write(ElementTree.tostring(self.source_record, encoding='unicode', method='xml'))
 
-        with open(f'/tmp/import-nusl-theses/{path_safe(self.recid)}.txt', 'a') as f:
+        with open(f'{ERROR_DIR}/{path_safe(self.recid)}.txt', 'a') as f:
             print(f'{msg} at {self.recid}', file=f)
 
         if self.transformed:
-            with open(f'/tmp/import-nusl-theses/{path_safe(self.recid)}.json', 'w') as fp:
+            with open(f'{ERROR_DIR}/{path_safe(self.recid)}.json', 'w') as fp:
                 json.dump(self.transformed, fp, indent=4, ensure_ascii=False)
 
 
@@ -76,50 +82,67 @@ logging.basicConfig(
 @click.option('--break-on-error/--no-break-on-error',
               default=True,
               help='Break on first error')
-def run(url, break_on_error, cache_dir):
+@click.option('--clean-output-dir/--no-clean-output-dir',
+            default=True)
+def run(url, break_on_error, cache_dir, clean_output_dir):
     start = 1
     processed_ids = set()
     ses = session()
-    while True:
-        print('\r%08d' % start, end='', file=sys.stderr)
-        sys.stderr.flush()
-        resp, parsed = fetch_nusl_data(url, start, cache_dir, ses)
-        count = len(list(parsed.iter('{http://www.loc.gov/MARC21/slim}record')))
-        if not count:
-            break
+    if clean_output_dir and os.path.exists(ERROR_DIR):
+        shutil.rmtree(ERROR_DIR)
+    error_counts = Counter()
+    try:
+        while True:
+            print('\r%08d' % start, end='', file=sys.stderr)
+            sys.stderr.flush()
+            resp, parsed = fetch_nusl_data(url, start, cache_dir, ses)
+            count = len(list(parsed.iter('{http://www.loc.gov/MARC21/slim}record')))
+            if not count:
+                break
 
-        for data in split_stream(BytesIO(resp)):
+            for data in split_stream(BytesIO(resp)):
 
-            for cf in data.iter('{http://www.loc.gov/MARC21/slim}controlfield'):
-                if cf.attrib['tag'] == '001':
-                    recid = cf.text
-                    break
-            else:
-                recid = str(uuid.uuid4())
+                for cf in data.iter('{http://www.loc.gov/MARC21/slim}controlfield'):
+                    if cf.attrib['tag'] == '001':
+                        recid = cf.text
+                        break
+                else:
+                    recid = str(uuid.uuid4())
 
-            ch.setRecord(data, recid)
+                ch.setRecord(data, recid)
 
-            if recid in processed_ids:
-                logging.warning('Record with id %s already parsed, probably end of stream', recid)
-                return
+                if recid in processed_ids:
+                    logging.warning('Record with id %s already parsed, probably end of stream', recid)
+                    return
 
-            processed_ids.add(recid)
+                processed_ids.add(recid)
 
-            try:
-                transformed = old_nusl.do(create_record(data))
-                ch.setTransformedRecord(transformed)
-                schema = ThesisMetadataSchemaV1(strict=True)
-                marshmallowed = schema.load(transformed).data
+                try:
+                    transformed = old_nusl.do(create_record(data))
+                    ch.setTransformedRecord(transformed)
+                    schema = ThesisMetadataSchemaV1(strict=True)
+                    try:
+                        marshmallowed = schema.load(transformed).data
+                    except ValidationError as e:
+                        for field in e.field_names:
+                            error_counts[field] += 1
+                        if set(e.field_names) - IGNORED_ERROR_FIELDS:
+                            raise
 
-                # TODO: validate marshmallowed via json schema
+                    # TODO: validate marshmallowed via json schema
 
-                # TODO: import to invenio
-            except:
-                logging.exception('Error in transformation')
-                if break_on_error:
-                    raise
+                    # TODO: import to invenio
+                except Exception as e :
+                    logging.exception('Error in transformation')
+                    if break_on_error:
+                        raise
 
-        start += count
+            start += count
+    finally:
+        print("Most frequent errors: ", )
+        for error_field in error_counts.most_common():
+            print(error_field, error_counts[error_field])
+
 
 
 def session():
