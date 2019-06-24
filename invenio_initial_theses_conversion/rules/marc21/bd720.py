@@ -12,19 +12,11 @@ def people(self, key, value):
         if person.get('a'):
             creator.append({
                 "name": person.get('a'),
-                "id": {
-                    "value": None,
-                    "type": None
-                }
             })
         if person.get('i'):
             contributor.append({
                 "name": person.get('i'),
                 "role": person.get('e'),
-                "id": {
-                    "value": None,
-                    "type": None
-                }
             })
     return {
         "creator": creator,

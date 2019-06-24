@@ -23,7 +23,8 @@ from invenio_initial_theses_conversion.rules.model import old_nusl
 from invenio_nusl_theses.marshmallow.json import ThesisMetadataSchemaV1
 
 ERROR_DIR = "/tmp/import-nusl-theses"
-IGNORED_ERROR_FIELDS = {"studyField", "studyProgramme", "degreeGrantor", "title"}
+IGNORED_ERROR_FIELDS = {"studyField", "studyProgramme", "degreeGrantor", "title", "dateAccepted"}
+LANGUAGE_EXCEPTIONS = {"scc":"srp", "scr":"hrv" }
 
 
 def path_safe(text):
@@ -83,9 +84,10 @@ logging.basicConfig(
               default=True,
               help='Break on first error')
 @click.option('--clean-output-dir/--no-clean-output-dir',
-              default=True)
-def run(url, break_on_error, cache_dir, clean_output_dir):
-    start = 1
+            default=True)
+@click.option('--start',
+            default=1)
+def run(url, break_on_error, cache_dir, clean_output_dir, start):
     processed_ids = set()
     if clean_output_dir and os.path.exists(ERROR_DIR):
         shutil.rmtree(ERROR_DIR)
@@ -129,13 +131,21 @@ def run(url, break_on_error, cache_dir, clean_output_dir):
                 ch.setTransformedRecord(transformed)
                 schema = ThesisMetadataSchemaV1(strict=True)
                 try:
-                    marshmallowed = schema.load(transformed).data
-                except ValidationError as e:
-                    for field in e.field_names:
-                        error_counts[field] += 1
-                        error_documents[field].append(recid)
-                    if set(e.field_names) - IGNORED_ERROR_FIELDS:
-                        raise
+                    for datafield in data:
+                        fix_language(datafield, "041", "0", "7", "a")
+                        fix_language(datafield, "520", " ", " ", "9")
+                        fix_language(datafield, "540", " ", " ", "9")
+                    transformed = old_nusl.do(create_record(data))
+                    ch.setTransformedRecord(transformed)
+                    schema = ThesisMetadataSchemaV1(strict=True)
+                    try:
+                        marshmallowed = schema.load(transformed).data
+                    except ValidationError as e:
+                        for field in e.field_names:
+                            error_counts[field] += 1
+                            error_documents[field].append(recid)
+                        if set(e.field_names) - IGNORED_ERROR_FIELDS:
+                            raise
 
                 # TODO: validate marshmallowed via json schema
 
@@ -156,6 +166,13 @@ def run(url, break_on_error, cache_dir, clean_output_dir):
                 print(error, file=f)
                 print(" ".join([str(recid) for recid in recids]), file=f)
                 print(" ", file=f)
+
+
+def fix_language(datafield, tag, ind1, ind2, code):
+    if datafield.attrib["tag"] == tag and datafield.attrib["ind1"] == ind1 and datafield.attrib["ind2"] == ind2:
+        for subfield in datafield:
+            if subfield.attrib["code"] == code:
+                subfield.text = LANGUAGE_EXCEPTIONS.get(subfield.text, subfield.text)
 
 
 def session():
