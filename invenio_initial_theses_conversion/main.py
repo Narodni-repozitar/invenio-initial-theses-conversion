@@ -1,15 +1,14 @@
 import gzip
 import hashlib
+import json
 import logging
 import os
 import re
 import sys
 import traceback
 import uuid
-import json
 from io import BytesIO
 from logging import StreamHandler
-from pprint import pprint
 from xml.etree import ElementTree
 
 import click
