@@ -8,7 +8,7 @@ import shutil
 import sys
 import traceback
 import uuid
-from collections import Counter
+from collections import Counter, defaultdict
 from io import BytesIO
 from logging import StreamHandler
 from xml.etree import ElementTree
@@ -22,7 +22,7 @@ from invenio_initial_theses_conversion.rules.model import old_nusl
 from invenio_nusl_theses.marshmallow.json import ThesisMetadataSchemaV1
 
 ERROR_DIR = "/tmp/import-nusl-theses"
-IGNORED_ERROR_FIELDS = {"studyField", "studyProgramme"}
+IGNORED_ERROR_FIELDS = {"studyField", "studyProgramme", "degreeGrantor", "title"}
 
 
 def path_safe(text):
@@ -91,6 +91,7 @@ def run(url, break_on_error, cache_dir, clean_output_dir):
     if clean_output_dir and os.path.exists(ERROR_DIR):
         shutil.rmtree(ERROR_DIR)
     error_counts = Counter()
+    error_documents = defaultdict(list)
     try:
         while True:
             print('\r%08d' % start, end='', file=sys.stderr)
@@ -126,6 +127,7 @@ def run(url, break_on_error, cache_dir, clean_output_dir):
                     except ValidationError as e:
                         for field in e.field_names:
                             error_counts[field] += 1
+                            error_documents[field].append(recid)
                         if set(e.field_names) - IGNORED_ERROR_FIELDS:
                             raise
 
@@ -142,7 +144,11 @@ def run(url, break_on_error, cache_dir, clean_output_dir):
         print("Most frequent errors: ", )
         for error_field in error_counts.most_common():
             print(error_field, error_counts[error_field])
-
+        with open(f'{ERROR_DIR}/error_documents.txt', 'a') as f:
+            for error, recids in error_documents.items():
+                print(error, file=f)
+                print(" ".join([str(recid) for recid in recids]), file=f)
+                print(" ", file=f)
 
 
 def session():
