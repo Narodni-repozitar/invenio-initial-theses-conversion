@@ -13,6 +13,9 @@ from collections import Counter, defaultdict
 from io import BytesIO, RawIOBase, BufferedReader
 from logging import StreamHandler
 from xml.etree import ElementTree
+from invenio_records.api import _records_state
+from flask import cli
+
 
 import click
 import requests
@@ -35,6 +38,7 @@ class NuslLogHandler(StreamHandler):
     def __init__(self):
         StreamHandler.__init__(self)
         self.transformed = None
+        self.recid = None
 
     def setRecord(self, record, recid):
         self.source_record = record
@@ -45,20 +49,23 @@ class NuslLogHandler(StreamHandler):
 
     def emit(self, record):
         msg = self.format(record)
+        if self.recid:
+            print(f'{msg} at {self.recid}')
+            if not os.path.exists('/tmp/import-nusl-theses'):
+                os.makedirs('/tmp/import-nusl-theses')
 
-        print(f'{msg} at {self.recid}')
-        if not os.path.exists('/tmp/import-nusl-theses'):
-            os.makedirs('/tmp/import-nusl-theses')
+            with open(f'{ERROR_DIR}/{path_safe(self.recid)}.xml', 'w') as f:
+                f.write(ElementTree.tostring(self.source_record, encoding='unicode', method='xml'))
 
-        with open(f'{ERROR_DIR}/{path_safe(self.recid)}.xml', 'w') as f:
-            f.write(ElementTree.tostring(self.source_record, encoding='unicode', method='xml'))
+            with open(f'{ERROR_DIR}/{path_safe(self.recid)}.txt', 'a') as f:
+                print(f'{msg} at {self.recid}', file=f)
 
-        with open(f'{ERROR_DIR}/{path_safe(self.recid)}.txt', 'a') as f:
-            print(f'{msg} at {self.recid}', file=f)
+            if self.transformed:
+                with open(f'{ERROR_DIR}/{path_safe(self.recid)}.json', 'w') as fp:
+                    json.dump(self.transformed, fp, indent=4, ensure_ascii=False)
 
-        if self.transformed:
-            with open(f'{ERROR_DIR}/{path_safe(self.recid)}.json', 'w') as fp:
-                json.dump(self.transformed, fp, indent=4, ensure_ascii=False)
+        else:
+            super().emit(record)
 
 
 ch = NuslLogHandler()
@@ -74,7 +81,7 @@ logging.basicConfig(
 )
 
 
-@click.command()
+@click.command("initial-theses-conversion")
 @click.option('--url',
               default='https://invenio.nusl.cz/search?ln=cs&p=&f=&action_search=Hledej&c=Vysoko%C5%A1kolsk%C3%A9+kvalifika%C4%8Dn%C3%AD+pr%C3%A1ce&rg=1000&sc=0&of=xm',
               help='Collection URL')
@@ -87,6 +94,7 @@ logging.basicConfig(
             default=True)
 @click.option('--start',
             default=1)
+@cli.with_appcontext
 def run(url, break_on_error, cache_dir, clean_output_dir, start):
     processed_ids = set()
     if clean_output_dir and os.path.exists(ERROR_DIR):
@@ -146,8 +154,9 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                         error_documents[field].append(recid)
                     if set(e.field_names) - IGNORED_ERROR_FIELDS:
                         raise
-
-                # TODO: validate marshmallowed via json schema
+                    continue
+                fix_degree_grantor(marshmallowed)
+                _records_state.validate(marshmallowed, "https://nusl.cz/schemas/invenio_nusl_theses/nusl-theses-v1.0.0.json")
 
                 # TODO: import to invenio
             except Exception as e:
@@ -173,6 +182,9 @@ def fix_language(datafield, tag, ind1, ind2, code):
         for subfield in datafield:
             if subfield.attrib["code"] == code:
                 subfield.text = LANGUAGE_EXCEPTIONS.get(subfield.text, subfield.text)
+
+def fix_degree_grantor(data):
+    print(data)
 
 
 def session():

@@ -67,7 +67,11 @@ setup(
         'dojson.cli.rule':
             [
                 'theses = invenio_initial_theses_conversion.rules.model:old_nusl'
-            ]
+            ],
+
+        'flask.commands': [
+            'initial_theses_conversion = invenio_initial_theses_conversion.main:run',
+        ],
     },
     # extras_require=,
     install_requires=install_requires,
