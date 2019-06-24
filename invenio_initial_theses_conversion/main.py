@@ -130,22 +130,22 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                 transformed = old_nusl.do(rec)
                 ch.setTransformedRecord(transformed)
                 schema = ThesisMetadataSchemaV1(strict=True)
+
+                for datafield in data:
+                    fix_language(datafield, "041", "0", "7", "a")
+                    fix_language(datafield, "520", " ", " ", "9")
+                    fix_language(datafield, "540", " ", " ", "9")
+                transformed = old_nusl.do(create_record(data))
+                ch.setTransformedRecord(transformed)
+                schema = ThesisMetadataSchemaV1(strict=True)
                 try:
-                    for datafield in data:
-                        fix_language(datafield, "041", "0", "7", "a")
-                        fix_language(datafield, "520", " ", " ", "9")
-                        fix_language(datafield, "540", " ", " ", "9")
-                    transformed = old_nusl.do(create_record(data))
-                    ch.setTransformedRecord(transformed)
-                    schema = ThesisMetadataSchemaV1(strict=True)
-                    try:
-                        marshmallowed = schema.load(transformed).data
-                    except ValidationError as e:
-                        for field in e.field_names:
-                            error_counts[field] += 1
-                            error_documents[field].append(recid)
-                        if set(e.field_names) - IGNORED_ERROR_FIELDS:
-                            raise
+                    marshmallowed = schema.load(transformed).data
+                except ValidationError as e:
+                    for field in e.field_names:
+                        error_counts[field] += 1
+                        error_documents[field].append(recid)
+                    if set(e.field_names) - IGNORED_ERROR_FIELDS:
+                        raise
 
                 # TODO: validate marshmallowed via json schema
 
