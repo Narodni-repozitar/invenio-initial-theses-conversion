@@ -6,8 +6,10 @@ import re
 import sys
 import traceback
 import uuid
+import json
 from io import BytesIO
 from logging import StreamHandler
+from pprint import pprint
 from xml.etree import ElementTree
 
 import click
@@ -15,6 +17,7 @@ import requests
 from dojson.contrib.marc21.utils import split_stream, create_record
 
 from invenio_initial_theses_conversion.rules.model import old_nusl
+from invenio_nusl_theses.marshmallow.json import ThesisMetadataSchemaV1
 
 
 def path_safe(text):
@@ -68,10 +71,11 @@ logging.basicConfig(
 def run(url, break_on_error, cache_dir):
     start = 1
     processed_ids = set()
+    ses = session()
     while True:
         print('\r%08d' % start, end='', file=sys.stderr)
         sys.stderr.flush()
-        resp, parsed = fetch_nusl_data(url, start, cache_dir)
+        resp, parsed = fetch_nusl_data(url, start, cache_dir, ses)
         count = len(list(parsed.iter('{http://www.loc.gov/MARC21/slim}record')))
         if not count:
             break
@@ -84,7 +88,7 @@ def run(url, break_on_error, cache_dir):
                     break
             else:
                 recid = str(uuid.uuid4())
-            
+
             ch.setRecord(data, recid)
 
             if recid in processed_ids:
@@ -95,21 +99,46 @@ def run(url, break_on_error, cache_dir):
 
             try:
                 transformed = old_nusl.do(create_record(data))
+                schema = ThesisMetadataSchemaV1(strict=True)
+                marshmallowed = schema.load(transformed).data
 
-                # TODO: validate via marshmallow
+
 
                 # TODO: validate marshmallowed via json schema
 
                 # TODO: import to invenio
             except:
                 logging.exception('Error in transformation')
+                with open(f'/tmp/import-nusl-theses/{path_safe(recid)}.json', 'w') as fp:
+                    json.dump(transformed, fp)
                 if break_on_error:
                     raise
 
         start += count
 
 
-def fetch_nusl_data(url, start, cache_dir):
+def session():
+    i = 0
+    while True:
+        login = input("Enter your login: ")
+        passwd = input("Enter your password: ")
+        url = "https://invenio.nusl.cz/youraccount/login"
+        payload = {
+            "p_un": login,
+            "p_pw": passwd
+        }
+        ses = requests.Session()
+        page = ses.post(url, data=payload)
+        if "Váš účet" in page.text:
+            return ses
+        else:
+            print("Login or password were wrong. Please retry sign in again.")
+            i += 1
+        if i == 3:
+            raise Exception("Your credentials was inserted three times wrong. Run program again.")
+
+
+def fetch_nusl_data(url, start, cache_dir, ses):
     full_url = f'{url}&jrec={start}'
     if cache_dir:
         hash_val = hashlib.sha512(full_url.encode('utf-8')).hexdigest()
@@ -124,8 +153,8 @@ def fetch_nusl_data(url, start, cache_dir):
                     return ret, parsed
             except:
                 traceback.print_exc()
-            
-    resp = requests.get(full_url).content
+
+    resp = ses.get(full_url).content
     if cache_dir:
         with gzip.open(cache_path, 'wb') as f:
             f.write(resp)
