@@ -22,7 +22,7 @@ from invenio_initial_theses_conversion.rules.model import old_nusl
 from invenio_nusl_theses.marshmallow.json import ThesisMetadataSchemaV1
 
 ERROR_DIR = "/tmp/import-nusl-theses"
-IGNORED_ERROR_FIELDS = {"studyField", "studyProgramme", "degreeGrantor", "title"}
+IGNORED_ERROR_FIELDS = {"studyField", "studyProgramme", "degreeGrantor", "title", "dateAccepted"}
 
 
 def path_safe(text):
