@@ -1,5 +1,6 @@
 import gzip
 import hashlib
+import io
 import json
 import logging
 import os
@@ -9,7 +10,7 @@ import sys
 import traceback
 import uuid
 from collections import Counter, defaultdict
-from io import BytesIO
+from io import BytesIO, RawIOBase, BufferedReader
 from logging import StreamHandler
 from xml.etree import ElementTree
 
@@ -60,7 +61,6 @@ class NuslLogHandler(StreamHandler):
                 json.dump(self.transformed, fp, indent=4, ensure_ascii=False)
 
 
-
 ch = NuslLogHandler()
 ch.setLevel(logging.INFO)
 
@@ -89,63 +89,72 @@ logging.basicConfig(
             default=1)
 def run(url, break_on_error, cache_dir, clean_output_dir, start):
     processed_ids = set()
-    ses = session()
     if clean_output_dir and os.path.exists(ERROR_DIR):
         shutil.rmtree(ERROR_DIR)
     error_counts = Counter()
     error_documents = defaultdict(list)
     try:
-        while True:
-            print('\r%08d' % start, end='', file=sys.stderr)
-            sys.stderr.flush()
-            resp, parsed = fetch_nusl_data(url, start, cache_dir, ses)
-            count = len(list(parsed.iter('{http://www.loc.gov/MARC21/slim}record')))
-            if not count:
-                break
+        if url.startswith('http'):
+            gen = url_nusl_data_generator(start, url, cache_dir)
+        else:
+            gen = file_nusl_data_generator(start, url, cache_dir)
 
-            for data in split_stream(BytesIO(resp)):
+        for data in gen:
 
-                for cf in data.iter('{http://www.loc.gov/MARC21/slim}controlfield'):
-                    if cf.attrib['tag'] == '001':
-                        recid = cf.text
-                        break
-                else:
-                    recid = str(uuid.uuid4())
+            for cf in data.iter('{http://www.loc.gov/MARC21/slim}controlfield'):
+                if cf.attrib['tag'] == '001':
+                    recid = cf.text
+                    break
+            else:
+                recid = str(uuid.uuid4())
 
-                ch.setRecord(data, recid)
+            ch.setRecord(data, recid)
 
-                if recid in processed_ids:
-                    logging.warning('Record with id %s already parsed, probably end of stream', recid)
-                    return
+            if recid in processed_ids:
+                logging.warning('Record with id %s already parsed, probably end of stream', recid)
+                return
 
-                processed_ids.add(recid)
+            processed_ids.add(recid)
 
+            try:
+                rec = create_record(data)
+                if rec.get('980__') and rec['980__'].get('a') not in (
+                        'bakalarske_prace',
+                        'diplomove_prace',
+                        'disertacni_prace',
+                        'habilitacni_prace',
+                        'rigorozni_prace'
+                ):
+                    continue
+
+                transformed = old_nusl.do(rec)
+                ch.setTransformedRecord(transformed)
+                schema = ThesisMetadataSchemaV1(strict=True)
+
+                for datafield in data:
+                    fix_language(datafield, "041", "0", "7", "a")
+                    fix_language(datafield, "520", " ", " ", "9")
+                    fix_language(datafield, "540", " ", " ", "9")
+                transformed = old_nusl.do(create_record(data))
+                ch.setTransformedRecord(transformed)
+                schema = ThesisMetadataSchemaV1(strict=True)
                 try:
-                    for datafield in data:
-                        fix_language(datafield, "041", "0", "7", "a")
-                        fix_language(datafield, "520", " ", " ", "9")
-                        fix_language(datafield, "540", " ", " ", "9")
-                    transformed = old_nusl.do(create_record(data))
-                    ch.setTransformedRecord(transformed)
-                    schema = ThesisMetadataSchemaV1(strict=True)
-                    try:
-                        marshmallowed = schema.load(transformed).data
-                    except ValidationError as e:
-                        for field in e.field_names:
-                            error_counts[field] += 1
-                            error_documents[field].append(recid)
-                        if set(e.field_names) - IGNORED_ERROR_FIELDS:
-                            raise
-
-                    # TODO: validate marshmallowed via json schema
-
-                    # TODO: import to invenio
-                except Exception as e :
-                    logging.exception('Error in transformation')
-                    if break_on_error:
+                    marshmallowed = schema.load(transformed).data
+                except ValidationError as e:
+                    for field in e.field_names:
+                        error_counts[field] += 1
+                        error_documents[field].append(recid)
+                    if set(e.field_names) - IGNORED_ERROR_FIELDS:
                         raise
 
-            start += count
+                # TODO: validate marshmallowed via json schema
+
+                # TODO: import to invenio
+            except Exception as e:
+                logging.exception('Error in transformation')
+                if break_on_error:
+                    raise
+
     finally:
         if not os.path.exists('/tmp/import-nusl-theses'):
             os.makedirs('/tmp/import-nusl-theses')
@@ -188,6 +197,84 @@ def session():
                 raise Exception("Your credentials was inserted three times wrong. Run program again.")
     else:
         return requests.Session()
+
+
+def url_nusl_data_generator(start, url, cache_dir):
+    ses = session()
+    while True:
+        print('\r%08d' % start, end='', file=sys.stderr)
+        sys.stderr.flush()
+        resp, parsed = fetch_nusl_data(url, start, cache_dir, ses)
+        count = len(list(parsed.iter('{http://www.loc.gov/MARC21/slim}record')))
+        if count:
+            for data in split_stream(BytesIO(resp)):
+                yield data
+        start += count
+
+
+def chain_streams(streams, buffer_size=io.DEFAULT_BUFFER_SIZE):
+    """
+    Chain an iterable of streams together into a single buffered stream.
+    Usage:
+        def generate_open_file_streams():
+            for file in filenames:
+                yield open(file, 'rb')
+        f = chain_streams(generate_open_file_streams())
+        f.read()
+    """
+
+    class ChainStream(RawIOBase):
+        def __init__(self):
+            self.leftover = b''
+            self.stream_iter = iter(streams)
+            try:
+                self.stream = next(self.stream_iter)
+            except StopIteration:
+                self.stream = None
+
+        def readable(self):
+            return True
+
+        def _read_next_chunk(self, max_length):
+            # Return 0 or more bytes from the current stream, first returning all
+            # leftover bytes. If the stream is closed returns b''
+            if self.leftover:
+                return self.leftover
+            elif self.stream is not None:
+                return self.stream.read(max_length)
+            else:
+                return b''
+
+        def readinto(self, b):
+            buffer_length = len(b)
+            chunk = self._read_next_chunk(buffer_length)
+            while len(chunk) == 0:
+                # move to next stream
+                if self.stream is not None:
+                    self.stream.close()
+                try:
+                    self.stream = next(self.stream_iter)
+                    chunk = self._read_next_chunk(buffer_length)
+                except StopIteration:
+                    # No more streams to chain together
+                    self.stream = None
+                    return 0  # indicate EOF
+            output, self.leftover = chunk[:buffer_length], chunk[buffer_length:]
+            b[:len(output)] = output
+            return len(output)
+
+    return BufferedReader(ChainStream(), buffer_size=buffer_size)
+
+
+def file_nusl_data_generator(start, filename, cache_dir):
+    while True:
+        with gzip.open(filename, 'rb') as f:
+            for data in split_stream(
+                    chain_streams([BytesIO(b'<root xmlns="http://www.loc.gov/MARC21/slim">'), f, BytesIO(b'</root>')])):
+                if not start % 1000:
+                    print('\r%08d' % start, end='', file=sys.stderr)
+                yield data
+                start += 1
 
 
 def fetch_nusl_data(url, start, cache_dir, ses):
