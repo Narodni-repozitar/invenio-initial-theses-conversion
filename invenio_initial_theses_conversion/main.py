@@ -1,15 +1,14 @@
 import gzip
 import hashlib
+import json
 import logging
 import os
 import re
 import sys
 import traceback
 import uuid
-import json
 from io import BytesIO
 from logging import StreamHandler
-from pprint import pprint
 from xml.etree import ElementTree
 
 import click
@@ -101,8 +100,6 @@ def run(url, break_on_error, cache_dir):
                 transformed = old_nusl.do(create_record(data))
                 schema = ThesisMetadataSchemaV1(strict=True)
                 marshmallowed = schema.load(transformed).data
-
-
 
                 # TODO: validate marshmallowed via json schema
 
