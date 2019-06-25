@@ -16,10 +16,10 @@ from xml.etree import ElementTree
 from invenio_records.api import _records_state
 from flask import cli
 
-
 import click
 import requests
 from dojson.contrib.marc21.utils import split_stream, create_record
+import jsonschema
 from marshmallow import ValidationError
 
 from invenio_initial_theses_conversion.rules.model import old_nusl
@@ -27,8 +27,8 @@ from invenio_initial_theses_conversion.taxonomies.nusl_collections import instit
 from invenio_nusl_theses.marshmallow.json import ThesisMetadataSchemaV1
 
 ERROR_DIR = "/tmp/import-nusl-theses"
-IGNORED_ERROR_FIELDS = {"studyField", "studyProgramme", "degreeGrantor", "title", "dateAccepted"}
-LANGUAGE_EXCEPTIONS = {"scc":"srp", "scr":"hrv" }
+IGNORED_ERROR_FIELDS = {"studyField", "studyProgramme", "title", "dateAccepted", "subject"}  # "degreeGrantor"
+LANGUAGE_EXCEPTIONS = {"scc": "srp", "scr": "hrv"}
 
 
 def path_safe(text):
@@ -92,9 +92,9 @@ logging.basicConfig(
               default=True,
               help='Break on first error')
 @click.option('--clean-output-dir/--no-clean-output-dir',
-            default=True)
+              default=True)
 @click.option('--start',
-            default=1)
+              default=1)
 @cli.with_appcontext
 def run(url, break_on_error, cache_dir, clean_output_dir, start):
     processed_ids = set()
@@ -138,13 +138,13 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
 
                 transformed = old_nusl.do(rec)
                 ch.setTransformedRecord(transformed)
-                schema = ThesisMetadataSchemaV1(strict=True)
 
                 for datafield in data:
                     fix_language(datafield, "041", "0", "7", "a")
                     fix_language(datafield, "520", " ", " ", "9")
                     fix_language(datafield, "540", " ", " ", "9")
                 transformed = old_nusl.do(create_record(data))
+                #TODO: Dodělat opravu Degree grantora -> upravit transformed data(lze natahat z providera)
                 ch.setTransformedRecord(transformed)
                 schema = ThesisMetadataSchemaV1(strict=True)
                 try:
@@ -157,7 +157,9 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                     if set(e.field_names) - IGNORED_ERROR_FIELDS:
                         raise
                     continue
-                _records_state.validate(marshmallowed, "https://nusl.cz/schemas/invenio_nusl_theses/nusl-theses-v1.0.0.json")
+
+                _records_state.validate(marshmallowed,
+                                        "https://nusl.cz/schemas/invenio_nusl_theses/nusl-theses-v1.0.0.json")
 
                 # TODO: import to invenio
             except Exception as e:
@@ -183,7 +185,6 @@ def fix_language(datafield, tag, ind1, ind2, code):
         for subfield in datafield:
             if subfield.attrib["code"] == code:
                 subfield.text = LANGUAGE_EXCEPTIONS.get(subfield.text, subfield.text)
-
 
 
 def session():
