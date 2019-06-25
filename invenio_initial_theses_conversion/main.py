@@ -149,6 +149,7 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                 schema = ThesisMetadataSchemaV1(strict=True)
                 try:
                     marshmallowed = schema.load(transformed).data
+                    marshmallowed = schema.dump(marshmallowed).data
                 except ValidationError as e:
                     for field in e.field_names:
                         error_counts[field] += 1
