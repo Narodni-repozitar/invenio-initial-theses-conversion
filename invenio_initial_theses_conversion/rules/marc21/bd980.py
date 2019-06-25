@@ -4,22 +4,21 @@ from ..model import old_nusl
 
 @old_nusl.over('doctype', '^980__')
 @handled_values('a')
-@list_value
-def doctype(self, key, value):
+def doctype(self, key, values):
     # nusl collection
-    if value.get('a') not in (
+    if values[0].get('a') not in (
             'bakalarske_prace',
             'diplomove_prace',
             'disertacni_prace',
             'habilitacni_prace',
             'rigorozni_prace'
     ):
-        raise AttributeError(f'Unhandled doctype {value.get("a")}')
+        raise AttributeError(f'Unhandled doctype {values[0].get("a")}')
 
     return {
         'taxonomy': 'NUSL',
         'value': [
             'vskp',
-            value.get('a')
+            values[0].get('a')
         ]
     }
