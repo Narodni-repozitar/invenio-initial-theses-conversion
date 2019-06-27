@@ -12,11 +12,19 @@ def subject(self, key, value):
         raise AttributeError("Subject name required (650_7a)")
     subject = {}
     if "a" in value:
-        subject["name"] = value.get("a")
-        subject["lang"] = "cze"
+        subject["name"] = [
+            {
+                "name": value.get("a"),
+                "lang": "cze"
+            }
+        ]
     if "j" in value:
-        subject["name"] = value.get("j")
-        subject["lang"] = "eng"
+        subject["name"] = [
+            {
+                "name": value.get("j"),
+                "lang": "eng"
+            }
+        ]
     if "0" in value:
         if "7" in value:
             raise AttributeError("Id and URL must not be present in single subject (650_70, 650_77)")
@@ -27,6 +35,26 @@ def subject(self, key, value):
         subject["taxonomy"] = value.get("2")
     return subject
 
+    # """Subject."""
+    # if not value.get("a"):
+    #     raise AttributeError("Subject name required (650_7a)")
+    # subject = {}
+    # if "a" in value:
+    #     subject["name"] = value.get("a")
+    #     subject["lang"] = "cze"
+    # if "j" in value:
+    #     subject["name"] = value.get("j")
+    #     subject["lang"] = "eng"
+    # if "0" in value:
+    #     if "7" in value:
+    #         raise AttributeError("Id and URL must not be present in single subject (650_70, 650_77)")
+    #     subject["id"] = value.get("0")
+    # if "7" in value:
+    #     subject["id"] = value.get("7")
+    # if "2" in value:
+    #     subject["taxonomy"] = value.get("2")
+    # return subject
+
 
 @old_nusl.over("subject", '^653')
 @append_results
@@ -36,12 +64,33 @@ def keyword(self, key, value):
     """Subject."""
     if key == '653__':
         return {
-            "name": value.get("a"),
-            "lang": "cze"
+            "name": [
+                {
+                    "name": value.get("a"),
+                    "lang": "cze"
+                }
+            ]
         }
 
     if key == '6530_':
         return {
-            "name": value.get("a"),
-            "lang": "eng"
+            "name": [
+                {
+                    "name": value.get("a"),
+                    "lang": "eng"
+                }
+            ]
         }
+
+    # """Subject."""
+    # if key == '653__':
+    #     return {
+    #         "name": value.get("a"),
+    #         "lang": "cze"
+    #     }
+    #
+    # if key == '6530_':
+    #     return {
+    #         "name": value.get("a"),
+    #         "lang": "eng"
+    #     }

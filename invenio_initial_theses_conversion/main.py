@@ -27,7 +27,7 @@ from invenio_initial_theses_conversion.taxonomies.nusl_collections import instit
 from invenio_nusl_theses.marshmallow.json import ThesisMetadataSchemaV1
 
 ERROR_DIR = "/tmp/import-nusl-theses"
-IGNORED_ERROR_FIELDS = {"studyField", "studyProgramme", "title", "dateAccepted", "subject"}  # "degreeGrantor"
+IGNORED_ERROR_FIELDS = {"title", "dateAccepted",  "language", "degreeGrantor"} #"subject", "studyField", "studyProgramme",
 LANGUAGE_EXCEPTIONS = {"scc": "srp", "scr": "hrv"}
 
 
@@ -144,7 +144,7 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                     fix_language(datafield, "520", " ", " ", "9")
                     fix_language(datafield, "540", " ", " ", "9")
                 transformed = old_nusl.do(create_record(data))
-                #TODO: Dodělat opravu Degree grantora -> upravit transformed data(lze natahat z providera)
+                transformed = fix_grantor(transformed)
                 ch.setTransformedRecord(transformed)
                 schema = ThesisMetadataSchemaV1(strict=True)
                 try:
@@ -185,6 +185,63 @@ def fix_language(datafield, tag, ind1, ind2, code):
         for subfield in datafield:
             if subfield.attrib["code"] == code:
                 subfield.text = LANGUAGE_EXCEPTIONS.get(subfield.text, subfield.text)
+
+
+def fix_grantor(data):
+    if ("degreeGrantor" not in data) or (data.get("degreeGrantor") is None):
+        if data["provider"] == "vutbr":
+            data["degreeGrantor"] = [
+                {
+                    "university": {
+                        "name": [
+                            {
+                                "name": "Vysoké učení technické v Brně",
+                                "lang": "cze"
+                            }
+                        ]
+                    }
+                }
+            ]
+        if data["provider"] == "ceska_zemedelska_univerzita":
+            data["degreeGrantor"] = [
+                {
+                    "university": {
+                        "name": [
+                            {
+                                "name": "Česká zemědělská univerzita v Praze",
+                                "lang": "cze"
+                            }
+                        ]
+                    }
+                }
+            ]
+        if data["provider"] == "jihoceska_univerzita_v_ceskych_budejovicich":
+            data["degreeGrantor"] = [
+                {
+                    "university": {
+                        "name": [
+                            {
+                                "name": "Jihočeská univerzita v Českých Budějovicích",
+                                "lang": "cze"
+                            }
+                        ]
+                    }
+                }
+            ]
+        if data["provider"] == "mendelova_univerzita_v_brne":
+            data["degreeGrantor"] = [
+                {
+                    "university": {
+                        "name": [
+                            {
+                                "name": "Mendelova univerzita v Brně",
+                                "lang": "cze"
+                            }
+                        ]
+                    }
+                }
+            ]
+    return data
 
 
 def session():

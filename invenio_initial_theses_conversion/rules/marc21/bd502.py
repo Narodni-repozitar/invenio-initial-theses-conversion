@@ -7,18 +7,33 @@ from ..model import old_nusl
 @single_value
 def degree_grantor(self, key, value):
     ret = {}
-    parsed_grantor = None
     if "c" in value:
-        parsed_grantor = [x.strip() for x in value.get("c").split(",", maxsplit=2) if x.strip()]
-    if parsed_grantor:
-        # raise Exception("Degree grantor field is empty")
-        ret["name"] = parsed_grantor[0]
-        if len(parsed_grantor) > 1:
-            ret["faculties"] = [{"name": parsed_grantor[1]}]
-            if len(parsed_grantor) > 2:
-                ret["faculties"][0]["deparments"] = [parsed_grantor[2]]
-
-        return {
-            "language": "cze",
-            "university": ret
-        }
+        parsed_grantor = [value.get("c")]
+        if "," in value.get("c"):
+            parsed_grantor = [x.strip() for x in value.get("c").split(",", maxsplit=2) if x.strip()]
+        if "." in value.get("c"):
+            parsed_grantor = [x.strip() for x in value.get("c").split(".", maxsplit=2) if x.strip()]
+        if parsed_grantor:
+            # raise Exception("Degree grantor field is empty")
+            ret["name"] = [
+                {
+                    "name": parsed_grantor[0],
+                    "lang": "cze"
+                }
+            ]
+            if len(parsed_grantor) > 1:
+                ret["faculties"] = [
+                    {
+                        "name": [
+                            {
+                                "name": parsed_grantor[1],
+                                "lang": "cze"
+                            }
+                        ]
+                    }
+                ]
+                if len(parsed_grantor) > 2:
+                    ret["faculties"][0]["departments"] = [{"name": parsed_grantor[2], "lang": "cze"}]
+            return [
+                {"university": ret}
+            ]

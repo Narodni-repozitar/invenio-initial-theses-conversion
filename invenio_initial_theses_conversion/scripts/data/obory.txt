@@ -1,0 +1,996 @@
+Ekonomika a management/Podniková ekonomika a management
+Mezinárodní ekonomické vztahy/Mezinárodní obchod
+Ekonomika a management/Management
+Aplikovaná informatika/Informatika
+Ekonomika a management/Obchodní podnikání
+Finance a účetnictví/Účetnictví a finanční řízení podniku
+Ekonomika a management/Účetnictví a finanční řízení podniku
+Finance a účetnictví/Finance
+Aplikovaná informatika/Informační systémy a technologie
+Rehabilitace/Rehabilitační - psychosociální péče o postižené děti, dospělé a seniory
+Ekonomie a hospodářská správa/Národní hospodářství
+Ošetřovatelství/Všeobecná sestra
+Specializace v pedagogice/Učitelství pro mateřské školy
+Vychovatelství/Pedagogika volného času
+Mezinárodní ekonomické vztahy/Podnikání a právo
+Finance a účetnictví/Zdanění a daňová politika
+Veřejná správa a regionální rozvoj
+Ekonomika a management/Řízení a ekonomika podniku
+Specializace v pedagogice/Sociální pedagogika
+Ekonomie a hospodářská správa/Ekonomie
+Mezinárodní ekonomické vztahy/Cestovní ruch a regionální rozvoj
+Finance a účetnictví/Bankovnictví a pojišťovnictví
+Hospodářská politika a správa/Národní hospodářství
+Ekonomie a hospodářská správa/Hospodářská politika
+Biologie/Biologie
+Mezinárodní ekonomické vztahy/Mezinárodní studia - diplomacie
+Ekonomika a management/Arts Management
+Aplikovaná informatika/Informační management
+Zemědělská specializace/Pozemkové úpravy a převody nemovitostí
+Provoz a ekonomika
+Mezinárodní ekonomické vztahy/Cestovní ruch
+Podnikání a administrativa
+Specializace v pedagogice/Výchova ke zdraví
+Sociální politika a sociální práce/Sociální práce ve veřejné správě
+Sociální práce/Sociální a charitativní práce
+Sociální péče/Sociální a charitativní práce
+Hospodářská politika a správa/Finance
+Zootechnika/Zootechnika
+Mezinárodní ekonomické vztahy/Mezinárodní politika a diplomacie
+Zemědělské inženýrství/Provozně podnikatelský obor
+Zemědělské inženýrství/Agroekologie
+Ochrana obyvatelstva/Civilní nouzová připravenost
+Hospodářská politika a správa/Účetnictví a finanční řízení podniku
+Politologie/Politologie
+Zemědělská specializace/Biologie a ochrana zájmových organismů
+Ekonomika a management/Obchodně podnikatelský obor
+Zootechnika/Rybářství
+Sociální práce/Etika v sociální práci
+Specializace ve zdravotnictví/Fyzioterapie
+Zemědělství/Trvale udržitelné systémy hospodaření v krajině
+Kvantitativní metody v ekonomice/Matematické metody v ekonomii
+Hospodářská politika a správa/Regionalistika a veřejná správa
+Mezinárodní ekonomické vztahy/Mezinárodní a evropská studia - diplomacie
+Filologie/Bohemistika
+Specializace ve zdravotnictví/Radiologický asistent
+Ochrana obyvatelstva/Ochrana obyvatelstva se zaměřením na CBRNE
+Elektrotechnika a informatika/Měřicí a výpočetní technika
+Rehabilitace/Rehabilitační - psychosociální péče o postižené děti, dospělé a staré osoby
+Specializace ve zdravotnictví/Zdravotní laborant
+Geografie/Geografie pro veřejnou správu
+Psychologie/Psychologie
+Ekonomie a hospodářská správa/Regionální studia
+Kvantitativní metody v ekonomice/Ekonometrie a operační výzkum
+Finance a účetnictví/Bankovnictví a pojišťovnictví
+Zemědělství/Agropodnikání
+Zemědělské inženýrství/Pozemkové úpravy a převody nemovitostí
+Ekonomie a hospodářská správa/Veřejná správa a regionální rozvoj
+Speciální pedagogika/Speciální pedagogika - vychovatelství
+Ekonomika a management/Strukturální politika EU a rozvoj venkova
+Specializace ve zdravotnictví/Zdravotnický záchranář
+Zemědělství/Agroekologie
+Zemědělské inženýrství/Všeobecné zemědělství
+Porodní asistence/Porodní asistentka
+Specializace v pedagogice/Učitelství odborných předmětů
+Ekonomie a hospodářská správa/Ekonomická analýza
+Ošetřovatelství/Ošetřovatelství ve vybraných klinických oborech - modul chirurgie
+Ekonomika a management/International Management
+Rehabilitace/Rehabilitační péče o postižené děti, dospělé a staré osoby
+Informatika
+Biologie/Biomedicínská laboratorní technika
+Zemědělské inženýrství/Agropodnikání
+Kvantitativní metody v ekonomice/Statistika a ekonometrie
+Veřejné zdravotnictví/Ochrana veřejného zdraví
+Rehabilitace/Prevence a rehabilitace sociální patologie
+Veřejné zdravotnictví/Odborný pracovník v ochraně veřejného zdraví
+Mezinárodní ekonomické vztahy/Evropská integrace
+Zemědělství/Zemědělská technika: obchod, servis a služby
+Tělesná výchova a sport/Tělesná výchova a sport (jednooborové)
+Filologie/Francouzský jazyk pro evropský a mezinárodní obchod
+Tělesná výchova a sport/Tělesná výchova a sport
+Historické vědy/Historie
+Vychovatelství/Vychovatelství se zaměřením na výchovu ke zdraví
+Hospodářská politika a správa/Ekonomika a správa životního prostředí
+Specializace v pedagogice/ČJu-SVu
+Kvantitativní metody v ekonomice/Sociálně ekonomická demografie
+Ošetřovatelství/Ošetřovatelství ve vybraných klinických oborech - modul vnitřní lékařství
+Ekonomika a management/International Business - Central European Business Realities
+Kvantitativní metody v ekonomice/Statistické a pojistné inženýrství
+Učitelství pro základní školy/ČJ-OV/ZŠ
+Biologie/Klinická biologie
+Učitelství pro základní školy/ČJ-AJ/ZŠ
+Ošetřovatelství/Ošetřovatelství ve vybraných klinických oborech - modul pediatrie
+Učitelství pro střední školy/Učitelství náboženství a etiky
+Psychologie/Arteterapie
+Zemědělství/Zemědělská technika, obchod, servis a služby
+Specializace ve zdravotnictví/Nutriční terapeut
+Hospodářská politika a správa/Strukturální politika EU pro veřejnou správu
+Obecná teorie a dějiny umění a kultury/Estetika
+Aplikovaná informatika/Multimédia v ekonomické praxi
+Hospodářská a kulturní studia
+Územní technická a správní služba
+Filologie/Španělský jazyk pro evropský a mezinárodní obchod
+Finance a účetnictví/Finance a oceňování podniku
+Filmové, televizní a fotografické umění a nová média / Produkce
+Obecná teorie a dějiny umění a kultury/Dějiny umění
+Učitelství pro základní školy/Učitelství pro 1. stupeň ZŠ
+Aplikovaná informatika/Aplikovaná informatika
+Zoologie/Zoologie - specializace Zoologie obratlovců
+Kvantitativní metody v ekonomice/Statistické metody v ekonomii
+Aplikovaná informatika/Výpočetní technika
+Ekonomie a hospodářská správa/Veřejná správa
+Biochemistry/Biological Chemistry
+Učitelství pro základní školy/Učitelství pro 1. stupeň základních škol
+Filmové, televizní a fotografické umění a nová média / Fotografie
+Mezinárodní teritoriální studia/Evropská teritoriální studia - ČR a německy mluvící země
+Biofyzika/Aplikovaná radiobiologie a toxikologie
+Kvantitativní metody v ekonomice/Statisticko-pojistné inženýrství
+Filmové, televizní a fotografické umění a nová média/Fotografie
+Dramatická umění / Produkce
+Hudební umění / Zpěv
+Aplikovaná matematika/Finanční matematika
+Mezinárodní ekonomické vztahy/Manažer obchodu
+Specializace v pedagogice/ČJu-AJu
+Taneční umění/Pedagogika tance
+Zemědělské inženýrství/Agroekologie - Péče o krajinu
+Specializace v pedagogice/AJu-SVu
+Speciální pedagogika/Speciální pedagogika
+Aplikovaná informatika/Kognitivní informatika
+Dramatická umění/Produkce
+Filmové, televizní a fotografické umění a nová média/Produkce
+Historické vědy/Archivnictví
+Hudební umění/Housle
+Biologie/Parazitologie
+Hudební umění/Zpěv
+Speciální chovy
+Zemědělská specializace/Dopravní a manipulační prostředky
+Mezinárodní ekonomické vztahy/International Business - Central European Business Realities
+Filologie/Italský jazyk
+Učitelství pro základní školy/ZUŠ (VV)
+Humanitní studia/Humanistika
+Učitelství pro střední školy/ČJ-NJ/SŠ
+Hudební umění / Klavír
+Lesní inženýrství
+Specializace ve zdravotnictví/Prevence, náprava a terapie zdravotní a sociální problematiky dětí, dospělých a seniorů
+Hudební umění/Klavír
+Učitelství pro základní školy/NŠ-TV-C
+Molekulární a buněčná biologie/Molekulární a buněčná biologie a genetika
+Regionální environmentální správa
+Učitelství pro základní školy/AJ-NJ/ZŠ
+Učitelství pro základní školy/NŠ-SPG
+Finance a účetnictví/Finance a oceňování podniku
+Výživa a potraviny
+Hudební umění / Housle
+Zemědělství/Zemědělství
+Kvantitativní metody v ekonomice/Statistika
+Pedagogika/Náboženská výchova a etika
+Systémové inženýrství a informatika/Ekonomická informatika
+Taneční umění / Pedagogika tance
+Učitelství pro základní školy/Z-TV/ZŠ
+Zemědělské inženýrství/Rybářství
+Ekologie/Ekologie
+Aplikovaná informatika/Znalostní technologie
+Hospodářská politika a správa/Finance - daně a finanční kontrola
+Biofyzika/Biofyzika
+Dramatická umění / Dramatická výchova
+Teologie/Teologie
+Živočišná produkce
+Biologie/Experimentální biologie - specializace Genetika a genové inženýrství
+Aplikovaná ekologie
+Zemědělské inženýrství/Zemědělská a dopravní technika
+Dramatická umění/Dramatická výchova
+Dramatická umění/Herectví alternativního a loutkového divadla
+Kvantitativní metody v ekonomice/Ekonomická demografie
+Mezinárodní ekonomické vztahy/International and Diplomatic Studies
+Specializace v pedagogice/Výtvarná tvorba se zaměřením na vzdělávání (jednooborové)
+Aplikovaná informatika/Aplikovaná informatika - specializace Web a multimédia
+Učitelství pro základní školy/F-TchV/ZŠ navazující-komb.
+Biologie/Experimentální biologie - specializace Buněčná a vývojová biologie
+Ekologie a ochrana prostředí/Péče o životní prostředí - specializace Krajinná ekologie
+Filologie/Cizí jazyk pro evropský a mezinárodní obchod-ruský jazyk
+Hospodářská a správní služba v lesním hospodářství
+Učitelství pro střední školy/Bi-TV/SŠ
+Dramatická umění/Herectví činoherního divadla
+Biofyzika/Krizová radiobiologie a toxikologie
+Filologie/Česko-německá areálová studia
+Finance a účetnictví/Finance
+Zemědělství/Zemědělské biotechnologie
+Dramatická umění/Scénografie alternativního a loutkového divadla
+Botanika/Botanika
+Finance a účetnictví/Finance - daně a finanční kontrola
+Učitelství pro střední školy/Bi-Ch/SŠ
+Ekonomika a management/Ekonomika predprijatija i menedžment
+Filmové, televizní a fotografické umění a nová média/Dokumentární tvorba
+Historické vědy/Kulturní historie
+Ošetřovatelství/Porodní asistentka
+Specializace v pedagogice/Informační technologie a e-learning
+Teologie/Teologie služby
+Učitelství pro základní školy/Z-Př/ZŠ
+Aplikovaná informatika/Podniková  informatika
+Dramatická umění / Herectví činoherního divadla
+Filmové, televizní a fotografické umění a nová média / Scenáristika a dramaturgie
+Filmové, televizní a fotografické umění a nová média/Scenáristika a dramaturgie
+Humanitní studia/Pastorační asistence
+Specializace v pedagogice/Informační technologie ve vzdělávání
+Specializace v pedagogice/Zu-SVu
+Dramatická umění / Scénografie alternativního a loutkového divadla
+Dramatická umění/Teorie a kritika
+Mezinárodní ekonomické vztahy/International Business
+Rozvoj venkovského prostoru
+Ekonomie a hospodářská správa/Hospodářské a politické dějiny 20. století
+Filmové, televizní a fotografické umění a nová média/Kamera
+Humanitní studia/Pastoračně sociální asistent
+Lesnictví
+Mezinárodní ekonomické vztahy/Mezinárodní ekonomické vztahy
+Speciální pedagogika/Speciální pedagogika předškolního věku-učitelství pro mateřské školy
+Finance a účetnictví/Účetnictví a finanční řízení podniku
+Finance a účetnictví/Pojišťovnictví
+Historické vědy/Archeologie
+Učitelství pro základní školy/VV-OV/ZŠ
+Zoologie/Zoologie
+Aplikovaná informatika/Podnikové informační systémy
+Hospodářská politika a správa/Hospodářská politika
+Obchod a podnikání s technikou
+Učitelství pro střední školy/ČJ-D/SŠ
+Dramatická umění / Herectví alternativního a loutkového divadla
+Filmové, televizní a fotografické umění a nová média / Dokumentární tvorba
+Filmové, televizní a fotografické umění a nová média/Střihová skladba
+Specializace v pedagogice/AJu-NJu
+Specializace v pedagogice/Přírodovědná a ekologická výchova
+Aplikovaná informatika/Aplikovaná informatika - specializace Bezpečnost a sítě
+Dramatická umění/Scénografie
+Filmové, televizní a fotografické umění a nová média / Kamera
+Učitelství pro základní školy/NJ-OV/ZŠ
+Učitelství pro základní školy/Učitelství pro 1. stupeň ZŠ - anglický jazyk pro 1. stupeň ZŠ
+Učitelství pro základní školy/Učitelství výtvarné výchovy pro základní umělecké školy
+Filmové, televizní a fotografické umění a nová média / Střihová skladba
+Poradenství v odborném vzdělávání
+Silniční a městská automobilová doprava
+Dramatická umění / Herectví se zaměřením na autorskou tvorbu a pedagogiku
+Specializace v pedagogice/NJu-SVu
+Botanika/Botanika - specializace Vegetační ekologie
+Filologie/Historie - bohemistika
+Finance a účetnictví/Učitelství praktického vyučování v ekonomickém vzdělávání
+Ošetřovatelství/Ošetřovatelství
+Učitelství praktického vyučování
+Dramatická umění/Herectví se zaměřením na autorskou tvorbu a pedagogiku
+Filmové, televizní a fotografické umění a nová média / Zvuková tvorba
+Finance a účetnictví/Učitelství ekonomických předmětů pro střední školy
+Hudební umění/Skladba
+Rostlinná produkce
+Specializace v pedagogice/Základy výrobní techniky se zaměřením na vzdělávání
+Dramatická umění / Scénografie
+Filmové, televizní a fotografické umění a nová média / Režie
+Filmové, televizní a fotografické umění a nová média/Animovaná tvorba
+Hospodářská politika a správa/Pojišťovnictví
+Učitelství pro základní školy/NŠ-VV-C
+Biologie/Učitelství biologie pro střední školy
+Filmové, televizní a fotografické umění a nová média/Audiovizuální studia
+Filologie/Španělský jazyk
+Finance a účetnictví/Finanční inženýrství
+Hospodářská politika a správa/Aplikovaná environmentální ekonomie, politika a management
+Hudební umění/Violoncello
+Učitelství pro základní školy/ČJn-AJn
+Zoorehabilitace a asistenční aktivity se zvířaty
+Humanitní studia/Literárně-historická studia
+Ochrana přírody
+Učitelství pro střední školy/ČJn-OVan
+Zemědělské inženýrství/Agroekologie - Ekologické zemědělství
+Filmové, televizní a fotografické umění a nová média / Animovaná tvorba
+Specializace v pedagogice/Přu-Chu
+Specializace v pedagogice/Sociální pedagogika pro Policii ČR
+Zájmové chovy zvířat
+Economics of Globalisation and European Integration
+Učitelství pro základní školy/ČJ-VV/ZŠ
+Veřejná správa v zemědělství a krajině
+Biochemistry/Biological chemistry
+Filmové, televizní a fotografické umění a nová média/Režie
+Zahradnictví
+Filmové, televizní a fotografické umění a nová média/Zvuková tvorba
+Ekonomie a hospodářská správa/Economics
+Filologie/Francouzský jazyk
+Provoz a řízení myslivosti
+Taneční umění / Pantomima
+Učitelství pro základní školy/Učitelství pro 1. stupeň základních škol, Základy speciální pedagogiky pro 1. stupeň ZŠ
+Vodní hospodářství
+Územní plánování
+Ekologie a ochrana prostředí/Aplikovaná a krajinná ekologie
+Fyziologie a imunologie/Fyziologie a vývojová biologie
+Hudební umění / Skladba
+Hudební umění / Violoncello
+Mezinárodní ekonomické vztahy/Evropská studia
+Učitelství pro základní školy/ČJ-HV/ZŠ
+Zemědělství tropů a subtropů
+Biologie/Biologie ekosystémů - specializace Aplikovaná ekologie
+Hudební umění/Viola
+Specializace v pedagogice/Zu-AJu
+Economics of International Trade and European Integration
+Filozofie/Filozofie
+Specializace v pedagogice/Zu-Přu
+Specializace v pedagogice/ČJu-NJu
+Taneční umění/Choreografie
+Učitelství pro střední školy/M-VT/SŠ
+Zemědělská specializace/Rybářství a ochrana vod
+Aplikovaná informatika/Aplikovaná informatika - specializace Informační systémy a technologie
+Ekonomie a hospodářská správa/Aplikovaná environmentální ekonomie, politika a management
+Hudební umění / Hudební management
+Taneční umění/Taneční věda
+Učitelství pro základní školy/D-Z/ZŠ
+Economics and Management
+Kynologie
+Specializace v pedagogice/VKZu-Přu
+Specializace v pedagogice/VVu-SVu
+Učitelství pro základní školy/AJ-D/ZŠ
+Učitelství pro základní školy/AJ-ŠJ/ZŠ
+Učitelství pro základní školy/NŠ-HV-C
+Voda v krajině
+Zemědělské inženýrství/Zemědělské inženýrství - Prvovýroba
+Zoologie/Zoologie - specializace Ekologie živočichů
+Dramatická umění / Režie-dramaturgie činoherního divadla
+Hudební umění / Dirigování
+Hudební umění/Varhany
+Projektové řízení
+Taneční umění/Pantomima
+Učitelství pro střední školy/PSYCHn-VKZn
+Učitelství pro základní školy/AJ-FJ/ZŠ
+Zemědělské inženýrství/Zemědělské biotechnologie
+Aplikovaná informatika/Aplikovaná informatika - specializace Kriminalisticko-technická činnost v IT
+Dramatická umění / Teorie a kritika
+Dřevařské inženýrství
+Filologie/Anglický jazyk a francouzský jazyk pro administrativu EU
+Hudebního umění/Interpretace a teorie interpretace
+Mezinárodní ekonomické vztahy/Mezinárodní politické vztahy
+Specializace ve zdravotnictví/Ochrana veřejného zdraví
+Učitelství pro střední školy/D-NJ/SŠ
+Učitelství pro základní školy/F-VTE/ZŠ navazující-komb.
+Učitelství pro základní školy/Fn-In
+Zoologie/Zoologie - specializace Entomologie
+Ekologické zemědělství
+Specializace v pedagogice/ČJu-VVu
+Učitelství pro střední školy/M-F/SŠ
+Učitelství pro základní školy/M-VT/ZŠ
+Učitelství pro základní školy/Př-Ch/ZŠ
+Zahradní a krajinářská architektura
+Biologie/Hydrobiologie
+Ekologie a ochrana prostředí/Ochrana vod
+Hudební umění/Hudební management
+Taneční umění / Choreografie
+Učitelství pro základní školy/Z-OV/ZŠ
+Veřejné zdravotnictví/Odborný pracovník v ochraně a podpoře veřejného zdraví
+Zemědělské inženýrství/Zemědělské inženýrství
+Archeologie/Archeologie
+Ekologie a ochrana prostředí/Péče o životní prostředí - specializace Ekologie půdy
+Filologie/Bohemistika - Anglický jazyk a literatura
+Taneční umění / Taneční věda
+Učitelství pro základní školy/M-Z/ZŠ
+Učitelství pro základní školy/ČJn-OVn
+Zemědělské inženýrství/Rostlinné biotechnologie
+Zemědělství/Zemědělství - Prvovýroba
+Zootechnika/Obecná zootechnika
+Zootechnika/Speciální zootechnika
+Biologie/Entomologie
+Botanika/Botanika - specializace Ekologie populací a společenstev
+Ekonomika a management/Corporate Finance and Management 
+Evropská agrární diplomacie
+Historické vědy/Historie - archivnictví
+Hudební umění / Varhany
+Hudební umění/Klarinet
+Učitelství pro základní školy/Přn-Chn
+Aplikovaná matematika/Finanční a pojistná matematika
+Dramatická umění/Režie-dramaturgie činoherního divadla
+Filologie/Bohemistika - anglický jazyk a literatura
+Hudební umění / Viola
+Hudební umění/Hoboj
+Hudební umění/Trubka
+Podniková a odvětvová ekonomika
+Specializace v pedagogice/Mu-SVu
+Specializace v pedagogice/Mu-Zu
+Učitelství pro základní školy/AJn-NJn
+Botanika/Botanika - specializace Systematika vyšších rostlin
+Ekologie a ochrana prostředí/Péče o životní prostředí - specializace Hydrobiologie
+Fytotechnika/Obecná produkce rostlinná
+Historické vědy/Historie - archeologie
+Hudební umění/Flétna
+Hudební umění/Hudební produkce
+Učitelství pro střední školy/NJ-Bi/SŠ
+Dramatická umění / Režie-dramaturgie alternativního a loutkového divadla
+Dramatická umění/Režie alternativního a loutkového divadla
+Fytotechnika/Speciální produkce rostlinná
+Krajinné a pozemkové úpravy
+Specializace v pedagogice/Mu-ITu
+Učitelství pro střední školy/AJn-OVan
+Učitelství pro základní školy/Zn-AJn
+Biologie/Biologie ekosystémů
+Elektrotechnika a informatika/Aplikovaná měřicí a výpočetní technika
+Filmové, televizní a fotografické umění a nová média/Teorie filmové a multimediální tvorby
+Hudební umění / Flétna
+Hudební umění / Hoboj
+Hudební umění/Dirigování
+Hudebního umění / Interpretace a teorie interpretace
+Mezinárodní ekonomické vztahy/Obchodní a mezinárodní hospodářské právo
+Obecná zootechnika
+Regional and European Project Management/Regional and European Project Management
+Specializace v pedagogice/Mu-Přu
+Tělesná výchova a sport/Učitelství tělesné výchovy pro střední školy (jednooborové)
+Učitelství pro střední školy/Zn-OVan
+Učitelství pro základní školy/Učitelství pro 1. stupeň základních škol, Výtvarná výchova pro 1. stupeň ZŠ
+Učitelství pro základní školy/ČJ-FJ/ZŠ
+Učitelství pro základní školy/ČJn-NJn
+Zahradní a krajinářské úpravy
+Zahradní tvorba
+Aplikovaná informatika/Aplikovaná informatika - specializace Management informačních systémů
+Biologie/Experimentální biologie - specializace Fyziologie živočichů
+Chov koní
+Film, Television and Photography/Cinema and Digital Media
+Filologie/Anglický jazyk a německý jazyk pro hospodářskou a obchodní sféru
+Odpady a jejich využití
+Podnikání ve dřevozpracujícím a nábytkářském průmyslu
+Specializace v pedagogice/Hu-Zu
+Systémové inženýrství
+Učitelství pro základní školy/ŠJ-OV/ZŠ
+Veřejná správa a regionální rozvoj nav.- Hradec Králové
+Zemědělské inženýrství/Živočišné biotechnologie
+Aplikovaná informatika/Aplikovaná informatika - specializace Elektronické bankovnictví - od ak. roku 16/17 není možné studovat
+Biologie/Biologie ekosystémů - specializace Hydrobiologie
+Botanika/Botanika - specializace Algologie
+Chemie/Chemie
+Film, Television and Photography/Cinematography
+Specializace v pedagogice/Zu-TVu
+Technologická zařízení staveb
+Teorie a dějiny literatury/Dějiny novější české literatury
+Učitelství odborných předmětů
+Učitelství pro základní školy/Př-TV/ZŠ
+Učitelství pro základní školy/Tělesná výchova pro 1. stupeň ZŠ, Učitelství pro 1. stupeň základních škol
+Zootechnika/Zoohygiena a prevence chorob hospodářských zvířat
+Biofyzika/Biofyzika a zdravotnická technika
+Dřevařství
+Hudební umění / Trubka
+Hudební umění/Kontrabas
+Specializace v pedagogice/ČJu-HVu
+Učitelství pro střední školy/Český jazyk a literatura - dějepis
+Učitelství pro základní školy/F-VTE/ZŠ navazující
+Učitelství pro základní školy/Zn-Přn
+Výživa zvířat a dietetika
+Zemědělství/ZDTb-16 - specializace Zemědělská technika
+Biologie/Biologie ekosystémů - specializace Půdní biologie
+Dramatická umění/Alternativní a loutková tvorba a její teorie
+Filologie/Anglický jazyk a literatura - německý jazyk a literatura
+Finance a účetnictví/Teorie vyučování ekonomických předmětů
+Hospodářská politika a správa/Zdanění a daňová politika
+Informační a řídící technika v agropotravinářském komplexu
+Krajinné inženýrství
+Mezinárodní ekonomické vztahy/Komerční právo
+Taneční umění/Nonverbální divadlo
+Teorie filmové a multimediální tvorby / Teorie filmové a multimediální tvorby
+Učitelství pro základní školy/ČJn-VVn
+Zemědělské inženýrství/Zemědělské inženýrství - Fytotechnika
+Dramatická umění / Režie činoherního divadla
+Filmové, televizní a fotografické umění a nová média / Audiovizuální studia
+Filologie/Bohemistika - německý jazyk a literatura
+Filozofie/Filozofie a religionistika
+Hudební umění / Fagot
+Hudební umění / Kytara
+Hudební umění/Lesní roh
+Hudební umění/Zvuková tvorba
+Kvalita a zpracování zemědělských produktů
+Učitelství pro střední školy/M-Bi/SŠ
+Učitelství pro střední školy/M-TV/SŠ
+Učitelství pro základní školy/M-TVT/ZŠ
+Chemie/Zemědělská chemie
+Dramatická umění / Scénografie - kostým a maska
+Dramatická umění/Režie-dramaturgie alternativního a loutkového divadla
+Ekonomie a hospodářská správa/Hospodářské a politické dějiny
+Filologie/Španělský jazyk a literatura
+Finance and Accounting
+Finance and Accounting for Common Europe
+Hudební umění / Klarinet
+Hudební umění / Kontrabas
+Hudební umění / Zvuková tvorba
+Hudební umění/Bicí nástroje
+Hudební umění/Cembalo
+Hudební umění/Fagot
+Hudební umění/Kytara
+Specializace v pedagogice/AJu-Hu
+Specializace v pedagogice/TchVu-ITu
+Trvale udržitelný rozvoj tropů a subtropů
+Učitelství pro základní školy/AJn-OVn
+Učitelství pro základní školy/Z-AJ/ZŠ
+Zemědělství/Zemědělské biotechnologie - Živočišné
+Dramatická umění / Dramaturgie činoherního divadla
+Dramatická umění/Režie činoherního divadla
+Environmentální modelování
+Historické vědy/České dějiny
+Informační a řídicí technika v agropotravinářském komplexu
+Krajinářství
+Produkční zahradnictví
+Specializace v pedagogice/Mu-Fu
+Specializace v pedagogice/VKZu-AJu
+Učitelství pro základní školy/Mn-Zn
+Biologie/Biologie ekosystémů - specializace Biologie ochrany přírody
+Biologie/Biologie ekosystémů - specializace Ekologie
+Biologie/Biologie-Chemie
+Biologie/Experimentální biologie - specializace Fyziologie rostlin
+Business Administration
+Ekonomie a hospodářská správa/Ekonomická a regionální studia Latinské Ameriky
+Filologie/Anglický jazyk a literatura - Německý jazyk a literatura
+Filologie/Anglický jazyk a literatura - Španělský jazyk a literatura
+Hudební umění / Cembalo
+Hudební umění / Hudební teorie
+Hudební umění / Pozoun
+Hudební umění/Harfa
+Hudební umění/Pozoun
+Mechatronika/Mechatronika
+Učitelství pro základní školy/FJ-OV/ZŠ
+Učitelství pro základní školy/Mn-Inn
+Učitelství pro základní školy/VKZn-Přn
+Veřejná správa a regionální rozvoj nav.- Sez. Ústí - Tábor
+Zemědělská technika
+Aplikovaná informatika/Informační a znalostní inženýrství
+Applied Informatics/Bioinformatics
+Biologie/Učitelství biologie pro SŠ - Učitelství chemie pro SŠ
+Biotechnologie/Zemědělské biotechnologie
+Chovatelství
+Dramatická umění / Scénická tvorba a teorie scénické tvorby
+Dramatická umění / Scénografie - film a televize
+Dramatická umění/Autorské herectví a teorie autorské tvorby a pedagogiky
+Hudební umění/Tuba
+Jakost a spolehlivost strojů a zařízení
+Obecná teorie a dějiny umění a kultury/Dějiny a filozofie umění
+Psychologie/Pedagogická psychologie
+Pěstování lesa
+Specializace v pedagogice/AJu-Přu
+Specializace v pedagogice/TchVu-TVu
+Učitelství pro střední školy/Mn-OVan
+Učitelství pro střední školy/VVn-OVan
+Učitelství pro střední školy/Český jazyk a literatura - Dějepis
+Učitelství pro základní školy/AJ-OV/ZŠ
+Učitelství pro základní školy/M-F/ZŠ
+Učitelství pro základní školy/M-TV/ZŠ
+Učitelství pro základní školy/NŠ-ICT
+Učitelství pro základní školy/Učitelství pro 1. stupeň ZŠ - německý jazyk pro 1. stupeň ZŠ
+Učitelství pro základní školy/Zn-OVn
+Veřejná správa a regionální rozvoj nav.- Most
+Zemědělské inženýrství/Zemědělské inženýrství - Zpracování produktů
+Aplikovaná informatika/Znalostní a webové technologie
+Dramatická umění / Alternativní a loutková tvorba a její teorie
+Dramatická umění / Režie alternativního a loutkového divadla
+Dramatická umění/Teorie a praxe divadelní tvorby
+Ekologie
+Ekonomie a hospodářská správa/Ekonomická teorie
+Fyzika/Biofyzika
+Fyzika/Fyzika-Matematika
+Hudební umění / Harfa
+Hudební umění/Hudební teorie
+Informatics
+Matematické metody v ekonomii/Matematické modelování v ekonomii
+Reprodukční biotechnologie
+Rostlinolékařství
+Specializace v pedagogice/Mu-TchVu
+Teologie/Teologická antropologie a etika
+Tělesná výchova a sport/Přu-TVZu
+Učitelství pro střední školy/ČJ-L/SŠ
+Učitelství pro základní školy/Dn-Zn
+Učitelství pro základní školy/Mn-Přn
+Zemědělství/ZDTb-17 - specializace Dopravní a manipulační technika
+Aplikovaná a krajinná ekologie
+Biologie/Biologie-Tělesná výchova
+Dramatická umění/Dramaturgie činoherního divadla
+Dramatická umění/Scénografie - film a televize
+Ekonomické teorie/Obecná ekonomická teorie a dějiny ekonomických teorií
+Filologie/Anglická a americká literatura
+Filologie/Anglický jazyk a literatura - francouzský jazyk a literatura
+Filologie/Cizí jazyky pro evropský a mezinárodní obchod - francouzský jazyk
+Filologie/Cizí jazyky pro evropský a mezinárodní obchod - španělský jazyk
+Filologie/Francouzský jazyk a literatura
+Filologie/Historie - anglický jazyk a literatura
+Filologie/Český jazyk
+Fytotechnika/Ochrana rostlin
+Hospodářská politika a správa/Ekonomika a správa životního prostředí
+Hudební umění/Klavír - jazz
+Hudebního umění / Hudební teorie
+Hudebního umění / Skladba a teorie skladby
+Hudebního umění/Hudební teorie
+Hudebního umění/Skladba a teorie skladby
+Obecná produkce rostlinná
+Pěstování rostlin
+Specializace v pedagogice/Informační a komunikační technologie ve vzdělávání
+Speciální produkce rostlinná
+Sustainable Rural Development in TS
+Taneční umění / Nonverbální a komediální divadlo
+Udržitelný rozvoj biosféry
+Učitelství pro základní školy/AJn-Přn
+Učitelství pro základní školy/F-TVT/ZŠ
+Učitelství pro základní školy/Mn-Fyn
+Učitelství pro základní školy/NJn-OVn
+Veřejná správa a regionální rozvoj nav.- Klatovy
+Zemědělství/Zemědělské biotechnologie - Rostlinné
+Aplikovaná matematika/Aplikovaná matematika
+Botanika/Botanika - specializace Archeobotanika
+Dramatická umění/Dramaturgie alternativního a loutkového divadla
+Dramatická umění/Scénická tvorba a teorie scénické tvorby
+Ekonomie a hospodářská správa/Ekonomická a regionální studia Latinské Ameriky
+Filmové, televizní a fotografické umění a nová média / Teorie filmové a multimediální tvorby
+Filologie/Anglický jazyk a literatura - španělský jazyk a literatura
+Filologie/Historie - Anglický jazyk a literatura
+Filologie/Historie - Bohemistika
+Fyzika/Fyzikální měření a modelování
+Hospodářská politika a správa/Regionalistika - veřejná správa
+Hudební umění / Bicí nástroje
+Hudební umění / Lesní roh
+Hudební umění/Komorní hra
+Hudební umění/Operní režie
+Informační management
+Management
+Specializace v pedagogice/AJu-FJu
+Specializace v pedagogice/AJu-HVu
+Specializace v pedagogice/NJu-VKZu
+Teologie/Systematická teologie
+Učitelství pro střední školy/HVan-ČJn
+Učitelství pro střední školy/Učitelství náboženství a etiky, Pegadogika volného času
+Učitelství pro základní školy/F-VTE/ZŠ
+Učitelství pro základní školy/Hudební výchova pro 1. stupeň ZŠ, Učitelství pro 1. stupeň základních škol
+Učitelství pro základní školy/NŠ-TV-C, Základy speciální pedagogiky pro 1. stupeň ZŠ
+Učitelství pro základní školy/Učitelství pro 1. stupeň základních škol, Výtvarná výchova pro 1. stupeň ZŠ, Základy speciální pedagogiky pro 1. stupeň ZŠ
+Využití a ochrana přírodních zdrojů
+Zemědělské inženýrství/Zemědělské inženýrství - Rostlinolékařství
+Zoologie/Zoologie - specializace Etologie
+Animal and Food Sciences in Tropics and Subtropics
+Chemie/Chemie životního prostředí
+Chemie/Chemie-Matematika
+Ekologie a ochrana prostředí/Péče o životní prostředí
+Ekonomie a hospodářská správa/Hospodářské a politické dějiny 20. století 
+Filologie/Anglický jazyk a literatura - Francouzský jazyk a literatura
+Fyzika/Učitelství fyziky pro SŠ - Učitelství matematiky pro SŠ
+Hudební umění / Tuba
+Hudební umění/Saxofon - jazz
+Humanitní studia/Pastoračně sociální asistent; Pedagogika volného času
+International Development and Agricultural Economics
+Kvantitativní metody v ekonomice/Ekonometrie a operační výzkum
+Specializace v pedagogice/Migrace a interkulturní vztahy
+Specializace v pedagogice/Mu-Chu
+Specializace v pedagogice/Přu-TVu
+Speciální zootechnika
+Učitelství pro střední školy/F-VT/SŠ
+Učitelství pro základní školy/Hudební výchova pro 1. stupeň ZŠ, Učitelství pro 1. stupeň ZŠ - anglický jazyk pro 1. stupeň ZŠ
+Učitelství pro základní školy/Mn-TchVn
+Učitelství pro základní školy/Učitelství českého jazyka a literatury pro 2. stupeň ZŠ
+Učitelství pro základní školy/VV-D/ZŠ
+Učitelství pro základní školy/VV-OV/ZŠ, společný základ
+Učitelství pro základní školy/Z-FJ/ZŠ
+Učitelství pro základní školy/ČJ-VV/ZŠ, společný základ
+Učitelství pro základní školy/ČJ-ŠJ/ZŠ
+Veřejná správa a regionální rozvoj nav.- Litoměřice
+Zemědělství
+Zemědělství/Zemědělství - Zpracování produktů
+Zoologie/Zoologie - specializace Ochrana fauny
+Úpravy vodního režimu krajiny
+Dramatická umění/Scénografie - kostým a maska
+Filmové, televizní a fotografické umění a nová média/Restaurování fotografie
+Finance a účetnictví/Vzdělávání v ekonomických předmětech
+Hospodaření v zemědělství
+Hudební umění/Bicí nástroje - jazz
+Hudební umění/Hudební režie
+Kvalita produkce
+Rehabilitace/Rehabilitace
+Specializace v pedagogice/AJu-ŠJu
+Specializace v pedagogice/Mu-AJu
+Specializace v pedagogice/Přu-ČJu
+Sustainable Rural Development in the Tropics and Subtropics
+Taneční umění/Nonverbální a komediální divadlo
+Technika a technologie zpracování odpadů
+Tropical Crop Management and Ecology
+Tělesná výchova a sport/Přn-TVSn
+Učitelství pro střední školy/NJn-OVan
+Učitelství pro střední školy/Učitelství náboženství a etiky; Český jazyk a literatura
+Učitelství pro základní školy/Fyn-TchVn
+Učitelství pro základní školy/M-VT/ZŠ, Učitelství matematiky pro 2. stupeň ZŠ, společný základ
+Učitelství pro základní školy/ZT-TV/ZŠ, Učitelství tělesné výchovy pro 2. stupeň ZŠ, společný základ
+Veřejná správa a regionální rozvoj - k.s. Litoměřice
+Veřejná správa a regionální rozvoj nav.- Jičín
+Zemědělská a lesnická fytopatologie a ochrana rostlin
+Zemědělství/Biotechnologie využití biomasy
+Aplikovaná informatika/Aplikovaná informatika - specializace Embedded systémy
+Biologie/Biologie, Biomedicínská laboratorní technika
+Biologie/Biologie-Matematika
+Botanika/Botanika - specializace Mykologie
+Divadelní tvorba v netradičních prostorech/Performerství
+Dramatická umění / Autorské herectví a teorie autorské tvorby a pedagogiky
+Dramatická umění / Dramaturgie alternativního a loutkového divadla
+Ekonomie a hospodářská správa/Regionalistika - veřejná správa
+Filologie/Bohemistika - románská filologie: specializace francouzský jazyk
+Fyzika/Fyzika
+Fyzika/Učitelství fyziky pro střední školy
+Historické vědy/Historie - Archeologie
+Historické vědy/Historie - Archivnictví
+Historické vědy/Pomocné vědy historické
+Hudební umění / Hudební režie
+Hudební umění / Operní režie
+Humanitní studia/Kulturní studia
+Informatika/Informatika-Matematika
+Ochrana lesů a myslivost
+Podnikání a administrativa - k.s. Hradec Králové
+Specializace v pedagogice/Fu-ITu
+Specializace v pedagogice/Fu-TchVu
+Specializace v pedagogice/Hra na nástroj nebo zpěv se zaměřením na vzdělávání
+Specializace v pedagogice/Mu-TVu
+Specializace v pedagogice/NJu-Zu
+Tělesná výchova a sport/AJu-TVZu
+Tělesná výchova a sport/Zn-TVSn
+Udržitelné využívání přírodních zdrojů
+Učitelství pro střední školy/Anglický jazyk a literatura - Francouzský jazyk
+Učitelství pro střední školy/Učitelství hry na nástroj nebo zpěvu pro střední školy a základní umělecké školy
+Učitelství pro střední školy/Učitelství informatiky pro střední školy
+Učitelství pro základní školy/AJ-HV/ZŠ
+Učitelství pro základní školy/Informační a komunikační technologie, Učitelství pro 1. stupeň základních škol
+Učitelství pro základní školy/M-OV/ZŠ
+Učitelství pro základní školy/Mn-AJn
+Učitelství pro základní školy/Učitelství matematiky pro 2. stupeň ZŠ, Učitelství technické výchovy a výpočetní techniky pro 2. stupeň ZŠ, společný základ
+Učitelství pro základní školy/Učitelství pro 1. stupeň ZŠ - anglický jazyk pro 1. stupeň ZŠ, Výtvarná výchova pro 1. stupeň ZŠ
+Učitelství pro základní školy/VVn-OVn
+Učitelství pro základní školy/Zn-TVn
+Učitelství pro základní školy/ZUŠ (HVk)
+Wildlife Management in Tropics and Subtropics
+Aplikovaná a krajinná ekologie
+Biologie/Biologie-Anglický jazyk a literatura
+Biologie/Biologie-Psychologie
+Biologie/Infekční biologie
+Biologie/Učitelství biologie pro SŠ - Učitelství tělesné výchovy pro SŠ
+Chemie/Učitelství chemie pro střední školy - Učitelství matematiky pro střední školy
+Divadelní tvorba v netradičních prostorech/Režie - dramaturgie alternativního divadla
+Dramatická umění / Teorie a praxe divadelni tvorby
+Dramatická umění / Teorie a praxe divadelní tvorby
+Dramatická umění/Autorské herectví, jeho teorie a psychosomatika
+Ekonomické teorie/Ekonomie
+Energetika
+Filologie/Anglická a americká literatura - Španělský jazyk a literatura
+Filologie/Bohemistika - Německý jazyk a literatura
+Filologie/Ruský jazyk a německý jazyk pro hospodářskou a obchodní sféru
+Hospodářská politika a správa/Ekonomie
+Hospodářská politika a správa/Teorie vyučování ekonomických předmětů
+Hospodářská úprava lesa
+Hudebního umění/Hudební produkce
+Inženýrství údržby
+Kvantitativní metody v ekonomice/Ekonometrie a op. výzkum
+Mezinárodní ekonomické vztahy/Mezinárodní ekon. vztahy
+Produkční a okrasné zahradnictví
+Specializace v pedagogice/Mu-Hu
+Specializace v pedagogice/Mu-NJu
+Specializace v pedagogice/Mu-ČJu
+Specializace v pedagogice/NJu-HVu
+Specializace v pedagogice/NJu-Přu
+Specializace v pedagogice/Vzdělávání v biologii
+Taneční umění / Choreografie a teorie choreografie
+Taneční umění / Nonverbální a komediální divadlo a teorie divadla
+Tělesná výchova a sport/Zu-TVZu
+Učitelství pro střední školy/Dějepis - Francouzský jazyk
+Učitelství pro střední školy/NJ-L/SŠ
+Učitelství pro střední školy/Český jazyk a literatura - Anglický jazyk a literatura
+Učitelství pro střední školy/Český jazyk a literatura - Španělský jazyk
+Učitelství pro základní školy/AJn-Dn
+Učitelství pro základní školy/AJn-FJn
+Učitelství pro základní školy/Fyn-Inn
+Učitelství pro základní školy/M-Př/ZŠ
+Učitelství pro základní školy/Mn-Chn
+Učitelství pro základní školy/Mn-OVn
+Učitelství pro základní školy/NŠ-VV-C, Tělesná výchova pro 1. stupeň ZŠ
+Učitelství pro základní školy/TchVn-Inn
+Učitelství pro základní školy/Učitelství anglického jazyka pro 2. stupeň ZŠ
+Učitelství pro základní školy/Učitelství matematiky pro 2. stupeň ZŠ
+Učitelství pro základní školy/Učitelství pro 1. stupeň ZŠ - anglický jazyk pro 1. stupeň ZŠ, Základy speciální pedagogiky pro 1. stupeň ZŠ
+Učitelství pro základní školy/ŠJ-FJ/ZŠ
+Veřejná správa a regionální rozvoj nav.- Šumperk
+Zemědělská chemie
+Zemědělské inženýrství/Kvalita zemědělských produktů
+Zemědělství/Zemědělství - Rostlinolékařství
+Zpracování dřeva a technika v lesním hospodářství
+Řízení a ekonomika podniku
+Agricultural Specialization/Fishery and Protection of Waters
+Aplikovaná informatika/Aplikovaná informatika - specializace Bioinformatika - od ak. roku 16/17 není možné studovat
+Biologie/Biologie - specializace Antropologie
+Biologie/Experimentální biologie - specializace Molekulární a buněčná biologie a genetika
+Biologie/Učitelství biologie pro SŠ - Učitelství matematiky pro SŠ
+Ekologie a ochrana prostředí/Péče o životní prostředí -
+Ekonomika a management/
+Filologie/Anglický jazyk a literatura - italský jazyk a literatura
+Filologie/Bohemistika - Anglická a americká literatura
+Filologie/Bohemistika - archivnictví
+Filologie/Bohemistika - francouzský jazyk a literatura
+Filologie/Historie - francouzský jazyk a literatura
+Filologie/Historie - německý jazyk a literatura
+Filologie/Historie - románská filologie: specializace francouzský jazyk
+Filologie/Historie - Španělský jazyk a literatura
+Filologie/Historie - španělský jazyk a literatura
+Filologie/Románská filologie: specializace francouzský a italský jazyk
+Hudební umění/Kontrabas - jazz
+Humanitní studia/Kulturální studia
+Land and Water Management
+Marketing strojů a technických systémů
+Natural Resources and Environment
+Regionální a sociální rozvoj
+Sector Economics and Economics of Enterprise
+Specializace v pedagogice/Fu-Přu
+Specializace v pedagogice/HVu-Chu
+Specializace v pedagogice/Mu-HVu
+Specializace v pedagogice/Mu-VKZu
+Specializace v pedagogice/Přu-SVu
+Specializace v pedagogice/TchVu-AJu
+Specializace v pedagogice/TchVu-Hu
+Specializace v pedagogice/Teorie vzdělávání v matematice
+Taneční umění/Choreografie a teorie choreografie
+Technika výrobních procesů
+Tělesná výchova a sport/Mn-TVZn
+Tělesná výchova a sport/Mu-TVZu
+Tělesná výchova a sport/TchVn-TVSn
+Tělesná výchova a sport/TchVn-TVZn
+Tělesná výchova a sport/TVS2-PS2
+Tělesná výchova a sport/Zn-TVZn
+Učitelství pro střední školy/Anglický jazyk a literatura - Španělský jazyk
+Učitelství pro střední školy/Bi-TV/SŠ, Učitelství tělesné výchovy
+Učitelství pro střední školy/HVan-Chn
+Učitelství pro střední školy/NJn-HVan
+Učitelství pro střední školy/TV-VT/SŠ
+Učitelství pro střední školy/Český jazyk a literatura - Francouzský jazyk
+Učitelství pro základní školy/AJn-ŠJn
+Učitelství pro základní školy/M-OV/ZŠ, Učitelství matematiky pro 2. stupeň ZŠ, společný základ
+Učitelství pro základní školy/Mn-TVn
+Učitelství pro základní školy/NŠ-HV-C, Filosofie pro děti
+Učitelství pro základní školy/NŠ-ICT, Tělesná výchova pro 1. stupeň ZŠ
+Učitelství pro základní školy/NŠ-SPG, Tělesná výchova pro 1. stupeň ZŠ
+Učitelství pro základní školy/TV-TVT/ZŠ
+Učitelství pro základní školy/Tělesná výchova pro 1. stupeň ZŠ, Učitelství pro 1. stupeň základních škol, Základy speciální pedagogiky pro 1. stupeň ZŠ
+Učitelství pro základní školy/Tělesná výchova pro 1. stupeň ZŠ, Učitelství pro 1. stupeň ZŠ - anglický jazyk pro 1. stupeň ZŠ
+Učitelství pro základní školy/Učitelství občanské výchovy pro 2. stupeň ZŠ
+Učitelství pro základní školy/Učitelství tělesné výchovy pro 2. stupeň ZŠ, Učitelství zeměpisu pro 2. stupeň ZŠ, společný základ
+Učitelství pro základní školy/VKZn-AJn
+Veřejná správa a regionální rozvoj - k.s. Jičín
+Veřejná správa a regionální rozvoj - k.s. Klatovy
+Šlechtění zvířat
+Agriculture and Food
+Aplikovaná informatika/Information Systems Management
+Applied and Landscape Ecology
+Architektura/Architektura
+Biologie/Biologie ekosystémů - specializace Aplikovaná ekologie, Biologie ekosystémů - specializace Biologie ochrany přírody
+Biologie/Biologie ekosystémů - specializace Hydrobiologie, Biologie ekosystémů - specializace Půdní biologie
+Biologie/Biologie-Informatika
+Biologie/Učitelství biologie pro SŠ - Učitelství anglického jazyka a literatury pro SŠ
+Biologie/Učitelství biologie pro SŠ - Učitelství informatiky pro SŠ
+Biology/Parasitology
+Botanika/Botanika - specializace Systematika vyšších rostlin, Botanika - specializace Vegetační ekologie
+Botany/Botany
+Chemie/Biochemie
+Divadelní tvorba v netradičních prostorech/Scénografie alternativního divadla
+Economics and Management/Commerce and Entrepreneurship
+Ekologie a ochrana prostředí/Péče o životní prostředí, Péče o životní prostředí -
+Ekonomika a management/Ekonomika služeb a cestovního ruchu
+Ekonomika a management/Učitelství ekonomických předmětů pro střední školy
+Environmental Modelling
+European Agrarian Diplomacy
+Film, Television and Photography / Cinema and Digital Media
+Filologie/Anglická a americká literatura - Francouzský jazyk a literatura
+Filologie/Bohemistika - anglická a americká literatura
+Filologie/Bohemistika - Francouzský jazyk a literatura
+Filologie/Bohemistika - románská filologie: specializace italský jazyk
+Filologie/Bohemistika - španělský jazyk a literatura
+Filologie/Historie - Anglická a americká literatura
+Filologie/Historie - Německý jazyk a literatura
+Filologie/Německý jazyk a literatura - archivnictví
+Filologie/Překladatelství anglického jazyka - Překladatelství španělského jazyka
+Filologie/Románská filologie: specializace italský a španělský jazyk
+Filologie/Románské jazyky
+Filologie/Česko-německá areálová studia - Anglická a americká literatura
+Filozofie/Filozofie - Bohemistika
+Filozofie/Filozofie - Teologie
+Finance a účetnictví/Teorie vyuč. ek. předmětů
+Finance a účetnictví/Úč. a fin. říz. podniku
+Fyzika/Fyzika-Chemie
+Graphic Design
+Hodnocení a ochrana půdy
+Hospodářská politika a správa/Regionalistika-veř.správa
+Hudební umění/Kytara - jazz
+Hudebního umění/Zvuková tvorba
+Humanitní studia/Humanistika - Náboženské vědy (dvouoborové)
+Humanitní studia/Humanistika-Náboženské vědy (dvouobory)2012
+Informatika/Informatika-Archivnictví
+Informatika/Informatika-Tělesná výchova
+Information Management
+Krajinné a pozemkové úpravy
+Kvantitativní metody v ekonomice/Quantitative Economic Analysis
+Matematika/Matematika pro vzdělávání
+Matematika/Učitelství matematiky pro střední školy
+Matematika/Učitelství matematiky pro SŠ - Učitelství informatiky pro SŠ
+Mezinárodní ekonomické vztahy/Obch. a mez. hosp. právo
+Molecular and Cell Biology/Molecular and Cell Biology and Genetics
+Natural Resources Management and Ecological Engineering
+Ošetřovatelství/Ošetřovatelství ve vybraných klinických oborech
+Physiology and Immunology/Physiology and Developmental Biology
+Specializace v pedagogice/AJu-ITu
+Specializace v pedagogice/Fu-AJu
+Specializace v pedagogice/Fu-Chu
+Specializace v pedagogice/Fu-SVu
+Specializace v pedagogice/HVu-Přu
+Specializace v pedagogice/NJu-VVu
+Specializace v pedagogice/Přu-ITu
+Specializace v pedagogice/Přu-VVu
+Specializace v pedagogice/TchVu-NJu
+Specializace v pedagogice/TchVu-SVu
+Specializace v pedagogice/TchVu-VVu
+Specializace v pedagogice/TchVu-ČJu
+Specializace v pedagogice/ČJu-ŠJu
+Specializace v pedagogice/ŠJu-ITu
+Taneční umění/Nonverbální a komediální divadlo a teorie divadla
+Technika a mechanizace v lesním hospodářství
+Technika zemědělských technologických systémů
+Technology and Environmental Engineering
+Teologie/Teologie - Humanistika
+Tělesná výchova a sport/Inn-TVSn
+Tělesná výchova a sport/Přn-TVZn
+Tělesná výchova a sport/TchVu-TVZu
+Tělesná výchova a sport/TVZu-SVu
+Učitelství pro střední školy/Fyn-OVan
+Učitelství pro střední školy/HVan-AJn
+Učitelství pro střední školy/HVan-Man
+Učitelství pro střední školy/HVan-Mn
+Učitelství pro střední školy/HVan-Přn
+Učitelství pro střední školy/M-Ch/SŠ
+Učitelství pro střední školy/M-TV/SŠ, Učitelství tělesné výchovy
+Učitelství pro střední školy/NJ-CH/SŠ
+Učitelství pro střední školy/TchVn-OVan
+Učitelství pro střední školy/TVn-PSYCHn
+Učitelství pro střední školy/Český jazyk a literatura - anglický jazyk a literatura
+Učitelství pro střední školy/Český jazyk a literatura - francouzský jazyk
+Učitelství pro základní školy/F-VTE/ZŠ, F-Ch/ZŠ
+Učitelství pro základní školy/FJ-NJ/ZŠ
+Učitelství pro základní školy/FJ-TV/ZŠ
+Učitelství pro základní školy/Fyn-Chn
+Učitelství pro základní školy/Fyn-Přn
+Učitelství pro základní školy/Hudební výchova pro 1. stupeň ZŠ, Učitelství pro 1. stupeň základních škol, Výtvarná výchova pro 1. stupeň ZŠ
+Učitelství pro základní školy/Hudební výchova pro 1. stupeň ZŠ, Učitelství pro 1. stupeň základních škol, Základy speciální pedagogiky pro 1. stupeň ZŠ
+Učitelství pro základní školy/Hudební výchova pro 1. stupeň ZŠ, Učitelství pro 1. stupeň ZŠ - německý jazyk pro 1. stupeň ZŠ
+Učitelství pro základní školy/Informační a komunikační technologie - certifikát, Tělesná výchova pro 1. stupeň ZŠ, Učitelství pro 1. stupeň ZŠ - anglický jazyk pro 1. stupeň ZŠ
+Učitelství pro základní školy/Informační a komunikační technologie - certifikát, Učitelství pro 1. stupeň základních škol
+Učitelství pro základní školy/Informační a komunikační technologie - certifikát, Učitelství pro 1. stupeň ZŠ - anglický jazyk pro 1. stupeň ZŠ
+Učitelství pro základní školy/Informační a komunikační technologie - certifikát, Učitelství pro 1. stupeň ZŠ - anglický jazyk pro 1. stupeň ZŠ, Základy speciální pedagogiky pro 1. stupeň ZŠ
+Učitelství pro základní školy/Mn-Dn
+Učitelství pro základní školy/Mn-NJn
+Učitelství pro základní školy/Mn-VKZn
+Učitelství pro základní školy/Mn-ČJn
+Učitelství pro základní školy/NJ-HV/ZŠ
+Učitelství pro základní školy/NJn-HVn
+Učitelství pro základní školy/NJn-Přn
+Učitelství pro základní školy/NJn-Zn
+Učitelství pro základní školy/NŠ-FIL
+Učitelství pro základní školy/NŠ-HV-C, Tělesná výchova pro 1. stupeň ZŠ
+Učitelství pro základní školy/NŠ-ICT, Základy speciální pedagogiky pro 1. stupeň ZŠ
+Učitelství pro základní školy/NŠ-VV-C, Základy speciální pedagogiky pro 1. stupeň ZŠ
+Učitelství pro základní školy/Přn-Inn
+Učitelství pro základní školy/Přn-TVn
+Učitelství pro základní školy/Přn-ČJn
+Učitelství pro základní školy/TchVn-AJn
+Učitelství pro základní školy/TchVn-Dn
+Učitelství pro základní školy/TV-Z/ZŠ
+Učitelství pro základní školy/Tělesná výchova pro 1. stupeň ZŠ, Učitelství pro 1. stupeň ZŠ - německý jazyk pro 1. stupeň ZŠ
+Učitelství pro základní školy/Učitelství anglického jazyka pro 2. stupeň ZŠ, Učitelství německého jazyka pro 2. stupeň ZŠ, společný základ
+Učitelství pro základní školy/Učitelství francouzského jazyka pro 2. stupeň ZŠ, Učitelství občanské výchovy pro 2. stupeň ZŠ, společný základ
+Učitelství pro základní školy/Učitelství fyziky pro 2. stupeň základních škol
+Učitelství pro základní školy/Učitelství matematiky pro 2. stupeň ZŠ, Učitelství tělesné výchovy pro 2. stupeň ZŠ, společný základ
+Učitelství pro základní školy/Učitelství matematiky pro 2. stupeň ZŠ, Učitelství zeměpisu pro 2. stupeň ZŠ, společný základ
+Učitelství pro základní školy/Učitelství pro 1. stupeň ZŠ - německý jazyk pro 1. stupeň ZŠ, Základy speciální pedagogiky pro 1. stupeň ZŠ
+Učitelství pro základní školy/Učitelství přírodopisu pro 2. stupeň základních škol
+Učitelství pro základní školy/Učitelství výchovy ke zdraví pro 2. stupeň základních škol
+Učitelství pro základní školy/Učitelství výtvarné výchovy pro 2. stupeň ZŠ
+Učitelství pro základní školy/VKZn-VVn
+Učitelství pro základní školy/výchova ke zdraví
+Učitelství pro základní školy/ZT-VT/ZŠ, společný základ
+Učitelství pro základní školy/ZUŠ (HVi)
+Učitelství pro základní školy/ZUŠ (HVZ)
+Učitelství pro základní školy/ČJn-In
+Učitelství pro základní školy/ČJn-ŠJn
+Učitelství pro základní školy/ŠJ-VV/ZŠ
+Učitelství pro základní školy/ŠJ-Z/ZŠ
+Učitelství pro základní školy/ŠJn-Inn
+Veřejná správa a regionální rozvoj - k.s. Šumperk
+Zoologie/Ekologie a etologie obratlovců
+Zoologie/Zoologie - specializace Archeozoologie
+Zoologie/Zoologie - specializace Tropická ekologie
+Zootechnics/Aquaculture
+
