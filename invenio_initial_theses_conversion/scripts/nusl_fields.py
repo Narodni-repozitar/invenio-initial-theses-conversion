@@ -1,5 +1,6 @@
 import functools
 import os
+import pprint
 from difflib import get_close_matches
 
 from invenio_nusl_theses.marshmallow.json import import_csv
@@ -45,5 +46,5 @@ def refactor_fields():
 
 
 if __name__ == '__main__':
-    print(refactor_fields()[2])
-    print(len(refactor_fields()[2]))
+    print(refactor_fields()[0])
+    print(len(refactor_fields()[0]))

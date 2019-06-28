@@ -27,7 +27,7 @@ from invenio_initial_theses_conversion.taxonomies.nusl_collections import instit
 from invenio_nusl_theses.marshmallow.json import ThesisMetadataSchemaV1
 
 ERROR_DIR = "/tmp/import-nusl-theses"
-IGNORED_ERROR_FIELDS = {"title", "dateAccepted",  "language", "degreeGrantor"} #"subject", "studyField", "studyProgramme",
+IGNORED_ERROR_FIELDS = {"title", "dateAccepted",  "language", "degreeGrantor", "subject", "studyField"}  #"studyProgramme",
 LANGUAGE_EXCEPTIONS = {"scc": "srp", "scr": "hrv"}
 
 
