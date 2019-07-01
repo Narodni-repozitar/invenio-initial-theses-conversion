@@ -24,10 +24,12 @@ from marshmallow import ValidationError
 
 from invenio_initial_theses_conversion.rules.model import old_nusl
 from invenio_initial_theses_conversion.taxonomies.nusl_collections import institution_taxonomy
-from invenio_nusl_theses.marshmallow.json import ThesisMetadataSchemaV1
+from invenio_nusl_theses.marshmallow.json import ThesisMetadataSchemaV1, ThesisMetadataStagingSchemaV1
+from invenio_nusl_theses.proxies import nusl_theses
 
 ERROR_DIR = "/tmp/import-nusl-theses"
-IGNORED_ERROR_FIELDS = {"title", "dateAccepted",  "language", "degreeGrantor", "subject", "studyField"}  #"studyProgramme",
+IGNORED_ERROR_FIELDS = {"title", "dateAccepted", "language", "degreeGrantor", "subject",
+                        "studyField"}  # "studyProgramme",
 LANGUAGE_EXCEPTIONS = {"scc": "srp", "scr": "hrv"}
 
 
@@ -146,10 +148,9 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                 transformed = old_nusl.do(create_record(data))
                 transformed = fix_grantor(transformed)
                 ch.setTransformedRecord(transformed)
-                schema = ThesisMetadataSchemaV1(strict=True)
+                staging_schema = ThesisMetadataStagingSchemaV1(strict=True)
                 try:
-                    marshmallowed = schema.load(transformed).data
-                    marshmallowed = schema.dump(marshmallowed).data
+                    marshmallowed = nusl_theses.validate(staging_schema, transformed, "https://nusl.cz/schemas/invenio_nusl_theses/nusl-theses-staging-v1.0.0.json")
                 except ValidationError as e:
                     for field in e.field_names:
                         error_counts[field] += 1
@@ -158,10 +159,7 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                         raise
                     continue
 
-                _records_state.validate(marshmallowed,
-                                        "https://nusl.cz/schemas/invenio_nusl_theses/nusl-theses-v1.0.0.json")
-
-                # TODO: import to invenio
+                nusl_theses.import_record(marshmallowed)
             except Exception as e:
                 logging.exception('Error in transformation')
                 if break_on_error:
@@ -178,6 +176,8 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                 print(error, file=f)
                 print(" ".join([str(recid) for recid in recids]), file=f)
                 print(" ", file=f)
+
+
 
 
 def fix_language(datafield, tag, ind1, ind2, code):
