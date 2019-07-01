@@ -8,6 +8,7 @@ from invenio_nusl_theses.marshmallow.json import import_csv
 DIR = os.path.dirname(__file__)
 path = DIR + "/data/obory.txt"
 matrika_fields = set(import_csv("field.csv", 1, 2)[0][1:])
+matrika_programme = set(import_csv("programme.csv", 1, 2)[0][1:])
 
 with open(path) as fp:
     fields = list(fp)
@@ -29,13 +30,23 @@ def nusl_prg_fields(fields):
 
 
 @functools.lru_cache()
-def refactor_fields():
-    nusl_fields = nusl_prg_fields(fields)[1] - matrika_fields
+def refactor_data(nusl_data, matrika_data):
+    """
+    Compare original data with controlled dictionary. If found data that does not match with dictionary, trying to find
+    similar data in dictionary.
+    :param nusl_data: Set of NUSL data for comparing
+    :param matrika_data: Set of matrika data for comparing
+    :return: return list of 3 sets,
+     1. set returns data without proposal,
+      2. set returns data with more proposals,
+       3. set returns data with only one proposal
+     """
+    nusl_fields = nusl_data - matrika_data
     ref_dict = {}
     decide_dict = {}
     no_match = []
     for field in nusl_fields:
-        option = get_close_matches(field, list(matrika_fields))
+        option = get_close_matches(field, list(matrika_data))
         if len(option) == 0:
             no_match.append(field)
         if len(option) == 1:
@@ -46,5 +57,9 @@ def refactor_fields():
 
 
 if __name__ == '__main__':
-    print(refactor_fields()[0])
-    print(len(refactor_fields()[0]))
+    print(refactor_data(frozenset(nusl_prg_fields(fields)[0]), frozenset(matrika_programme))[0])
+    print(len(refactor_data(frozenset(nusl_prg_fields(fields)[0]), frozenset(matrika_programme))[0]))
+    print(refactor_data(frozenset(nusl_prg_fields(fields)[0]), frozenset(matrika_programme))[1])
+    print(len(refactor_data(frozenset(nusl_prg_fields(fields)[0]), frozenset(matrika_programme))[1]))
+    print(refactor_data(frozenset(nusl_prg_fields(fields)[0]), frozenset(matrika_programme))[2])
+    print(len(refactor_data(frozenset(nusl_prg_fields(fields)[0]), frozenset(matrika_programme))[2]))
