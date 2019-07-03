@@ -28,8 +28,7 @@ from invenio_nusl_theses.marshmallow.json import ThesisMetadataSchemaV1, ThesisM
 from invenio_nusl_theses.proxies import nusl_theses
 
 ERROR_DIR = "/tmp/import-nusl-theses"
-IGNORED_ERROR_FIELDS = {"title", "dateAccepted", "language", "degreeGrantor", "subject",
-                        "studyField"}  # "studyProgramme",
+IGNORED_ERROR_FIELDS = {"title", "dateAccepted", "language", "degreeGrantor", "subject"}  # "studyProgramme", "studyField"
 LANGUAGE_EXCEPTIONS = {"scc": "srp", "scr": "hrv"}
 
 
