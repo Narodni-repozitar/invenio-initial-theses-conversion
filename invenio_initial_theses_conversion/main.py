@@ -25,12 +25,13 @@ from marshmallow import ValidationError
 from invenio_initial_theses_conversion.rules.model import old_nusl
 from invenio_initial_theses_conversion.taxonomies.nusl_collections import institution_taxonomy
 from invenio_nusl_theses.config import THESES_STAGING_JSON_SCHEMA
+from invenio_nusl_theses.marshmallow.data.fields_dict import FIELDS
 from invenio_nusl_theses.marshmallow.json import ThesisMetadataSchemaV1, ThesisMetadataStagingSchemaV1
 from invenio_nusl_theses.proxies import nusl_theses
 
 ERROR_DIR = "/tmp/import-nusl-theses"
-IGNORED_ERROR_FIELDS = {}#{"title", "dateAccepted", "language", "degreeGrantor",
-                        #"subject"}  # "studyProgramme", "studyField"
+IGNORED_ERROR_FIELDS = {"title", "dateAccepted", "language", "degreeGrantor",
+                        "subject"}  # "studyProgramme", "studyField"
 LANGUAGE_EXCEPTIONS = {"scc": "srp", "scr": "hrv"}
 
 
@@ -148,6 +149,7 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                     fix_language(datafield, "540", " ", " ", "9")
                 transformed = old_nusl.do(create_record(data))
                 transformed = fix_grantor(transformed)
+                transformed = fix_field(transformed)
                 ch.setTransformedRecord(transformed)
                 staging_schema = ThesisMetadataStagingSchemaV1(strict=True,
                                                                context={"staging": True})
@@ -180,6 +182,19 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                 print(error, file=f)
                 print(" ".join([str(recid) for recid in recids]), file=f)
                 print(" ", file=f)
+
+
+def fix_field(data):
+    if "studyField" in data:
+        name = data["studyField"]["name"]
+        name = FIELDS.get(name, name)
+        if isinstance(name, str):
+            name = [name]
+        studyField = []
+        for n in name:
+            studyField.append({"name": n})
+        data["studyField"] = studyField
+    return data
 
 
 def fix_language(datafield, tag, ind1, ind2, code):
