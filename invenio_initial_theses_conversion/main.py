@@ -128,7 +128,7 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                 return
 
             processed_ids.add(recid)
-
+            marshmallowed = None
             try:
                 rec = create_record(data)
                 if rec.get('980__') and rec['980__'].get('a') not in (
@@ -168,6 +168,7 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                 nusl_theses.import_record(marshmallowed)
             except Exception as e:
                 logging.exception('Error in transformation')
+                logging.error('data %s', marshmallowed)
                 if break_on_error:
                     raise
 
