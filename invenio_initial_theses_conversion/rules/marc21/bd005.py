@@ -8,5 +8,5 @@ from re import match
 def modified(self, key, value):
     """modified"""
     assert isinstance(value, str)
-    date_time = f"{value[0:4]}-{value[4:6]}-{value[6:8]}T{value[8:10]}:{value[10:12]}:{value[12:14]}+00:00"
+    date_time = f"{value[0:4]}-{value[4:6]}-{value[6:8]}T{value[8:10]}:{value[10:12]}:{value[12:14]}"
     return date_time
