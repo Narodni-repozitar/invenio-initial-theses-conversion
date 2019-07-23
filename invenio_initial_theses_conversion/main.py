@@ -13,21 +13,21 @@ from collections import Counter, defaultdict
 from io import BytesIO, RawIOBase, BufferedReader
 from logging import StreamHandler
 from xml.etree import ElementTree
-from invenio_records.api import _records_state
-from flask import cli
 
 import click
 import requests
 from dojson.contrib.marc21.utils import split_stream, create_record
-import jsonschema
+from flask import cli
 from marshmallow import ValidationError
 
 from invenio_initial_theses_conversion.rules.model import old_nusl
-from invenio_initial_theses_conversion.taxonomies.nusl_collections import institution_taxonomy
 from invenio_nusl_theses.config import THESES_STAGING_JSON_SCHEMA
 from invenio_nusl_theses.marshmallow.data.fields_dict import FIELDS
-from invenio_nusl_theses.marshmallow.json import ThesisMetadataSchemaV1, ThesisMetadataStagingSchemaV1
+from invenio_nusl_theses.marshmallow.json import ThesisMetadataStagingSchemaV1
 from invenio_nusl_theses.proxies import nusl_theses
+
+# logging.basicConfig()
+# logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO) #logování SQLAlchemy
 
 ERROR_DIR = "/tmp/import-nusl-theses"
 IGNORED_ERROR_FIELDS = {"title", "dateAccepted", "language", "degreeGrantor",
