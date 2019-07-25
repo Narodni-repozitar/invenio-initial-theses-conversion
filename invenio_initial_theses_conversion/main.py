@@ -140,7 +140,7 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                 ):
                     continue
 
-                transformed = old_nusl.do(rec)
+                transformed = old_nusl.do(rec) # PŘEVOD XML DO JSON - RULES
                 ch.setTransformedRecord(transformed)
 
                 for datafield in data:
