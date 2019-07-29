@@ -12,16 +12,11 @@ from ..model import old_nusl
 def provider(self, key, value):
     data = value.get('a')
     tax = Taxonomy.get("provider", required=True)
-    try:
-        provider = tax.descendants.filter(
-            TaxonomyTerm.slug == data).one()  # viz: https://stackoverflow.com/questions/29974143/python-sqlalchemy-and-postgres-how-to-query-a-json-element
-        result = {
-            "$ref": provider.tree_path
-        }
-    except NoResultFound:
-        result = {
-
-        }
+    provider = tax.descendants.filter(
+        TaxonomyTerm.slug == data).one()  # viz: https://stackoverflow.com/questions/29974143/python-sqlalchemy-and-postgres-how-to-query-a-json-element
+    result = {
+        "$ref": provider.tree_path #TODO: měl by být link_self
+    }
 
     return result
 
