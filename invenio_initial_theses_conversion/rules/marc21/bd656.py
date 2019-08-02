@@ -28,11 +28,11 @@ def studyProgramme_Field(self, key, value):
             }
         }
 
-    studyProgramme, studyField = study.split("/", 1)
-    studyField = studyField.strip()
-    studyProgramme = studyProgramme.strip()
-
-    return {
-        "studyProgramme": {"name": studyProgramme},
-        "studyField": {"name": studyField}
-    }
+    # studyProgramme, studyField = study.split("/", 1)
+    # studyField = studyField.strip()
+    # studyProgramme = studyProgramme.strip()
+    #
+    # return {
+    #     "studyProgramme": {"name": studyProgramme},
+    #     "studyField": {"name": studyField}
+    # }
