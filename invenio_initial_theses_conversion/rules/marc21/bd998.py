@@ -2,6 +2,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from flask_taxonomies.models import Taxonomy, TaxonomyTerm
 from invenio_initial_theses_conversion.nusl_overdo import single_value, handled_values, merge_results
+from invenio_initial_theses_conversion.scripts.link import link_self
 from invenio_initial_theses_conversion.taxonomies.nusl_collections import institution_taxonomy
 from ..model import old_nusl
 
@@ -15,7 +16,7 @@ def provider(self, key, value):
     provider = tax.descendants.filter(
         TaxonomyTerm.slug == data).one()  # viz: https://stackoverflow.com/questions/29974143/python-sqlalchemy-and-postgres-how-to-query-a-json-element
     result = {
-        "$ref": provider.tree_path #TODO: měl by být link_self
+        "$ref": link_self(provider) #TODO: měl by být link_self
     }
 
     return result

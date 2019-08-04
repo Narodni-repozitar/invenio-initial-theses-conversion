@@ -39,8 +39,8 @@ class StudyFieldsTaxonomy(object):
         matched_codes = self.degree(codes, doc_type=doc_type)
         matched_codes, matched_fields = self.grantor(matched_codes, grantor=grantor)
         return {
-            "studyfield": matched_codes[0],
-            "studyprogramme": matched_fields[0]["programme"]["code"]
+            "studyfield": matched_codes,
+            "studyprogramme": [field["programme"]["code"] for field in matched_fields]
         }
 
     def grantor(self, codes, grantor=None):
@@ -50,11 +50,13 @@ class StudyFieldsTaxonomy(object):
         matched_codes = []
         matched_fields = []
         for code in codes:
-            fields = [field for field in studyfields[code] if
-                      field["language"] == "Česky" and field["university"] == grantor]
+            fields = [field for field in studyfields.get(code, {}) if
+                      field["language"] == "Česky" and field["university"].lower() == grantor]
             if len(fields) != 0:
                 matched_codes.append(code)
                 matched_fields.append(fields[0])
+        if len(matched_codes) == 0:
+            return codes
         return matched_codes, matched_fields
 
     def degree(self, codes, doc_type=None):
@@ -67,6 +69,3 @@ class StudyFieldsTaxonomy(object):
         }
         match_codes = {code for code in codes if degree_dict[code[4]] == doc_type}
         return match_codes
-
-
-

@@ -149,7 +149,7 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                     fix_language(datafield, "540", " ", " ", "9")
                 transformed = old_nusl.do(create_record(data))
                 transformed = fix_grantor(transformed)
-                transformed = fix_field(transformed)
+                # transformed = fix_field(transformed) #TODO: odstranit
                 ch.setTransformedRecord(transformed)
                 staging_schema = ThesisMetadataStagingSchemaV1(strict=True,
                                                                context={"staging": True})
