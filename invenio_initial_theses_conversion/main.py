@@ -9,10 +9,11 @@ import shutil
 import sys
 import traceback
 import uuid
-from collections import Counter, defaultdict
+from collections import Counter, defaultdict, OrderedDict
 from io import BytesIO, RawIOBase, BufferedReader
 from logging import StreamHandler
 from xml.etree import ElementTree
+from dojson.utils import GroupableOrderedDict
 
 import click
 import requests
@@ -130,7 +131,13 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
             processed_ids.add(recid)
             marshmallowed = None
             try:
+                for datafield in data:
+                    fix_language(datafield, "041", "0", "7", "a")
+                    fix_language(datafield, "520", " ", " ", "9")
+                    fix_language(datafield, "540", " ", " ", "9")
+
                 rec = create_record(data)
+                rec = fix_grantor(rec)
                 if rec.get('980__') and rec['980__'].get('a') not in (
                         'bakalarske_prace',
                         'diplomove_prace',
@@ -143,11 +150,7 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                 transformed = old_nusl.do(rec)  # PŘEVOD XML DO JSON - RULES
                 ch.setTransformedRecord(transformed)
 
-                for datafield in data:
-                    fix_language(datafield, "041", "0", "7", "a")
-                    fix_language(datafield, "520", " ", " ", "9")
-                    fix_language(datafield, "540", " ", " ", "9")
-                transformed = old_nusl.do(create_record(data))
+                # transformed = old_nusl.do(create_record(data))
                 transformed = fix_grantor(transformed)
                 # transformed = fix_field(transformed) #TODO: odstranit
                 ch.setTransformedRecord(transformed)
@@ -185,17 +188,19 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                 print(" ", file=f)
 
 
-def fix_field(data):
-    if "studyField" in data:
-        name = data["studyField"]["name"]
-        name = FIELDS.get(name, name)
-        if isinstance(name, str):
-            name = [name]
-        studyField = []
-        for n in name:
-            studyField.append({"name": n})
-        data["studyField"] = studyField
-    return data
+# TODO: odstranit
+
+# def fix_field(data):
+#     if "studyField" in data:
+#         name = data["studyField"]["name"]
+#         name = FIELDS.get(name, name)
+#         if isinstance(name, str):
+#             name = [name]
+#         studyField = []
+#         for n in name:
+#             studyField.append({"name": n})
+#         data["studyField"] = studyField
+#     return data
 
 
 def fix_language(datafield, tag, ind1, ind2, code):
@@ -206,60 +211,127 @@ def fix_language(datafield, tag, ind1, ind2, code):
 
 
 def fix_grantor(data):
-    if ("degreeGrantor" not in data) or (data.get("degreeGrantor") is None):
-        if data["provider"] == "vutbr":
-            data["degreeGrantor"] = [
-                {
-                    "university": {
-                        "name": [
-                            {
-                                "name": "Vysoké učení technické v Brně",
-                                "lang": "cze"
-                            }
-                        ]
+    if "502__" in data:
+        value = data["502__"]
+        parsed_grantor = [value.get("c")]
+        if "," in value.get("c"):
+            parsed_grantor = [x.strip() for x in value.get("c").split(",", maxsplit=2) if x.strip()]
+        if "." in value.get("c"):
+            parsed_grantor = [x.strip() for x in value.get("c").split(".", maxsplit=2) if x.strip()]
+
+        if parsed_grantor:
+            data = dict(data)
+            if "7102_" not in data:
+                data["7102_"] = [
+                    {
+                        "a": parsed_grantor[0],
+                        "9": "cze"
                     }
+                ]
+                if len(parsed_grantor) > 1:
+                    data["7102_"][0].update(
+                        {
+                            "g": parsed_grantor[1]
+                        }
+                    )
+                    if len(parsed_grantor) > 2:
+                        data["7102_"][0].update(
+                            {
+                                "b": parsed_grantor[2]
+                            }
+                        )
+                data["7102_"] = tuple(data["7102_"])
+            del data["502__"]
+            return GroupableOrderedDict(OrderedDict(data))
+
+    if ("502__" not in data) and ("7102_" not in data) and ("998__" in data):
+        data = dict(data)
+        if data["998__"]["a"] == "vutbr":
+            data["7102_"] = [
+                {
+                    "a": "Vysoké učení technické v Brně",
+                    "9": "cze"
                 }
             ]
-        if data["provider"] == "ceska_zemedelska_univerzita":
-            data["degreeGrantor"] = [
+        if data["998__"]["a"] == "ceska_zemedelska_univerzita":
+            data["7102_"] = [
                 {
-                    "university": {
-                        "name": [
-                            {
-                                "name": "Česká zemědělská univerzita v Praze",
-                                "lang": "cze"
-                            }
-                        ]
-                    }
+                    "a": "Česká zemědělská univerzita v Praze",
+                    "9": "cze"
                 }
             ]
-        if data["provider"] == "jihoceska_univerzita_v_ceskych_budejovicich":
-            data["degreeGrantor"] = [
+        if data["998__"]["a"] == "jihoceska_univerzita_v_ceskych_budejovicich":
+            data["7102_"] = [
                 {
-                    "university": {
-                        "name": [
-                            {
-                                "name": "Jihočeská univerzita v Českých Budějovicích",
-                                "lang": "cze"
-                            }
-                        ]
-                    }
+                    "a": "Jihočeská univerzita v Českých Budějovicích",
+                    "9": "cze"
                 }
             ]
-        if data["provider"] == "mendelova_univerzita_v_brne":
-            data["degreeGrantor"] = [
+        if data["998__"]["a"] == "mendelova_univerzita_v_brne":
+            data["7102_"] = [
                 {
-                    "university": {
-                        "name": [
-                            {
-                                "name": "Mendelova univerzita v Brně",
-                                "lang": "cze"
-                            }
-                        ]
-                    }
+                    "a": "Mendelova univerzita v Brně",
+                    "9": "cze"
                 }
             ]
-    return data
+        data["7102_"] = tuple(data["7102_"])
+
+        return GroupableOrderedDict(OrderedDict(data))
+
+    # if ("degreeGrantor" not in data) or (data.get("degreeGrantor") is None):
+    #     if data["provider"] == "vutbr":
+    #         data["degreeGrantor"] = [
+    #             {
+    #                 "university": {
+    #                     "name": [
+    #                         {
+    #                             "name": "Vysoké učení technické v Brně",
+    #                             "lang": "cze"
+    #                         }
+    #                     ]
+    #                 }
+    #             }
+    #         ]
+    #     if data["provider"] == "ceska_zemedelska_univerzita":
+    #         data["degreeGrantor"] = [
+    #             {
+    #                 "university": {
+    #                     "name": [
+    #                         {
+    #                             "name": "Česká zemědělská univerzita v Praze",
+    #                             "lang": "cze"
+    #                         }
+    #                     ]
+    #                 }
+    #             }
+    #         ]
+    #     if data["provider"] == "jihoceska_univerzita_v_ceskych_budejovicich":
+    #         data["degreeGrantor"] = [
+    #             {
+    #                 "university": {
+    #                     "name": [
+    #                         {
+    #                             "name": "Jihočeská univerzita v Českých Budějovicích",
+    #                             "lang": "cze"
+    #                         }
+    #                     ]
+    #                 }
+    #             }
+    #         ]
+    #     if data["provider"] == "mendelova_univerzita_v_brne":
+    #         data["degreeGrantor"] = [
+    #             {
+    #                 "university": {
+    #                     "name": [
+    #                         {
+    #                             "name": "Mendelova univerzita v Brně",
+    #                             "lang": "cze"
+    #                         }
+    #                     ]
+    #                 }
+    #             }
+    #         ]
+    # return data
 
 
 def session():
