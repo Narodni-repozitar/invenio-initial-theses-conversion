@@ -211,41 +211,44 @@ def fix_language(datafield, tag, ind1, ind2, code):
 
 
 def fix_grantor(data):
+    data = dict(data)
     if "502__" in data:
-        value = data["502__"]
-        parsed_grantor = [value.get("c")]
-        if "," in value.get("c"):
-            parsed_grantor = [x.strip() for x in value.get("c").split(",", maxsplit=2) if x.strip()]
-        if "." in value.get("c"):
-            parsed_grantor = [x.strip() for x in value.get("c").split(".", maxsplit=2) if x.strip()]
+        value = data.get("502__")
+        parsed_grantor = value.get("c")
+        if parsed_grantor is not None:
+            if "," in value.get("c"):
+                parsed_grantor = [x.strip() for x in value.get("c").split(",", maxsplit=2) if x.strip()]
+            elif "." in value.get("c"):
+                parsed_grantor = [x.strip() for x in value.get("c").split(".", maxsplit=2) if x.strip()]
+            else:
+                parsed_grantor = [parsed_grantor]
 
-        if parsed_grantor:
-            data = dict(data)
-            if "7102_" not in data:
-                data["7102_"] = [
-                    {
-                        "a": parsed_grantor[0],
-                        "9": "cze"
-                    }
-                ]
-                if len(parsed_grantor) > 1:
-                    data["7102_"][0].update(
+            if parsed_grantor:
+                if "7102_" not in data:
+                    data["7102_"] = [
                         {
-                            "g": parsed_grantor[1]
+                            "a": parsed_grantor[0],
+                            "9": "cze"
                         }
-                    )
-                    if len(parsed_grantor) > 2:
+                    ]
+                    if len(parsed_grantor) > 1:
                         data["7102_"][0].update(
                             {
-                                "b": parsed_grantor[2]
+                                "g": parsed_grantor[1]
                             }
                         )
-                data["7102_"] = tuple(data["7102_"])
-            del data["502__"]
-            return GroupableOrderedDict(OrderedDict(data))
+                        if len(parsed_grantor) > 2:
+                            data["7102_"][0].update(
+                                {
+                                    "b": parsed_grantor[2]
+                                }
+                            )
+                    data["7102_"] = tuple(data["7102_"])
+
+        del data["502__"]
+
 
     if ("502__" not in data) and ("7102_" not in data) and ("998__" in data):
-        data = dict(data)
         if data["998__"]["a"] == "vutbr":
             data["7102_"] = [
                 {
@@ -276,7 +279,7 @@ def fix_grantor(data):
             ]
         data["7102_"] = tuple(data["7102_"])
 
-        return GroupableOrderedDict(OrderedDict(data))
+    return GroupableOrderedDict(OrderedDict(data))
 
     # if ("degreeGrantor" not in data) or (data.get("degreeGrantor") is None):
     #     if data["provider"] == "vutbr":

@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">396593</controlfield>
+  <controlfield tag="005">20190726090501.0</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">repository/55233</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2="7">
+    <subfield code="a">cze</subfield>
+  </datafield>
+  <datafield tag="046" ind1=" " ind2=" ">
+    <subfield code="k">2019-07-10</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Využití  arteterapeutických přístupů při výuce výtvarné výchovy na 1.stupni ZŠ</subfield>
+    <subfield code="b">Use of arteterapeutical approaches in art education at elementary school</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">90 s. (123 325 znaků)</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">KNĚZOVÁ, Michaela. Využití  arteterapeutických přístupů při výuce výtvarné výchovy na 1.stupni ZŠ. Č. Budějovice, 2019. bakalářská práce (Bc.). JIHOČESKÁ UNIVERZITA V ČESKÝCH BUDĚJOVICÍCH. Pedagogická fakulta</subfield>
+  </datafield>
+  <datafield tag="502" ind1=" " ind2=" ">
+    <subfield code="a">2019-07-10</subfield>
+    <subfield code="b">Bc.</subfield>
+    <subfield code="c">JIHOČESKÁ UNIVERZITA V ČESKÝCH BUDĚJOVICÍCH</subfield>
+    <subfield code="g">Bachelor</subfield>
+  </datafield>
+  <datafield tag="520" ind1=" " ind2=" ">
+    <subfield code="a">Práce pojednává o výtvarném vzdělávání na základní škole a o jeho propojení s arteterapií. Uvádí se  požadavky na žáka a stanovení úspěšnosti, o fenoménu výtvarného projevu a jeho znacích v dětském projevu, komunikaci ve výtvarném projevu a ve výchově,  imaginaci, vývoji výtvarného projevu a kognitivním vývoji dítěte a krizi ve výtvarném projevu. Dále pokračuje seznámením s východisky, přístupy a metodami arteterapie. Podrobně se zabývá projektivně intervenční arteterapií, která je založena na výtvarném ontogenetickém pojetí, její metodikou a metodikou používanou při vedení ve výtvarné výchově. Stručně pojednává o artefiletice, která je jedním z přístupů ve výtvarném vzdělávání. Dále v praktické části seznamuje s konkrétním využitím arteterapie s žáky během výuky výtvarné výchovy formou kazuistiky a popisu výtvarné činnosti. Popsána jsou témata zadávaná při výtvarném vedení a též různé alternativy metodického vedení a hodnocení posunu ve výtvarném vývoji. </subfield>
+    <subfield code="9">cze</subfield>
+  </datafield>
+  <datafield tag="520" ind1=" " ind2=" ">
+    <subfield code="a">The thesis deals with art education at primary school and its connection with art therapy. Requirements for the pupil and the determination of success, the phenomenon of artistic ex-pression and its features in children's expression, communication in art expression and in edu-cation, imagination, development of artistic expression and cognitive development of the child and crisis in artistic expression are mentioned. It also continues with the introduction to the approaches, approaches and methods of art therapy. It deals in detail with the design-interventional art therapy, which is based on the art ontogenetic conception, its methodology and methodology used in leading in art education. It briefly discusses artefiletics, which is one of the approaches in art education. Furthermore, in the practical part introduces the specific use of art therapy with pupils during the education of art education in the form of case studies and description of art activities. Described are the topics given during the artistic leadership as well as various alternatives of methodological guidance and evaluation of the shift in visual development.</subfield>
+    <subfield code="9">eng</subfield>
+  </datafield>
+  <datafield tag="653" ind1=" " ind2=" ">
+    <subfield code="a">mladší školní věk</subfield>
+  </datafield>
+  <datafield tag="653" ind1=" " ind2=" ">
+    <subfield code="a">výtvarná výchova</subfield>
+  </datafield>
+  <datafield tag="653" ind1=" " ind2=" ">
+    <subfield code="a">vývoj zobrazování</subfield>
+  </datafield>
+  <datafield tag="653" ind1=" " ind2=" ">
+    <subfield code="a">výtvarný projev</subfield>
+  </datafield>
+  <datafield tag="653" ind1=" " ind2=" ">
+    <subfield code="a">projektivně intervenční arteterapie</subfield>
+  </datafield>
+  <datafield tag="653" ind1=" " ind2=" ">
+    <subfield code="a">arteterapie s dětmi</subfield>
+  </datafield>
+  <datafield tag="653" ind1="0" ind2=" ">
+    <subfield code="a">Junger school age</subfield>
+  </datafield>
+  <datafield tag="653" ind1="0" ind2=" ">
+    <subfield code="a">Art Education</subfield>
+  </datafield>
+  <datafield tag="653" ind1="0" ind2=" ">
+    <subfield code="a">developing of imaging</subfield>
+  </datafield>
+  <datafield tag="653" ind1="0" ind2=" ">
+    <subfield code="a">artistic expression</subfield>
+  </datafield>
+  <datafield tag="653" ind1="0" ind2=" ">
+    <subfield code="a">projective interpretative art therapy</subfield>
+  </datafield>
+  <datafield tag="653" ind1="0" ind2=" ">
+    <subfield code="a">art therapy with children</subfield>
+  </datafield>
+  <datafield tag="656" ind1=" " ind2="7">
+    <subfield code="a">Psychologie/Arteterapie</subfield>
+    <subfield code="2">AKVO</subfield>
+  </datafield>
+  <datafield tag="720" ind1=" " ind2=" ">
+    <subfield code="a">KNĚZOVÁ, Michaela</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2="0">
+    <subfield code="u">http://www.jcu.cz/vskp/55233</subfield>
+    <subfield code="z">Odkaz na původní záznam</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2="0">
+    <subfield code="u">http://www.nusl.cz/ntk/nusl-396593</subfield>
+    <subfield code="z">PID NUŠL</subfield>
+  </datafield>
+  <datafield tag="909" ind1="C" ind2="O">
+    <subfield code="o">oai:invenio.nusl.cz:396593</subfield>
+    <subfield code="p">openaire</subfield>
+    <subfield code="p">global</subfield>
+    <subfield code="p">base</subfield>
+  </datafield>
+  <datafield tag="970" ind1=" " ind2=" ">
+    <subfield code="a">55233</subfield>
+  </datafield>
+  <datafield tag="980" ind1=" " ind2=" ">
+    <subfield code="a">bakalarske_prace</subfield>
+  </datafield>
+  <datafield tag="996" ind1=" " ind2=" ">
+    <subfield code="a">Plný text je dostupný v digitálním repozitáři JČU.</subfield>
+    <subfield code="b">Fulltext is available in the Digital Repository of University of South Bohemia.</subfield>
+  </datafield>
+  <datafield tag="998" ind1=" " ind2=" ">
+    <subfield code="a">jihoceska_univerzita_v_ceskych_budejovicich</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">315989</controlfield>
+  <controlfield tag="005">20181003165615.0</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">oai:czu.cz:vskp/d200082</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2="7">
+    <subfield code="a">cze</subfield>
+  </datafield>
+  <datafield tag="046" ind1=" " ind2=" ">
+    <subfield code="j">2017-04-03</subfield>
+    <subfield code="k">2017</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Analýza příčin nezaměstnanosti věkové skupiny nad 50 let z pohledu zaměstnavatele</subfield>
+    <subfield code="b">Causes of unemployment of people older than 50 years from the employer's perspective</subfield>
+  </datafield>
+  <datafield tag="260" ind1=" " ind2=" ">
+    <subfield code="b">Česká zemědělská univerzita v Praze</subfield>
+  </datafield>
+  <datafield tag="502" ind1=" " ind2=" ">
+    <subfield code="b">Ing.</subfield>
+    <subfield code="g">Magisterský studijní program</subfield>
+  </datafield>
+  <datafield tag="520" ind1=" " ind2=" ">
+    <subfield code="a">Předmětem diplomové práce je problematika nezaměstnanosti osob starších 50 let v České republice. Na základě stanovených hypotéz zjišťuje příčiny nezaměstnanosti zkoumané věkové skupiny z pohledu zaměstnavatelů.
+	Diplomová práce nejprve seznamuje s teoretickými východisky, které jsou spojené s nezaměstnaností a jejími souvislostmi, trhem práce i diskriminací na trhu práce. Zmiňuje také pohled z druhé strany trhu práce a uvádí informace ohledně náboru a výběru nových zaměstnanců do společnosti. V další části je proveden empirický výzkum, poté následuje diskuze a vyhodnocení, které potvrdí či vyvrátí stanovené hypotézy a tím odpoví na cíl práce, kterým jsou příčiny nezaměstnanosti zkoumané rizikové skupiny osob starších 50 let.
+</subfield>
+    <subfield code="9">cze</subfield>
+  </datafield>
+  <datafield tag="520" ind1=" " ind2=" ">
+    <subfield code="a">The subject of the thesis is the issue of unemployment of people over 50 years in the Czech Republic. On the basic of thypotheses it determines the causes of unemyployment surveyed age groups from the perspective of employers. The thesis first introduces the theoretical bases that are associated with unemployment and its context, labor market and labor market discrimination. Also mentions the view from the other side of the labor market, and provides informaiton regarding the recruitment and selection of new employees into the company. The next part is done empirical research, followed by discussion and evaluation to confirm or disprove the hypothesis and thus responds to the aim, which are the causes of unemployment examined risk group of people over 50 years.
+</subfield>
+    <subfield code="9">eng</subfield>
+  </datafield>
+  <datafield tag="653" ind1=" " ind2=" ">
+    <subfield code="a">trh práce</subfield>
+  </datafield>
+  <datafield tag="653" ind1=" " ind2=" ">
+    <subfield code="a">nezaměstnanost</subfield>
+  </datafield>
+  <datafield tag="653" ind1=" " ind2=" ">
+    <subfield code="a">rizikové skupiny</subfield>
+  </datafield>
+  <datafield tag="653" ind1=" " ind2=" ">
+    <subfield code="a">výběrové řízení</subfield>
+  </datafield>
+  <datafield tag="656" ind1=" " ind2="7">
+    <subfield code="a">Provoz a ekonomika</subfield>
+  </datafield>
+  <datafield tag="720" ind1=" " ind2=" ">
+    <subfield code="a">Kocová, Petra</subfield>
+  </datafield>
+  <datafield tag="720" ind1=" " ind2=" ">
+    <subfield code="i">Hrdlička, Pavel</subfield>
+    <subfield code="e">advisor</subfield>
+  </datafield>
+  <datafield tag="720" ind1=" " ind2=" ">
+    <subfield code="i">Markéta, Markéta</subfield>
+    <subfield code="e">referee</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2="0">
+    <subfield code="u">https://is.czu.cz/zp/index.pl?podrobnosti_zp=200082</subfield>
+    <subfield code="z">Odkaz na původní záznam</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2="0">
+    <subfield code="u">http://www.nusl.cz/ntk/nusl-315989</subfield>
+    <subfield code="z">PID NUŠL</subfield>
+  </datafield>
+  <datafield tag="909" ind1="C" ind2="O">
+    <subfield code="o">oai:invenio.nusl.cz:315989</subfield>
+    <subfield code="p">etds</subfield>
+    <subfield code="p">global</subfield>
+    <subfield code="p">base</subfield>
+    <subfield code="q">openaire</subfield>
+    <subfield code="q">licensed</subfield>
+  </datafield>
+  <datafield tag="980" ind1=" " ind2=" ">
+    <subfield code="a">diplomove_prace</subfield>
+  </datafield>
+  <datafield tag="996" ind1=" " ind2=" ">
+    <subfield code="a">Dostupné registrovaným uživatelům v repozitáři ČZU.</subfield>
+    <subfield code="b">Available to registered users in the CZU repository.</subfield>
+  </datafield>
+  <datafield tag="998" ind1=" " ind2=" ">
+    <subfield code="a">ceska_zemedelska_univerzita</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">79353</controlfield>
+  <controlfield tag="005">20181003161023.0</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">oai:dspace.amu.cz:10318/5091</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2="7">
+    <subfield code="a">cze</subfield>
+  </datafield>
+  <datafield tag="046" ind1=" " ind2=" ">
+    <subfield code="k">2010</subfield>
+    <subfield code="j">2016-03-14</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Hudebně teoretická východiska nechorálních skladeb pro klávesové nástroje v 17. stol.</subfield>
+    <subfield code="b">Theoretical background of free music for keyboard instruments in the 17. century</subfield>
+  </datafield>
+  <datafield tag="260" ind1=" " ind2=" ">
+    <subfield code="b">Akademie múzických umění v Praze. Hudební fakulta AMU. Knihovna</subfield>
+  </datafield>
+  <datafield tag="502" ind1=" " ind2=" ">
+    <subfield code="a">2010-09-08</subfield>
+    <subfield code="b">Ph.D.</subfield>
+    <subfield code="c">Akademie múzických umění v Praze. Hudební a taneční fakulta AMU</subfield>
+    <subfield code="g">Doktorský studijní program</subfield>
+  </datafield>
+  <datafield tag="520" ind1=" " ind2=" ">
+    <subfield code="a">Problematika tzv. staré hudby je dnes velmi skloňovaným odvětvím v oblasti hudební interpretace, hudební teorie a hudební vědy. Pro adekvátní porozumění a uchopení hudebního textu potřebuje dnešní interpret rozsáhlé teoretické povědomí. Hudebně teoretická východiska, jež stála v pozadí tvorby autorů 17. století, formovala a předdefinovala možná řešení detailů hudební kompozice. Teoretické nástroje, které nám poskytuje moderní nauka o kontrapunktu, o harmonii a hudební tektonice, nemohou odhalit jemné odstíny tehdejšího hudebního výraziva.
+V prvním oddíle je stručně nastíněno pozadí vzniku hudby pro klávesové nástroje v 17. století a popsán charakter a oblasti společenské poptávky a souvislosti vedoucí ke vzniku škály žánrů.
+Druhý oddíl probírá v jednotlivých kapitolách nejpodstatnější informace o stavu či vývoji různých oblastí hudební teorie: tónový materiál ? mody, církevní a varhanické tóniny, nauka o klauzulích, vývoj kontrapunktu a teorie fugy, rétorické dispositio jako nevyslovený obecný formální rámec tzv. ?volných?, fantazijních forem, preludií, toccat; praxe používání rétorických figur.
+Další oddíl podává přehled technických předpokladů dobových nástrojů a souvislost s výskytem určitých hudebních obratů, souzvuků apod. v literatuře. Je popsán vliv ladění a temperatury, zejména hojně rozšířené středotónové.  Hojné používání krátké, lomené a zkrácené oktávy vysvětluje výskyt souzvuků a postupů na moderní klaviatuře nesnadno realizovatelných. Více manuálů na jednom nástroji a klaviatura dělená na bas a diskant umožňuje a předpokládá speciální druhy sazby.
+Ve čtvrtém oddíle následuje detailnější analýza několika skladeb různého typu regionálního a časového. Na cyklu ricercarů G. M. Trabaciho je zkoumán vliv modality na hudební formu. Frescobaldiho toccaty stojí na počátku obrovského vývoje tvorby pro klávesové nástroje a je studijním materiálem pro skladatele bezmála 3 následujících staletí. Analyzována je Toccata prima ze sbírky Il secondo libro di toccate (1627). Vrchol varhanní tvorby najdeme v 17. stol. bezpochyby v oblasti severního Německa, a zde především v díle D. Buxtehude. Následuje rozbor Preambula BuxWV 152.
+Závěrem je zařazena úvaha o významu zkoumání daných témat, zda jde o pouhé odkrývání dnes již irelevantních souvislostí, nebo zda lze najít inspiraci pro interpretaci děl starších epoch, která dnes již neodmyslitelně patří k současnému hudebnímu dění.</subfield>
+    <subfield code="9">cze</subfield>
+  </datafield>
+  <datafield tag="520" ind1=" " ind2=" ">
+    <subfield code="a">Early Music, its history, theory and practice, has become a vigorously discussed theme in the field of musicology. To be able to grasp a musical text adequately, a contemporary performer requires an extensive theoretical knowledge. The theoretical background lying behind the origins of the seventeenth-century musical material was essential in the formation and pre-definition of the possible solutions of the details of compositional techniques and approaches of the period. The theoretical methods employed by the modern disciplines of counterpoint and harmony and the tectonics of music are not sufficient if we wish to examine the nuances of the musical phraseology of those times.
+Offering a short introduction into the environment in which keyboard music of the seventeenth century was originating, the first section looks into the character and areas of social demand which resulted in a broad range of musical genres.
+The individual chapters of the following section touch upon the key facts about the state and development of different areas of music theory, such as tonal material ? modes, Church and organ keys, the doctrine of clauses, the development of counterpoint and the theory of the fugue, the rhetorical dispositio as the unpronounced, general formal frame of the so-called ?free?, fantasia forms, preludes and toccatas; the application of figures of speech.
+ The third section brings a survey of the technical conditions which were formative in the case of period musical instruments and traces down some of the occurrences of specific musical terms and consonances in literature.  One of the chapters tracks down the influence of tuning and tempering systems, especially of the widespread mean-tone tuning system. The profuse usage of the short, broken and shortened octave accounts for the consonances and sequences which are difficult to perform on modern keyboards. Multiple manuals and the division of the keyboard into the bass and the discant part presupposed a special kind of typesetting.
+In the fourth section I propose an analysis of several compositions coming from various places and decades.  In an analysis of the cycle of ricercares by G. M. Trabaci I inspect the influence of modality on musical form. Standing at the beginning of the massive development of composition for keyboard instruments, Frecobaldi?s toccatas would have been consulted as a study material by composers throughout the following three centuries at least. Among others, I analyse Toccata prima from Il secondo libro di toccate (1627). The peak of the seventeenth century organ production is undoubtedly to be found in the area of Northern Germany, namely in the work of D. Buxtehude. The section is closed by an analysis of his Preambulum BuxWV 152.
+By way of conclusion I speculate about the possible values of studying and theorizing of such issues: if they can only result in excavation of anachronic circumstances, irrelevant to our time, or if they can provide a source of inspiration for the interpretation of early music which has become an inseparable part of contemporary musical scene and culture.</subfield>
+    <subfield code="9">eng</subfield>
+  </datafield>
+  <datafield tag="656" ind1=" " ind2="7">
+    <subfield code="a">Hudebního umění / Hudební teorie</subfield>
+    <subfield code="2">AKVO</subfield>
+  </datafield>
+  <datafield tag="720" ind1=" " ind2=" ">
+    <subfield code="a">Vendl, Lukáš</subfield>
+  </datafield>
+  <datafield tag="720" ind1=" " ind2=" ">
+    <subfield code="i">Tichý, Vladimír</subfield>
+    <subfield code="e">advisor</subfield>
+  </datafield>
+  <datafield tag="720" ind1=" " ind2=" ">
+    <subfield code="i">Willi, Barbara</subfield>
+    <subfield code="e">referee</subfield>
+  </datafield>
+  <datafield tag="720" ind1=" " ind2=" ">
+    <subfield code="i">Bažantová, Ivana</subfield>
+    <subfield code="e">referee</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2="0">
+    <subfield code="u">http://hdl.handle.net/10318/5091</subfield>
+    <subfield code="z">Odkaz na původní záznam</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2="0">
+    <subfield code="u">http://www.nusl.cz/ntk/nusl-79353</subfield>
+    <subfield code="z">PID NUŠL</subfield>
+  </datafield>
+  <datafield tag="909" ind1="C" ind2="O">
+    <subfield code="o">oai:invenio.nusl.cz:79353</subfield>
+    <subfield code="p">etds</subfield>
+    <subfield code="p">global</subfield>
+    <subfield code="p">base</subfield>
+    <subfield code="q">licensed</subfield>
+  </datafield>
+  <datafield tag="980" ind1=" " ind2=" ">
+    <subfield code="a">disertacni_prace</subfield>
+  </datafield>
+  <datafield tag="996" ind1=" " ind2=" ">
+    <subfield code="a">Dostupné registrovaným uživatelům v digitálním repozitáři AMU.</subfield>
+    <subfield code="b">Available to registered users in the Digital Repository of Academy of Performing Arts.</subfield>
+  </datafield>
+  <datafield tag="998" ind1=" " ind2=" ">
+    <subfield code="a">akademie_muzickych_umeni_v_praze</subfield>
+  </datafield>
+</record>
+<record>
+  <controlfield tag="001">180713</controlfield>
+  <controlfield tag="005">20181115171534.0</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">repository/22464</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2="7">
+    <subfield code="a">cze</subfield>
+  </datafield>
+  <datafield tag="046" ind1=" " ind2=" ">
+    <subfield code="k">2014-12-19</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Analýza španělštiny v internetových diskuzních fórech</subfield>
+    <subfield code="b">Analysis of Spanish in internet discussion forums</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">102 stran</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">KREJČOVÁ, Kateřina. Analýza španělštiny v internetových diskuzních fórech. Č. Budějovice, 2014. diplomová práce (Mgr.). JIHOČESKÁ UNIVERZITA V ČESKÝCH BUDĚJOVICÍCH. Filozofická fakulta</subfield>
+  </datafield>
+  <datafield tag="502" ind1=" " ind2=" ">
+    <subfield code="a">2015-01-29</subfield>
+    <subfield code="b">Mgr.</subfield>
+    <subfield code="c">JIHOČESKÁ UNIVERZITA V ČESKÝCH BUDĚJOVICÍCH</subfield>
+    <subfield code="g">Master</subfield>
+  </datafield>
+  <datafield tag="520" ind1=" " ind2=" ">
+    <subfield code="a">Diplomová práce se zabývá analýzou projevu španělsky mluvících adolescentů na internetových diskuzních fórech. Teoretická část se věnuje zejména problematice dichotomií mluvenost/psanost a hovorovost/formálnost, které se nemalou měrou podílejí na výsledné podobě jazyka na internetu. Popisuje také obecné rysy jazyka užívaného v internetovém prostředí se zaměřením na španělštinu a na adolescentní uživatele. Praktická část analyzuje v rovině grafické, morfosyntaktické, sémantické a pragmatické jazykový vzorek sesbíraný na internetových diskuzních fórech.</subfield>
+    <subfield code="9">cze</subfield>
+  </datafield>
+  <datafield tag="520" ind1=" " ind2=" ">
+    <subfield code="a">The diploma thesis folows up the analysis of the language of spanish speaking adolescents acros online discussion forums. The theoretic section mainly pursues the issues of the oral/written and colloquial/formal dichotomies which takes an important part in the resultant form of the language used on the internet. It also describes the general features of language, used on the internet, focusing spanish and adolescent users. The practical section analyses the graphic, morphosyntactical, semantic and pragmatic level of the language sample found on the internet discussion forums.</subfield>
+    <subfield code="9">eng</subfield>
+  </datafield>
+  <datafield tag="653" ind1=" " ind2=" ">
+    <subfield code="a">mluvenost/psanost</subfield>
+  </datafield>
+  <datafield tag="653" ind1=" " ind2=" ">
+    <subfield code="a">hovorovost/formálnost</subfield>
+  </datafield>
+  <datafield tag="653" ind1=" " ind2=" ">
+    <subfield code="a">jazyk na internetu</subfield>
+  </datafield>
+  <datafield tag="653" ind1=" " ind2=" ">
+    <subfield code="a">komunikace v období adolescence</subfield>
+  </datafield>
+  <datafield tag="653" ind1="0" ind2=" ">
+    <subfield code="a">the oral/written dichotomie</subfield>
+  </datafield>
+  <datafield tag="653" ind1="0" ind2=" ">
+    <subfield code="a">the colloquial/formal dichotomie</subfield>
+  </datafield>
+  <datafield tag="653" ind1="0" ind2=" ">
+    <subfield code="a">language on the internet</subfield>
+  </datafield>
+  <datafield tag="653" ind1="0" ind2=" ">
+    <subfield code="a">communication in adolescence</subfield>
+  </datafield>
+  <datafield tag="656" ind1=" " ind2="7">
+    <subfield code="a">Učitelství pro základní školy/ŠJ-VV/ZŠ</subfield>
+    <subfield code="2">AKVO</subfield>
+  </datafield>
+  <datafield tag="720" ind1=" " ind2=" ">
+    <subfield code="a">KREJČOVÁ, Kateřina</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2="0">
+    <subfield code="u">http://www.jcu.cz/vskp/22464</subfield>
+    <subfield code="z">Odkaz na původní záznam</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2="0">
+    <subfield code="u">http://www.nusl.cz/ntk/nusl-180713</subfield>
+    <subfield code="z">PID NUŠL</subfield>
+  </datafield>
+  <datafield tag="909" ind1="C" ind2="O">
+    <subfield code="o">oai:invenio.nusl.cz:180713</subfield>
+    <subfield code="p">etds</subfield>
+    <subfield code="p">openaire</subfield>
+    <subfield code="p">global</subfield>
+    <subfield code="p">base</subfield>
+  </datafield>
+  <datafield tag="970" ind1=" " ind2=" ">
+    <subfield code="a">22464</subfield>
+  </datafield>
+  <datafield tag="980" ind1=" " ind2=" ">
+    <subfield code="a">diplomove_prace</subfield>
+  </datafield>
+  <datafield tag="996" ind1=" " ind2=" ">
+    <subfield code="a">Plný text je dostupný v digitálním repozitáři JČU.</subfield>
+    <subfield code="b">Fulltext is available in the Digital Repository of University of South Bohemia.</subfield>
+  </datafield>
+  <datafield tag="998" ind1=" " ind2=" ">
+    <subfield code="a">jihoceska_univerzita_v_ceskych_budejovicich</subfield>
+  </datafield>
+</record>
+</collection>

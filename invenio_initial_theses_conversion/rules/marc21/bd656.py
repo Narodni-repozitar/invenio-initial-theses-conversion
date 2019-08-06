@@ -10,19 +10,20 @@ from ..model import old_nusl
 @old_nusl.over("studyProgramme", '^656_7')
 @merge_results
 @single_value
-@extra_argument('grantor', '^502', single=True)
+@extra_argument('grantor', '^7102', single=True)
 @extra_argument('doc_type', '^980', single=True)
 def studyProgramme_Field(self, key, value, grantor, doc_type):
     """Study programme."""
     doc_type = doc_type.get("a")
-    grantor = grantor.get("c").lower()
+    grantor = grantor.get("a").lower()
     study = value.get("a")
     tax = Taxonomy.get("studyfields", required=True)
     studyprogramme_tax = Taxonomy.get("studyprogramme", required=True)
     if "/" not in study:
         return studyfield_ref(study, tax, studyprogramme_tax, grantor, doc_type)
     else:
-        programme, field = study.split("/")
+        programme, field = study.split("/", maxsplit=1)
+        field = field.strip()
         return studyfield_ref(field, tax, studyprogramme_tax, grantor, doc_type)
 
 
@@ -63,6 +64,3 @@ def aliases(tax, study):
         fields = tax.descendants.filter(
             TaxonomyTerm.extra_data["aliases"].contains([study])).all()
     return fields
-
-
-

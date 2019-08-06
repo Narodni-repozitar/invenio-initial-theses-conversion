@@ -22,39 +22,46 @@ def degree_grantor(self, key, values, provider):
             }
         }
     ]
-
+    provider = provider.get("a")
     universities = Taxonomy.get("universities", required=True)
     provider_tax = Taxonomy.get("provider", required=True)
     for item in values:
         if item.get("9") == "cze":
             uni_name = item.get("a")
             university = find_uni_taxonomy(uni_name, provider, provider_tax, universities)
+            uni_rid = university.extra_data["RID"]
             ret[0]["university"]["$ref"] = link_self(university)
 
             if item.get("g"):
                 fac_name = item.get("g")
                 faculty = university.descendants.filter(
-                    TaxonomyTerm.extra_data[("name", 0, "name")].astext == fac_name).one()
-                ret[0]["university"]["faculties"][0]["$ref"] = link_self(faculty)
+                    TaxonomyTerm.extra_data[("name", 0, "name")].astext == fac_name,
+                    TaxonomyTerm.extra_data["university_RID"] == uni_rid).one_or_none()
+                if faculty is not None:
+                    ret[0]["university"]["faculties"][0]["$ref"] = link_self(faculty)
+                else:
+                    del ret[0]["university"]["faculties"]
+                    continue
             else:
                 del ret[0]["university"]["faculties"]
+                continue
 
             if item.get("b"):
                 ret[0]["university"]["faculties"][0]["departments"].append(item.get("b"))
             else:
                 del ret[0]["university"]["faculties"][0]["departments"]
 
-        return ret
+    return ret
 
 
 def find_uni_taxonomy(uni_name, provider, provider_tax, universities):
     university = universities.descendants.filter(
         TaxonomyTerm.extra_data[("name", 0, "name")].astext == uni_name).all()
-    if len(university) == 0 and provider.get("a") is not None:
+    if len(university) == 0 and provider is not None:
         provider_term = provider_tax.descendants.filter(
-            TaxonomyTerm.slug == provider).one()
+            TaxonomyTerm.slug == provider).first()
         uni_name = provider_term.extra_data["name"][0]["name"]
-        find_uni_taxonomy(uni_name, provider, provider_tax, universities)
+        university = find_uni_taxonomy(uni_name, provider, provider_tax, universities)
     elif len(university) == 1:
         university = university[0]
     else:
