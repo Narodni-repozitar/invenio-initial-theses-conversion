@@ -18,43 +18,43 @@ def studyProgramme_Field(self, key, value, grantor, doc_type):
     grantor = grantor.get("a").lower()
     study = value.get("a")
     tax = Taxonomy.get("studyfields", required=True)
-    studyprogramme_tax = Taxonomy.get("studyprogramme", required=True)
     if "/" not in study:
-        return studyfield_ref(study, tax, studyprogramme_tax, grantor, doc_type)
+        return studyfield_ref(study, tax, grantor, doc_type)
     else:
         programme, field = study.split("/", maxsplit=1)
         field = field.strip()
-        return studyfield_ref(field, tax, studyprogramme_tax, grantor, doc_type)
+        return studyfield_ref(field, tax, grantor, doc_type)
 
 
-def studyfield_ref(study, tax, studyprogramme_tax, grantor, doc_type):
+def studyfield_ref(study, tax, grantor, doc_type):
     # https://docs.sqlalchemy.org/en/13/dialects/postgresql.html#sqlalchemy.dialects.postgresql.JSON
     fields = tax.descendants.filter(
-        TaxonomyTerm.extra_data[("name", 0, "name")].astext == study).all()
+        TaxonomyTerm.extra_data[("title", 0, "value")].astext == study).all()
     if len(fields) == 0:
         fields = aliases(tax, study)
     if len(fields) == 0:
         raise NoResultFound
-    codes = {field.slug for field in fields}
-    result = StudyFieldsTaxonomy()
-    result_dict = result.check_field(codes, grantor=grantor,
-                                     doc_type=doc_type)
-    studyfields = result_dict["studyfield"]
-    studyprogrammes = result_dict["studyprogramme"]
-    field_codes = []
-    programme_codes = []
-    for field in studyfields:
-        studyfield = tax.get_term(field)
-        field_codes.append(studyfield)
-    for programme in studyprogrammes:
-        studyprogramme = studyprogramme_tax.get_term(programme)
-        programme_codes.append(studyprogramme)
+    if len(fields) > 1:
+        fields = filter(fields, doc_type, grantor)
 
     return {
-        "studyfield": [{"$ref": link_self(field)} for field in field_codes],
-        "studyprogramme": [{"$ref": link_self(programme)} for programme in programme_codes],
+        "studyfield": [{"$ref": link_self(field)} for field in fields],
 
     }
+
+
+# if result_dict is None:
+#     return {}
+# studyfields = result_dict["studyfield"]
+# studyprogrammes = result_dict["studyprogramme"]
+# field_codes = []
+# programme_codes = []
+# for field in studyfields:
+#     studyfield = tax.get_term(field)
+#     field_codes.append(studyfield)
+# for programme in studyprogrammes:
+#     studyprogramme = studyprogramme_tax.get_term(programme)
+#     programme_codes.append(studyprogramme)
 
 
 def aliases(tax, study):
@@ -64,3 +64,34 @@ def aliases(tax, study):
         fields = tax.descendants.filter(
             TaxonomyTerm.extra_data["aliases"].contains([study])).all()
     return fields
+
+
+def filter(fields, doc_type, grantor):
+    fields = doc_filter(fields, doc_type)
+    fields = grantor_filter(fields, grantor)
+    return fields
+
+
+def doc_filter(fields, doc_type):
+    if doc_type is not None:
+        degree_dict = {
+            "Bakalářský": "bakalarske_prace",
+            "Magisterský": "diplomove_prace",
+            "Navazující magisterský": "diplomova_prace",
+            "Doktorský": "disertacni_prace"
+        }
+        return [field for field in fields if degree_dict.get(field.extra_data.get("degree_level")) == doc_type]
+    return fields
+
+
+def grantor_filter(fields, grantor):
+    if grantor is not None:
+        matched_fields = [field for field in fields if
+                          field.extra_data.get("grantor") is not None and field.extra_data["grantor"][0][
+                              "university"].lower() == grantor]
+        if len(matched_fields) == 0:
+            return fields
+        else:
+            return matched_fields
+    else:
+        return fields

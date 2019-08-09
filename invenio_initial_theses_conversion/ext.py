@@ -38,6 +38,8 @@ class StudyFieldsTaxonomy(object):
     def check_field(self, codes, grantor=None, doc_type=None):
         matched_codes = self.degree(codes, doc_type=doc_type)
         matched_codes, matched_fields = self.grantor(matched_codes, grantor=grantor)
+        if matched_codes is None:
+            return None
         return {
             "studyfield": matched_codes,
             "studyprogramme": [field["programme"]["code"] for field in matched_fields]
@@ -56,7 +58,7 @@ class StudyFieldsTaxonomy(object):
                 matched_codes.append(code)
                 matched_fields.append(fields[0])
         if len(matched_codes) == 0:
-            return codes
+            return None, None
         return matched_codes, matched_fields
 
     def degree(self, codes, doc_type=None):

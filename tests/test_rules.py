@@ -7,7 +7,7 @@ from invenio_initial_theses_conversion.rules.model import old_nusl
 def test_rules(app, db):
     array = [create_record(data) for data in
              split_stream(
-                 open('/home/semtex/Projekty/nusl/invenio-initial-theses-conversion/tests/xml_files/vskp_test.xml',
+                 open('/home/semtex/Projekty/nusl/invenio-initial-theses-conversion/tests/xml_files/vskp_test2.xml',
                       'rb'))]
     for field in array:
         rec = fix_grantor(field)
