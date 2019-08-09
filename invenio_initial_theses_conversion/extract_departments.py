@@ -3,14 +3,12 @@ import logging
 import os
 import shutil
 import uuid
-from collections import Counter, defaultdict
 
 import click
 from dojson.contrib.marc21.utils import create_record
 from flask import cli
 
 from invenio_initial_theses_conversion.main import url_nusl_data_generator, file_nusl_data_generator, fix_grantor
-from invenio_initial_theses_conversion.rules.model import old_nusl
 
 ERROR_DIR = "/tmp/import-nusl-theses"
 
