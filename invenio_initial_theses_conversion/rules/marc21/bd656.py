@@ -1,7 +1,6 @@
 from sqlalchemy.orm.exc import NoResultFound
 
 from flask_taxonomies.models import Taxonomy, TaxonomyTerm
-from invenio_initial_theses_conversion.ext import StudyFieldsTaxonomy
 from invenio_initial_theses_conversion.nusl_overdo import single_value, merge_results, extra_argument
 from invenio_initial_theses_conversion.scripts.link import link_self
 from ..model import old_nusl
@@ -41,20 +40,6 @@ def studyfield_ref(study, tax, grantor, doc_type):
         "studyfield": [{"$ref": link_self(field)} for field in fields],
 
     }
-
-
-# if result_dict is None:
-#     return {}
-# studyfields = result_dict["studyfield"]
-# studyprogrammes = result_dict["studyprogramme"]
-# field_codes = []
-# programme_codes = []
-# for field in studyfields:
-#     studyfield = tax.get_term(field)
-#     field_codes.append(studyfield)
-# for programme in studyprogrammes:
-#     studyprogramme = studyprogramme_tax.get_term(programme)
-#     programme_codes.append(studyprogramme)
 
 
 def aliases(tax, study):
