@@ -9,22 +9,22 @@
 
 from __future__ import absolute_import, print_function
 
-from invenio_db import db as db_
 import os
 import shutil
 import tempfile
-from datetime import date, datetime
 
 import pytest
-import pytz
 from flask import Flask
 from invenio_app.factory import create_api
 from invenio_db import InvenioDB
+from invenio_db import db as db_
 from invenio_jsonschemas import InvenioJSONSchemas
 from invenio_records import InvenioRecords
 from sqlalchemy_utils import create_database, database_exists
 
 from flask_taxonomies import FlaskTaxonomies
+
+from flask_taxonomies.views import blueprint as taxonomies_blueprint
 
 
 @pytest.fixture(scope='module')
@@ -52,6 +52,7 @@ def app():
     InvenioDB(app)
     FlaskTaxonomies(app)
     with app.app_context():
+        app.register_blueprint(taxonomies_blueprint)
         yield app
 
     shutil.rmtree(instance_path)
@@ -62,7 +63,4 @@ def db(app):
     """Database fixture."""
     if not database_exists(str(db_.engine.url)):
         create_database(str(db_.engine.url))
-    # db_.create_all()
     yield db_
-    # db_.session.remove()
-    # db_.drop_all()

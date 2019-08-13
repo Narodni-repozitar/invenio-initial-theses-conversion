@@ -18,7 +18,7 @@ from dojson.utils import GroupableOrderedDict
 import click
 import requests
 from dojson.contrib.marc21.utils import split_stream, create_record
-from flask import cli
+from flask import cli, current_app
 from marshmallow import ValidationError
 
 from invenio_initial_theses_conversion.rules.model import old_nusl
@@ -102,6 +102,11 @@ logging.basicConfig(
               default=1)
 @cli.with_appcontext
 def run(url, break_on_error, cache_dir, clean_output_dir, start):
+    with current_app.test_request_context('/api/taxonomies/'):
+        _run(url, break_on_error, cache_dir, clean_output_dir, start)
+
+
+def _run(url, break_on_error, cache_dir, clean_output_dir, start):
     processed_ids = set()
     if clean_output_dir and os.path.exists(ERROR_DIR):
         shutil.rmtree(ERROR_DIR)
@@ -136,7 +141,7 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                     fix_language(datafield, "520", " ", " ", "9")
                     fix_language(datafield, "540", " ", " ", "9")
 
-                rec = create_record(data)
+                rec = create_record(data)  # PŘEVOD XML NA GroupableOrderedDict
                 rec = fix_grantor(rec)
                 if rec.get('980__') and rec['980__'].get('a') not in (
                         'bakalarske_prace',
@@ -147,11 +152,11 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                 ):
                     continue
 
-                transformed = old_nusl.do(rec)  # PŘEVOD XML DO JSON - RULES
+                transformed = old_nusl.do(rec)  # PŘEVOD GroupableOrderedDict na Dict
                 ch.setTransformedRecord(transformed)
 
                 # transformed = old_nusl.do(create_record(data))
-                transformed = fix_grantor(transformed)
+                # transformed = fix_grantor(transformed)
                 # transformed = fix_field(transformed) #TODO: odstranit
                 ch.setTransformedRecord(transformed)
                 staging_schema = ThesisMetadataStagingSchemaV1(strict=True,
@@ -246,7 +251,6 @@ def fix_grantor(data):
                     data["7102_"] = tuple(data["7102_"])
 
         del data["502__"]
-
 
     if ("502__" not in data) and ("7102_" not in data) and ("998__" in data):
         if data["998__"]["a"] == "vutbr":

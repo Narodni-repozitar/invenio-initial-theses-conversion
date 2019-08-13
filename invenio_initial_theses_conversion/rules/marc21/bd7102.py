@@ -56,14 +56,19 @@ def uni_ref(item, uni_name, universities, provider=None):
 def department_ref(faculty, item):
     department_name = item.get("b")
     department = faculty.descendants.filter(
-        TaxonomyTerm.extra_data[("title", 0, "value")].astext == department_name).one_or_none()
+        TaxonomyTerm.extra_data[("title", 0, "value")].astext == department_name).first()
     return department
 
 
 def fac_ref(item, university):
     fac_name = item.get("g")
     faculty = university.descendants.filter(
-        TaxonomyTerm.extra_data[("title", 0, "value")].astext == fac_name).one_or_none()
+        TaxonomyTerm.extra_data[("title", 0, "value")].astext == fac_name).all()
+    faculty = [fac for fac in faculty if fac.level == 3]
+    if len(faculty) != 0:
+        faculty = faculty[0]
+    else:
+        return None
     return faculty
 
 
