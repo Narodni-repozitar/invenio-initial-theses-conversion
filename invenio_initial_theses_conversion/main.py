@@ -22,10 +22,12 @@ from flask import cli, current_app
 from marshmallow import ValidationError
 
 from invenio_initial_theses_conversion.rules.model import old_nusl
+from invenio_nusl_theses.marshmallow import ThesisMetadataSchemaV1
 from invenio_nusl_theses.proxies import nusl_theses
 
 # logging.basicConfig()
 # logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO) #logování SQLAlchemy
+from invenio_records_draft.marshmallow import DraftSchemaWrapper
 
 ERROR_DIR = "/tmp/import-nusl-theses"
 IGNORED_ERROR_FIELDS = {"title", "dateAccepted", "language", "degreeGrantor",
@@ -153,10 +155,7 @@ def _run(url, break_on_error, cache_dir, clean_output_dir, start):
                 transformed = old_nusl.do(rec)  # PŘEVOD GroupableOrderedDict na Dict
                 ch.setTransformedRecord(transformed)
                 try:
-                    pass
-                    marshmallowed = nusl_theses.validate(staging_schema, transformed,
-                                                         THESES_STAGING_JSON_SCHEMA
-                                                         )
+                    marshmallowed = nusl_theses.validate(DraftSchemaWrapper(ThesisMetadataSchemaV1), transformed)
                 except ValidationError as e:
                     for field in e.field_names:
                         error_counts[field] += 1

@@ -1,4 +1,5 @@
 import os
+from flask import current_app
 
 
 def link_self(tax):
@@ -10,7 +11,7 @@ def link_self(tax):
             return path_self(tax.taxonomy, path)
         return path[::-1]
 
-    SERVER_NAME = os.environ.get('SERVER_NAME')
+    SERVER_NAME = current_app.config.get('SERVER_NAME')
     base = f"https://{SERVER_NAME}/api/taxonomies"
     path = []
     path = [base] + path_self(tax, path)
