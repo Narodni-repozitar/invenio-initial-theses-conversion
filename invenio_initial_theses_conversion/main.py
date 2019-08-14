@@ -13,18 +13,15 @@ from collections import Counter, defaultdict, OrderedDict
 from io import BytesIO, RawIOBase, BufferedReader
 from logging import StreamHandler
 from xml.etree import ElementTree
-from dojson.utils import GroupableOrderedDict
 
 import click
 import requests
 from dojson.contrib.marc21.utils import split_stream, create_record
+from dojson.utils import GroupableOrderedDict
 from flask import cli, current_app
 from marshmallow import ValidationError
 
 from invenio_initial_theses_conversion.rules.model import old_nusl
-from invenio_nusl_theses.config import THESES_STAGING_JSON_SCHEMA
-from invenio_nusl_theses.marshmallow.data.fields_dict import FIELDS
-from invenio_nusl_theses.marshmallow.json import ThesisMetadataStagingSchemaV1
 from invenio_nusl_theses.proxies import nusl_theses
 
 # logging.basicConfig()
@@ -142,8 +139,9 @@ def _run(url, break_on_error, cache_dir, clean_output_dir, start):
                     fix_language(datafield, "540", " ", " ", "9")
 
                 rec = create_record(data)  # PŘEVOD XML NA GroupableOrderedDict
-                rec = fix_grantor(rec)
+                rec = fix_grantor(rec)  # Sjednocení grantora pod pole 7102
                 if rec.get('980__') and rec['980__'].get('a') not in (
+                        # test jestli doctype je vysokoškolská práce, ostatní nezpracováváme
                         'bakalarske_prace',
                         'diplomove_prace',
                         'disertacni_prace',
@@ -154,14 +152,8 @@ def _run(url, break_on_error, cache_dir, clean_output_dir, start):
 
                 transformed = old_nusl.do(rec)  # PŘEVOD GroupableOrderedDict na Dict
                 ch.setTransformedRecord(transformed)
-
-                # transformed = old_nusl.do(create_record(data))
-                # transformed = fix_grantor(transformed)
-                # transformed = fix_field(transformed) #TODO: odstranit
-                ch.setTransformedRecord(transformed)
-                staging_schema = ThesisMetadataStagingSchemaV1(strict=True,
-                                                               context={"staging": True})
                 try:
+                    pass
                     marshmallowed = nusl_theses.validate(staging_schema, transformed,
                                                          THESES_STAGING_JSON_SCHEMA
                                                          )
@@ -191,21 +183,6 @@ def _run(url, break_on_error, cache_dir, clean_output_dir, start):
                 print(error, file=f)
                 print(" ".join([str(recid) for recid in recids]), file=f)
                 print(" ", file=f)
-
-
-# TODO: odstranit
-
-# def fix_field(data):
-#     if "studyField" in data:
-#         name = data["studyField"]["name"]
-#         name = FIELDS.get(name, name)
-#         if isinstance(name, str):
-#             name = [name]
-#         studyField = []
-#         for n in name:
-#             studyField.append({"name": n})
-#         data["studyField"] = studyField
-#     return data
 
 
 def fix_language(datafield, tag, ind1, ind2, code):
@@ -284,61 +261,6 @@ def fix_grantor(data):
         data["7102_"] = tuple(data["7102_"])
 
     return GroupableOrderedDict(OrderedDict(data))
-
-    # if ("degreeGrantor" not in data) or (data.get("degreeGrantor") is None):
-    #     if data["provider"] == "vutbr":
-    #         data["degreeGrantor"] = [
-    #             {
-    #                 "university": {
-    #                     "name": [
-    #                         {
-    #                             "name": "Vysoké učení technické v Brně",
-    #                             "lang": "cze"
-    #                         }
-    #                     ]
-    #                 }
-    #             }
-    #         ]
-    #     if data["provider"] == "ceska_zemedelska_univerzita":
-    #         data["degreeGrantor"] = [
-    #             {
-    #                 "university": {
-    #                     "name": [
-    #                         {
-    #                             "name": "Česká zemědělská univerzita v Praze",
-    #                             "lang": "cze"
-    #                         }
-    #                     ]
-    #                 }
-    #             }
-    #         ]
-    #     if data["provider"] == "jihoceska_univerzita_v_ceskych_budejovicich":
-    #         data["degreeGrantor"] = [
-    #             {
-    #                 "university": {
-    #                     "name": [
-    #                         {
-    #                             "name": "Jihočeská univerzita v Českých Budějovicích",
-    #                             "lang": "cze"
-    #                         }
-    #                     ]
-    #                 }
-    #             }
-    #         ]
-    #     if data["provider"] == "mendelova_univerzita_v_brne":
-    #         data["degreeGrantor"] = [
-    #             {
-    #                 "university": {
-    #                     "name": [
-    #                         {
-    #                             "name": "Mendelova univerzita v Brně",
-    #                             "lang": "cze"
-    #                         }
-    #                     ]
-    #                 }
-    #             }
-    #         ]
-    # return data
 
 
 def session():
