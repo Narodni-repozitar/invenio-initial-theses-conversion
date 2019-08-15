@@ -1,6 +1,5 @@
 import functools
 import os
-import pprint
 from difflib import get_close_matches
 
 from invenio_nusl_theses.marshmallow.json import import_csv

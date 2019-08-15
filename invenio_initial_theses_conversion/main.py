@@ -9,7 +9,7 @@ import shutil
 import sys
 import traceback
 import uuid
-from collections import Counter, defaultdict
+from collections import Counter, defaultdict, OrderedDict
 from io import BytesIO, RawIOBase, BufferedReader
 from logging import StreamHandler
 from xml.etree import ElementTree
@@ -17,17 +17,17 @@ from xml.etree import ElementTree
 import click
 import requests
 from dojson.contrib.marc21.utils import split_stream, create_record
-from flask import cli
+from dojson.utils import GroupableOrderedDict
+from flask import cli, current_app
 from marshmallow import ValidationError
 
 from invenio_initial_theses_conversion.rules.model import old_nusl
-from invenio_nusl_theses.config import THESES_STAGING_JSON_SCHEMA
-from invenio_nusl_theses.marshmallow.data.fields_dict import FIELDS
-from invenio_nusl_theses.marshmallow.json import ThesisMetadataStagingSchemaV1
+from invenio_nusl_theses.marshmallow import ThesisMetadataSchemaV1
 from invenio_nusl_theses.proxies import nusl_theses
 
 # logging.basicConfig()
 # logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO) #logování SQLAlchemy
+from invenio_records_draft.marshmallow import DraftSchemaWrapper
 
 ERROR_DIR = "/tmp/import-nusl-theses"
 IGNORED_ERROR_FIELDS = {"title", "dateAccepted", "language", "degreeGrantor",
@@ -101,6 +101,11 @@ logging.basicConfig(
               default=1)
 @cli.with_appcontext
 def run(url, break_on_error, cache_dir, clean_output_dir, start):
+    with current_app.test_request_context('/api/taxonomies/'):
+        _run(url, break_on_error, cache_dir, clean_output_dir, start)
+
+
+def _run(url, break_on_error, cache_dir, clean_output_dir, start):
     processed_ids = set()
     if clean_output_dir and os.path.exists(ERROR_DIR):
         shutil.rmtree(ERROR_DIR)
@@ -130,8 +135,15 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
             processed_ids.add(recid)
             marshmallowed = None
             try:
-                rec = create_record(data)
+                for datafield in data:
+                    fix_language(datafield, "041", "0", "7", "a")
+                    fix_language(datafield, "520", " ", " ", "9")
+                    fix_language(datafield, "540", " ", " ", "9")
+
+                rec = create_record(data)  # PŘEVOD XML NA GroupableOrderedDict
+                rec = fix_grantor(rec)  # Sjednocení grantora pod pole 7102
                 if rec.get('980__') and rec['980__'].get('a') not in (
+                        # test jestli doctype je vysokoškolská práce, ostatní nezpracováváme
                         'bakalarske_prace',
                         'diplomove_prace',
                         'disertacni_prace',
@@ -140,23 +152,10 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                 ):
                     continue
 
-                transformed = old_nusl.do(rec) # PŘEVOD XML DO JSON - RULES
+                transformed = old_nusl.do(rec)  # PŘEVOD GroupableOrderedDict na Dict
                 ch.setTransformedRecord(transformed)
-
-                for datafield in data:
-                    fix_language(datafield, "041", "0", "7", "a")
-                    fix_language(datafield, "520", " ", " ", "9")
-                    fix_language(datafield, "540", " ", " ", "9")
-                transformed = old_nusl.do(create_record(data))
-                transformed = fix_grantor(transformed)
-                transformed = fix_field(transformed)
-                ch.setTransformedRecord(transformed)
-                staging_schema = ThesisMetadataStagingSchemaV1(strict=True,
-                                                               context={"staging": True})
                 try:
-                    marshmallowed = nusl_theses.validate(staging_schema, transformed,
-                                                         THESES_STAGING_JSON_SCHEMA
-                                                         )
+                    marshmallowed = nusl_theses.validate(DraftSchemaWrapper(ThesisMetadataSchemaV1), transformed)
                 except ValidationError as e:
                     for field in e.field_names:
                         error_counts[field] += 1
@@ -185,19 +184,6 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                 print(" ", file=f)
 
 
-def fix_field(data):
-    if "studyField" in data:
-        name = data["studyField"]["name"]
-        name = FIELDS.get(name, name)
-        if isinstance(name, str):
-            name = [name]
-        studyField = []
-        for n in name:
-            studyField.append({"name": n})
-        data["studyField"] = studyField
-    return data
-
-
 def fix_language(datafield, tag, ind1, ind2, code):
     if datafield.attrib["tag"] == tag and datafield.attrib["ind1"] == ind1 and datafield.attrib["ind2"] == ind2:
         for subfield in datafield:
@@ -206,60 +192,74 @@ def fix_language(datafield, tag, ind1, ind2, code):
 
 
 def fix_grantor(data):
-    if ("degreeGrantor" not in data) or (data.get("degreeGrantor") is None):
-        if data["provider"] == "vutbr":
-            data["degreeGrantor"] = [
-                {
-                    "university": {
-                        "name": [
+    data = dict(data)
+    if "502__" in data:
+        value = data.get("502__")
+        parsed_grantor = value.get("c")
+        if parsed_grantor is not None:
+            if "," in value.get("c"):
+                parsed_grantor = [x.strip() for x in value.get("c").split(",", maxsplit=2) if x.strip()]
+            elif "." in value.get("c"):
+                parsed_grantor = [x.strip() for x in value.get("c").split(".", maxsplit=2) if x.strip()]
+            else:
+                parsed_grantor = [parsed_grantor]
+
+            if parsed_grantor:
+                if "7102_" not in data:
+                    data["7102_"] = [
+                        {
+                            "a": parsed_grantor[0],
+                            "9": "cze"
+                        }
+                    ]
+                    if len(parsed_grantor) > 1:
+                        data["7102_"][0].update(
                             {
-                                "name": "Vysoké učení technické v Brně",
-                                "lang": "cze"
+                                "g": parsed_grantor[1]
                             }
-                        ]
-                    }
+                        )
+                        if len(parsed_grantor) > 2:
+                            data["7102_"][0].update(
+                                {
+                                    "b": parsed_grantor[2]
+                                }
+                            )
+                    data["7102_"] = tuple(data["7102_"])
+
+        del data["502__"]
+
+    if ("502__" not in data) and ("7102_" not in data) and ("998__" in data):
+        if data["998__"]["a"] == "vutbr":
+            data["7102_"] = [
+                {
+                    "a": "Vysoké učení technické v Brně",
+                    "9": "cze"
                 }
             ]
-        if data["provider"] == "ceska_zemedelska_univerzita":
-            data["degreeGrantor"] = [
+        if data["998__"]["a"] == "ceska_zemedelska_univerzita":
+            data["7102_"] = [
                 {
-                    "university": {
-                        "name": [
-                            {
-                                "name": "Česká zemědělská univerzita v Praze",
-                                "lang": "cze"
-                            }
-                        ]
-                    }
+                    "a": "Česká zemědělská univerzita v Praze",
+                    "9": "cze"
                 }
             ]
-        if data["provider"] == "jihoceska_univerzita_v_ceskych_budejovicich":
-            data["degreeGrantor"] = [
+        if data["998__"]["a"] == "jihoceska_univerzita_v_ceskych_budejovicich":
+            data["7102_"] = [
                 {
-                    "university": {
-                        "name": [
-                            {
-                                "name": "Jihočeská univerzita v Českých Budějovicích",
-                                "lang": "cze"
-                            }
-                        ]
-                    }
+                    "a": "Jihočeská univerzita v Českých Budějovicích",
+                    "9": "cze"
                 }
             ]
-        if data["provider"] == "mendelova_univerzita_v_brne":
-            data["degreeGrantor"] = [
+        if data["998__"]["a"] == "mendelova_univerzita_v_brne":
+            data["7102_"] = [
                 {
-                    "university": {
-                        "name": [
-                            {
-                                "name": "Mendelova univerzita v Brně",
-                                "lang": "cze"
-                            }
-                        ]
-                    }
+                    "a": "Mendelova univerzita v Brně",
+                    "9": "cze"
                 }
             ]
-    return data
+        data["7102_"] = tuple(data["7102_"])
+
+    return GroupableOrderedDict(OrderedDict(data))
 
 
 def session():
