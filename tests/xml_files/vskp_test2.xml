@@ -991,6 +991,47 @@
             <subfield code="a">lékové formy</subfield>
         </datafield>
         <datafield tag="650" ind1=" " ind2="7">
+            <subfield code="a">filigrány (papír)</subfield>
+            <subfield code="0">ph120179</subfield>
+            <subfield code="2">czenas</subfield>
+        </datafield>
+        <datafield tag="650" ind1=" " ind2="7">
+            <subfield code="a">hudebniny</subfield>
+            <subfield code="0">ph114722</subfield>
+            <subfield code="2">czenas</subfield>
+        </datafield>
+        <datafield tag="650" ind1=" " ind2="7">
+            <subfield code="a">hudební sbírky</subfield>
+            <subfield code="0">ph135174</subfield>
+            <subfield code="2">czenas</subfield>
+        </datafield>
+        <datafield tag="650" ind1=" " ind2="7">
+            <subfield code="a">rukopisy</subfield>
+            <subfield code="0">ph116084</subfield>
+            <subfield code="2">czenas</subfield>
+        </datafield>
+        <datafield tag="650" ind1=" " ind2="7">
+            <subfield code="a">katalogy</subfield>
+            <subfield code="0">ph121510</subfield>
+            <subfield code="2">czenas</subfield>
+        </datafield>
+        <datafield tag="650" ind1=" " ind2="7">
+            <subfield code="a">databáze</subfield>
+            <subfield code="0">ph114295</subfield>
+            <subfield code="2">czenas</subfield>
+        </datafield>
+        <datafield tag="650" ind1=" " ind2="7">
+            <subfield code="a">vědecký výzkum</subfield>
+            <subfield code="0">ph116680</subfield>
+            <subfield code="2">czenas</subfield>
+        </datafield>
+        <datafield tag="650" ind1=" " ind2="7">
+            <subfield code="a">hudba</subfield>
+            <subfield code="0">http://psh.ntkcz.cz/skos/PSH11857</subfield>
+            <subfield code="2">PSH</subfield>
+            <subfield code="j">music</subfield>
+        </datafield>
+        <datafield tag="650" ind1=" " ind2="7">
             <subfield code="0">http://psh.ntkcz.cz/skos/PSH13081</subfield>
             <subfield code="2">PSH</subfield>
             <subfield code="a">farmakologie</subfield>
