@@ -1,10 +1,11 @@
 import os
+from flask import current_app
 
 reverse_path = []
 
 
 def link_self(tax):
-    SERVER_NAME = os.environ.get('SERVER_NAME')
+    SERVER_NAME = current_app.config.get('SERVER_NAME')
     base = f"https://{SERVER_NAME}/api/taxonomies"
     taxonomy = tax.taxonomy.slug
     tree_path = tax.tree_path
