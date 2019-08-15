@@ -17,6 +17,7 @@ def subject(self, key, value):
     extra_data = extra_data_dict(value)
     if extra_data.get("taxonomy") is not None:
         taxonomy = extra_data["taxonomy"]
+        del extra_data["taxonomy"]
         if taxonomy.lower() == "mednas":
             parent_term = subject_taxonomy.get_term("MEDNAS")
             url = f"http://www.medvik.cz/link/{extra_data['id']}"
