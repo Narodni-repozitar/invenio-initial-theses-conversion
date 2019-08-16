@@ -1,21 +1,18 @@
-import os
 from flask import current_app
+from werkzeug.utils import cached_property
 
-reverse_path = []
+
+class Constants:
+    @cached_property
+    def server_name(self):
+        return current_app.config.get('SERVER_NAME')
 
 
-def link_self(tax):
-    SERVER_NAME = current_app.config.get('SERVER_NAME')
+constants = Constants()
+
+
+def link_self(taxonomy_code, taxonomy_term):
+    SERVER_NAME = constants.server_name
     base = f"https://{SERVER_NAME}/api/taxonomies"
-    taxonomy = tax.taxonomy.slug
-    tree_path = tax.tree_path
-    path = [base, taxonomy + tree_path]
+    path = [base, taxonomy_code + "/" + taxonomy_term.slug]
     return "/".join(path)
-
-
-# def recursive_parent(tax):
-#     if tax.parent is not None:
-#         reverse_path.append(tax.slug)
-#         recursive_parent(tax)
-#     else:
-#         return reverse_path

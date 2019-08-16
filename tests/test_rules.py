@@ -15,5 +15,6 @@ def test_rules(app, db):
         transformed = old_nusl.do(rec)
         schema = ThesisMetadataSchemaV1()
         marshmallowed = schema.load(transformed).data
+        marshmallowed = schema.dump(marshmallowed).data
         print(transformed)
         print("------------MARSHMALLOWED---------------------", marshmallowed)

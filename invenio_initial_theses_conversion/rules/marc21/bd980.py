@@ -13,5 +13,5 @@ def doctype(self, key, values):
         TaxonomyTerm.slug == doc_type).one()
 
     return {
-        "$ref": link_self(doctype)
+        "$ref": link_self(doctype_tax.slug, doctype)
     }

@@ -37,7 +37,7 @@ def studyfield_ref(study, tax, grantor, doc_type):
         fields = filter(fields, doc_type, grantor)
 
     return {
-        "studyfield": [{"$ref": link_self(field)} for field in fields],
+        "studyfield": [{"$ref": link_self(tax.slug, field)} for field in fields],
 
     }
 

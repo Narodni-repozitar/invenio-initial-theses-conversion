@@ -1082,4 +1082,123 @@
             <subfield code="a">oai:medvik.cz:122605</subfield>
         </datafield>
     </record>
+    <record>
+        <controlfield tag="001">386172</controlfield>
+        <controlfield tag="005">20190328171031.0</controlfield>
+        <datafield tag="035" ind1=" " ind2=" ">
+            <subfield code="a">oai:dspace.vutbr.cz:11012/85155</subfield>
+        </datafield>
+        <datafield tag="041" ind1="0" ind2="7">
+            <subfield code="a">eng</subfield>
+        </datafield>
+        <datafield tag="046" ind1=" " ind2=" ">
+            <subfield code="k">2018</subfield>
+        </datafield>
+        <datafield tag="245" ind1="0" ind2="0">
+            <subfield code="a">Futuristický kokpit moderního letounu</subfield>
+            <subfield code="b">Futuristic Aircraft Cockpit Design</subfield>
+        </datafield>
+        <datafield tag="260" ind1=" " ind2=" ">
+            <subfield code="b">
+                Vysoké učení technické v Brně. Fakulta informačních technologií
+            </subfield>
+        </datafield>
+        <datafield tag="520" ind1=" " ind2=" ">
+            <subfield code="a">
+                Táto bakalárska práca sa zaoberá modernou vizualizáciou letových dát. Obsahuje historický vývoj návrhu
+                vizualizácie letových dát v pilotnej kabíne a súčasné trendy vizualizácie letových dát. Ďalej je v práci
+                popísaný matematicko-fyzikálny popis lietadla, návrh vizualizácie futuristického displeja so zameraním
+                na jednopilotnú prevádzku a jeho samotná implementácia v prostredí 3D grafického softvéru. Aplikácia je
+                navrhnutá pre použitie v leteckom simulátore.
+            </subfield>
+            <subfield code="9">eng</subfield>
+        </datafield>
+        <datafield tag="520" ind1=" " ind2=" ">
+            <subfield code="a">
+                This bachelor thesis addresses modern visualization of flight data. It includes the historical
+                development of the flight data visualization design and current flight data visualization trends.
+                Further, thethesisdescribesamathematicalandphysicaldescriptionofanaircraft, a proposal for the
+                futuristic display with focus on the Single Pilot Operations and its implementation in a 3D graphic
+                engine environment. The application was designed to be used in the flight simulator.
+            </subfield>
+            <subfield code="9">cze</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">Flight Data Visualization</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">Futuristic Cockpit</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">Head-Up Display</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">Single Pilot Operations</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">Flight Simulator</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">Virtual Reality</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">Unity 3D</subfield>
+        </datafield>
+        <datafield tag="653" ind1="0" ind2=" ">
+            <subfield code="a">vizualizácia letových dát</subfield>
+        </datafield>
+        <datafield tag="653" ind1="0" ind2=" ">
+            <subfield code="a">futuristický kokpit</subfield>
+        </datafield>
+        <datafield tag="653" ind1="0" ind2=" ">
+            <subfield code="a">priehľadový displej</subfield>
+        </datafield>
+        <datafield tag="653" ind1="0" ind2=" ">
+            <subfield code="a">jednopilotná prevádzka</subfield>
+        </datafield>
+        <datafield tag="653" ind1="0" ind2=" ">
+            <subfield code="a">letecký simulátor</subfield>
+        </datafield>
+        <datafield tag="653" ind1="0" ind2=" ">
+            <subfield code="a">virtuálna realita</subfield>
+        </datafield>
+        <datafield tag="653" ind1="0" ind2=" ">
+            <subfield code="a">Unity 3D</subfield>
+        </datafield>
+        <datafield tag="720" ind1=" " ind2=" ">
+            <subfield code="a">Zembjaková, Martina</subfield>
+        </datafield>
+        <datafield tag="720" ind1=" " ind2=" ">
+            <subfield code="i">Vlk, Jan</subfield>
+            <subfield code="e">referee</subfield>
+        </datafield>
+        <datafield tag="720" ind1=" " ind2=" ">
+            <subfield code="i">Chudý, Peter</subfield>
+            <subfield code="e">advisor</subfield>
+        </datafield>
+        <datafield tag="856" ind1="4" ind2="0">
+            <subfield code="z">Odkaz na původní záznam</subfield>
+            <subfield code="u">http://hdl.handle.net/11012/85155</subfield>
+        </datafield>
+        <datafield tag="856" ind1="4" ind2="0">
+            <subfield code="u">http://www.nusl.cz/ntk/nusl-386172</subfield>
+            <subfield code="z">PID NUŠL</subfield>
+        </datafield>
+        <datafield tag="909" ind1="C" ind2="O">
+            <subfield code="o">oai:invenio.nusl.cz:386172</subfield>
+            <subfield code="p">global</subfield>
+        </datafield>
+        <datafield tag="980" ind1=" " ind2=" ">
+            <subfield code="a">bakalarske_prace</subfield>
+        </datafield>
+        <datafield tag="996" ind1=" " ind2=" ">
+            <subfield code="a">Plný text je dostupný v Digitální knihovně VUT.</subfield>
+            <subfield code="b">
+                Fulltext is available in the Brno University of Technology Digital Library.
+            </subfield>
+        </datafield>
+        <datafield tag="998" ind1=" " ind2=" ">
+            <subfield code="a">vutbr</subfield>
+        </datafield>
+    </record>
 </collection>
