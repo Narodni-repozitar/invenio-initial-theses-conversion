@@ -1,18 +1,18 @@
-import os
 from flask import current_app
+from werkzeug.utils import cached_property
 
 
-def link_self(tax):
-    def path_self(tax, path):
-        path.append(tax.slug)
-        if tax.level == 1:
-            return path[::-1]
-        if getattr(tax, "taxonomy", None) is not None:
-            return path_self(tax.taxonomy, path)
-        return path[::-1]
+class Constants:
+    @cached_property
+    def server_name(self):
+        return current_app.config.get('SERVER_NAME')
 
-    SERVER_NAME = current_app.config.get('SERVER_NAME')
+
+constants = Constants()
+
+
+def link_self(taxonomy_code, taxonomy_term):
+    SERVER_NAME = constants.server_name
     base = f"https://{SERVER_NAME}/api/taxonomies"
-    path = []
-    path = [base] + path_self(tax, path)
+    path = [base, taxonomy_code + "/" + taxonomy_term.slug]
     return "/".join(path)

@@ -24,6 +24,7 @@ from marshmallow import ValidationError
 from invenio_initial_theses_conversion.rules.model import old_nusl
 from invenio_nusl_theses.marshmallow import ThesisMetadataSchemaV1
 from invenio_nusl_theses.proxies import nusl_theses
+from invenio_oarepo.current_api import current_api
 
 # logging.basicConfig()
 # logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO) #logování SQLAlchemy
@@ -101,7 +102,7 @@ logging.basicConfig(
               default=1)
 @cli.with_appcontext
 def run(url, break_on_error, cache_dir, clean_output_dir, start):
-    with current_app.test_request_context('/api/taxonomies/'):
+    with current_api.app_context():
         _run(url, break_on_error, cache_dir, clean_output_dir, start)
 
 

@@ -31,19 +31,19 @@ def uni_ref(item, uni_name, universities, provider=None):
                     if department is not None:
                         return [
                             {
-                                "$ref": link_self(department)
+                                "$ref": link_self(universities.slug, department)
                             }
                         ]
 
                 return [
                     {
-                        "$ref": link_self(faculty)
+                        "$ref": link_self(universities.slug, faculty)
                     }
                 ]
 
         return [
             {
-                "$ref": link_self(university)
+                "$ref": link_self(universities.slug, university)
             }
         ]
 
