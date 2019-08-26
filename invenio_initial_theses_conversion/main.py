@@ -165,7 +165,7 @@ def _run(url, break_on_error, cache_dir, clean_output_dir, start):
                         raise
                     continue
 
-                nusl_theses.import_record(marshmallowed)
+                nusl_theses.import_old_nusl_record(marshmallowed)
             except Exception as e:
                 logging.exception('Error in transformation')
                 logging.error('data %s', marshmallowed)
