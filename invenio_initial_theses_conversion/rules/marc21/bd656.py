@@ -37,7 +37,7 @@ def studyfield_ref(study, tax, grantor, doc_type):
         fields = filter(fields, doc_type, grantor)
 
     return {
-        "studyfield": [{"$ref": link_self(tax.slug, field)} for field in fields],
+        "studyField": [{"$ref": link_self(tax.slug, field)} for field in fields],
 
     }
 
@@ -62,7 +62,7 @@ def doc_filter(fields, doc_type):
         degree_dict = {
             "Bakalářský": "bakalarske_prace",
             "Magisterský": "diplomove_prace",
-            "Navazující magisterský": "diplomova_prace",
+            "Navazující magisterský": "diplomove_prace",
             "Doktorský": "disertacni_prace"
         }
         return [field for field in fields if degree_dict.get(field.extra_data.get("degree_level")) == doc_type]
