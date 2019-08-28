@@ -1,6 +1,7 @@
 from sqlalchemy.orm.exc import NoResultFound
 
 from flask_taxonomies.models import Taxonomy, TaxonomyTerm
+from flask_taxonomies.utils import find_in_json, find_in_json_contains
 from invenio_initial_theses_conversion.nusl_overdo import single_value, merge_results, extra_argument
 from invenio_initial_theses_conversion.scripts.link import link_self
 from ..model import old_nusl
@@ -27,8 +28,10 @@ def studyProgramme_Field(self, key, value, grantor, doc_type):
 
 def studyfield_ref(study, tax, grantor, doc_type):
     # https://docs.sqlalchemy.org/en/13/dialects/postgresql.html#sqlalchemy.dialects.postgresql.JSON
-    fields = tax.descendants.filter(
-        TaxonomyTerm.extra_data[("title", 0, "value")].astext == study).all()
+    # https://github.com/sqlalchemy/sqlalchemy/issues/3859  # issuecomment-441935478
+    fields = find_in_json(study, tax, tree_address=("title", 0, "value")).all()
+    # fields = tax.descendants.filter(
+    #     TaxonomyTerm.extra_data[("title", 0, "value")].astext == study).all()
     if len(fields) == 0:
         fields = aliases(tax, study)
     if len(fields) == 0:
@@ -43,11 +46,13 @@ def studyfield_ref(study, tax, grantor, doc_type):
 
 
 def aliases(tax, study):
-    fields = tax.descendants.filter(
-        TaxonomyTerm.extra_data["aliases"].astext == study).all()
+    fields = find_in_json(study, tax, tree_address="aliases").all()
+    # fields = tax.descendants.filter(
+    #     TaxonomyTerm.extra_data["aliases"].astext == study).all()
     if len(fields) == 0:
-        fields = tax.descendants.filter(
-            TaxonomyTerm.extra_data["aliases"].contains([study])).all()
+        # fields = tax.descendants.filter(
+        #     TaxonomyTerm.extra_data["aliases"].contains([study])).all()
+        fields = find_in_json_contains(study, tax, tree_address="aliases").all()
     return fields
 
 

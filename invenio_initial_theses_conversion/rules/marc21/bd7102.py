@@ -1,4 +1,5 @@
 from flask_taxonomies.models import Taxonomy, TaxonomyTerm
+from flask_taxonomies.utils import find_in_json
 from invenio_initial_theses_conversion.nusl_overdo import handled_values, extra_argument
 from ..model import old_nusl
 from sqlalchemy.orm.exc import NoResultFound
@@ -19,9 +20,10 @@ def degree_grantor(self, key, values, provider):
 
 
 def uni_ref(item, uni_name, universities, provider=None):
-    university = universities.descendants.filter(
-        TaxonomyTerm.extra_data[("title", 0,
-                                 "value")].astext == uni_name).one_or_none()  # TODO: bude se muset přepsat, takto hledám jen první položku pole
+    university = find_in_json(uni_name, universities, tree_address=("title", 0, "value")).one_or_none()
+    # university = universities.descendants.filter(
+    #     TaxonomyTerm.extra_data[("title", 0,
+    #                              "value")].astext == uni_name).one_or_none()  # TODO: bude se muset přepsat, takto hledám jen první položku pole
     if university is not None:
         if item.get("g") is not None:
             faculty = fac_ref(item, university)
@@ -55,15 +57,17 @@ def uni_ref(item, uni_name, universities, provider=None):
 
 def department_ref(faculty, item):
     department_name = item.get("b")
-    department = faculty.descendants.filter(
-        TaxonomyTerm.extra_data[("title", 0, "value")].astext == department_name).first()
+    department = find_in_json(department_name, faculty).first()
+    # department = faculty.descendants.filter(
+    #     TaxonomyTerm.extra_data[("title", 0, "value")].astext == department_name).first()
     return department
 
 
 def fac_ref(item, university):
     fac_name = item.get("g")
-    faculty = university.descendants.filter(
-        TaxonomyTerm.extra_data[("title", 0, "value")].astext == fac_name).all()
+    faculty = find_in_json(fac_name, university).all()
+    # faculty = university.descendants.filter(
+    #     TaxonomyTerm.extra_data[("title", 0, "value")].astext == fac_name).all()
     faculty = [fac for fac in faculty if fac.level == 3]
     if len(faculty) != 0:
         faculty = faculty[0]
