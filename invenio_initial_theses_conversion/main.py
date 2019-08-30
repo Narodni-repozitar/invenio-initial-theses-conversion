@@ -87,6 +87,29 @@ logging.basicConfig(
 )
 
 
+@click.command("initial-theses-conversion-chunks")
+@click.option('--url',
+              default='https://invenio.nusl.cz/search?ln=cs&p=&f=&action_search=Hledej&c=Vysoko%C5%A1kolsk%C3%A9+kvalifika%C4%8Dn%C3%AD+pr%C3%A1ce&rg=1000&sc=0&of=xm',
+              help='Collection URL')
+@click.option('--cache-dir',
+              help='Cache dir')
+@click.option('--break-on-error/--no-break-on-error',
+              default=True,
+              help='Break on first error')
+@click.option('--clean-output-dir/--no-clean-output-dir',
+              default=True)
+@click.option('--start',
+              default=1)
+@click.option('--stop')
+@cli.with_appcontext
+@click.pass_context
+def run_chunks(ctx, url, break_on_error, cache_dir, clean_output_dir, start, stop):
+    while True:
+        start = int(start)
+        ctx.forward(run, start=start, stop=stop)
+        start += int(stop)
+
+
 @click.command("initial-theses-conversion")
 @click.option('--url',
               default='https://invenio.nusl.cz/search?ln=cs&p=&f=&action_search=Hledej&c=Vysoko%C5%A1kolsk%C3%A9+kvalifika%C4%8Dn%C3%AD+pr%C3%A1ce&rg=1000&sc=0&of=xm',
@@ -100,13 +123,24 @@ logging.basicConfig(
               default=True)
 @click.option('--start',
               default=1)
+@click.option('--stop')
 @cli.with_appcontext
-def run(url, break_on_error, cache_dir, clean_output_dir, start):
+def run(url, break_on_error, cache_dir, clean_output_dir, start, stop):
+    """
+    Fetch data from old nusl and convert into new nusl as json.
+    :param url: Url for data collection
+    :param break_on_error: If true the script break at the error, oterwise it will log and continue with next record.
+    :param cache_dir: Path to the cache directory
+    :param clean_output_dir:
+    :param start: Number of starting record
+    :param stop: Number of records that will be fetched
+    :return:
+    """
     with current_api.app_context():
-        _run(url, break_on_error, cache_dir, clean_output_dir, start)
+        _run(url, break_on_error, cache_dir, clean_output_dir, start, stop)
 
 
-def _run(url, break_on_error, cache_dir, clean_output_dir, start):
+def _run(url, break_on_error, cache_dir, clean_output_dir, start, stop):
     processed_ids = set()
     if clean_output_dir and os.path.exists(ERROR_DIR):
         shutil.rmtree(ERROR_DIR)
@@ -118,59 +152,7 @@ def _run(url, break_on_error, cache_dir, clean_output_dir, start):
         else:
             gen = file_nusl_data_generator(start, url, cache_dir)
 
-        for data in gen:
-
-            for cf in data.iter('{http://www.loc.gov/MARC21/slim}controlfield'):
-                if cf.attrib['tag'] == '001':
-                    recid = cf.text
-                    break
-            else:
-                recid = str(uuid.uuid4())
-
-            ch.setRecord(data, recid)
-
-            if recid in processed_ids:
-                logging.warning('Record with id %s already parsed, probably end of stream', recid)
-                return
-
-            processed_ids.add(recid)
-            marshmallowed = None
-            try:
-                for datafield in data:
-                    fix_language(datafield, "041", "0", "7", "a")
-                    fix_language(datafield, "520", " ", " ", "9")
-                    fix_language(datafield, "540", " ", " ", "9")
-
-                rec = create_record(data)  # PŘEVOD XML NA GroupableOrderedDict
-                rec = fix_grantor(rec)  # Sjednocení grantora pod pole 7102
-                if rec.get('980__') and rec['980__'].get('a') not in (
-                        # test jestli doctype je vysokoškolská práce, ostatní nezpracováváme
-                        'bakalarske_prace',
-                        'diplomove_prace',
-                        'disertacni_prace',
-                        'habilitacni_prace',
-                        'rigorozni_prace'
-                ):
-                    continue
-
-                transformed = old_nusl.do(rec)  # PŘEVOD GroupableOrderedDict na Dict
-                ch.setTransformedRecord(transformed)
-                try:
-                    marshmallowed = nusl_theses.validate(DraftSchemaWrapper(ThesisMetadataSchemaV1), transformed)
-                except ValidationError as e:
-                    for field in e.field_names:
-                        error_counts[field] += 1
-                        error_documents[field].append(recid)
-                    if set(e.field_names) - IGNORED_ERROR_FIELDS:
-                        raise
-                    continue
-
-                nusl_theses.import_old_nusl_record(marshmallowed)
-            except Exception as e:
-                logging.exception('Error in transformation')
-                logging.error('data %s', marshmallowed)
-                if break_on_error:
-                    raise
+        return data_loop_collector(break_on_error, error_counts, error_documents, gen, processed_ids, stop)
 
     finally:
         if not os.path.exists('/tmp/import-nusl-theses'):
@@ -183,6 +165,66 @@ def _run(url, break_on_error, cache_dir, clean_output_dir, start):
                 print(error, file=f)
                 print(" ".join([str(recid) for recid in recids]), file=f)
                 print(" ", file=f)
+
+
+def data_loop_collector(break_on_error, error_counts, error_documents, gen, processed_ids, stop):
+    i = 0
+    for data in gen:
+        i += 1
+        if i >= int(stop):
+            break
+
+        for cf in data.iter('{http://www.loc.gov/MARC21/slim}controlfield'):
+            if cf.attrib['tag'] == '001':
+                recid = cf.text
+                break
+        else:
+            recid = str(uuid.uuid4())
+
+        ch.setRecord(data, recid)
+
+        if recid in processed_ids:
+            logging.warning('Record with id %s already parsed, probably end of stream', recid)
+            return
+
+        processed_ids.add(recid)
+        marshmallowed = None
+        try:
+            for datafield in data:
+                fix_language(datafield, "041", "0", "7", "a")
+                fix_language(datafield, "520", " ", " ", "9")
+                fix_language(datafield, "540", " ", " ", "9")
+
+            rec = create_record(data)  # PŘEVOD XML NA GroupableOrderedDict
+            rec = fix_grantor(rec)  # Sjednocení grantora pod pole 7102
+            if rec.get('980__') and rec['980__'].get('a') not in (
+                    # test jestli doctype je vysokoškolská práce, ostatní nezpracováváme
+                    'bakalarske_prace',
+                    'diplomove_prace',
+                    'disertacni_prace',
+                    'habilitacni_prace',
+                    'rigorozni_prace'
+            ):
+                continue
+
+            transformed = old_nusl.do(rec)  # PŘEVOD GroupableOrderedDict na Dict
+            ch.setTransformedRecord(transformed)
+            try:
+                marshmallowed = nusl_theses.validate(DraftSchemaWrapper(ThesisMetadataSchemaV1), transformed)
+            except ValidationError as e:
+                for field in e.field_names:
+                    error_counts[field] += 1
+                    error_documents[field].append(recid)
+                if set(e.field_names) - IGNORED_ERROR_FIELDS:
+                    raise
+                continue
+
+            nusl_theses.import_old_nusl_record(marshmallowed)
+        except Exception as e:
+            logging.exception('Error in transformation')
+            logging.error('data %s', marshmallowed)
+            if break_on_error:
+                raise
 
 
 def fix_language(datafield, tag, ind1, ind2, code):
