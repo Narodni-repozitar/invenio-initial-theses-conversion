@@ -21,9 +21,6 @@ def degree_grantor(self, key, values, provider):
 
 def uni_ref(item, uni_name, universities, provider=None):
     university = find_in_json(uni_name, universities, tree_address=("title", 0, "value")).one_or_none()
-    # university = universities.descendants.filter(
-    #     TaxonomyTerm.extra_data[("title", 0,
-    #                              "value")].astext == uni_name).one_or_none()  # TODO: bude se muset přepsat, takto hledám jen první položku pole
     if university is not None:
         if item.get("g") is not None:
             faculty = fac_ref(item, university)
@@ -37,15 +34,17 @@ def uni_ref(item, uni_name, universities, provider=None):
                             }
                         ]
 
+                no_department = universities.get_term(f"{faculty.slug}_no_department")
                 return [
                     {
-                        "$ref": link_self(universities.slug, faculty)
+                        "$ref": link_self(universities.slug, no_department)
                     }
                 ]
 
+        no_department = universities.get_term(f"{university.slug}_no_faculty_no_department")
         return [
             {
-                "$ref": link_self(universities.slug, university)
+                "$ref": link_self(universities.slug, no_department)
             }
         ]
 
@@ -81,7 +80,7 @@ def find_uni_name(provider):
     provider_term = provider_tax.descendants.filter(
         TaxonomyTerm.slug == provider).first()
     try:
-        uni_name = provider_term.extra_data["title"][0]["value"]
+        uni_name = provider_term.extra_data["title"][0]["value"] #TODO: je potřeba změnit, až bude více jazyků
     except KeyError:
         uni_name = None
     return uni_name

@@ -1201,4 +1201,79 @@
             <subfield code="a">vutbr</subfield>
         </datafield>
     </record>
+    <record>
+        <controlfield tag="001">396596</controlfield>
+        <controlfield tag="005">20190826114224.0</controlfield>
+        <datafield tag="035" ind1=" " ind2=" ">
+            <subfield code="a">repository/55245</subfield>
+        </datafield>
+        <datafield tag="041" ind1="0" ind2="7">
+            <subfield code="a">cze</subfield>
+        </datafield>
+        <datafield tag="046" ind1=" " ind2=" ">
+            <subfield code="k">2019-07-12</subfield>
+        </datafield>
+        <datafield tag="245" ind1="0" ind2="0">
+            <subfield code="a">
+                Česká soudobá přednesová klavírní literatura pro děti a mládež na konci 20. století
+            </subfield>
+            <subfield code="b">
+                Czech contemporary artistic piano literature for children and youth at the end od 20. century
+            </subfield>
+        </datafield>
+        <datafield tag="300" ind1=" " ind2=" ">
+            <subfield code="a">53 stran</subfield>
+        </datafield>
+        <datafield tag="500" ind1=" " ind2=" ">
+            <subfield code="a">
+                NESTŘEBOVÁ, Jitka. Česká soudobá přednesová klavírní literatura pro děti a mládež na konci 20. století.
+                Č. Budějovice, 2019. bakalářská práce (Bc.). JIHOČESKÁ UNIVERZITA V ČESKÝCH BUDĚJOVICÍCH. Pedagogická
+                fakulta
+            </subfield>
+        </datafield>
+        <datafield tag="502" ind1=" " ind2=" ">
+            <subfield code="a">2019-07-12</subfield>
+            <subfield code="b">Bc.</subfield>
+            <subfield code="c">JIHOČESKÁ UNIVERZITA V ČESKÝCH BUDĚJOVICÍCH</subfield>
+            <subfield code="g">Bachelor</subfield>
+        </datafield>
+        <datafield tag="656" ind1=" " ind2="7">
+            <subfield code="a">
+                Specializace v pedagogice/Hra na nástroj nebo zpěv se zaměřením na vzdělávání
+            </subfield>
+            <subfield code="2">AKVO</subfield>
+        </datafield>
+        <datafield tag="720" ind1=" " ind2=" ">
+            <subfield code="a">NESTŘEBOVÁ, Jitka</subfield>
+        </datafield>
+        <datafield tag="856" ind1="4" ind2="0">
+            <subfield code="u">http://www.jcu.cz/vskp/55245</subfield>
+            <subfield code="z">Odkaz na původní záznam</subfield>
+        </datafield>
+        <datafield tag="856" ind1="4" ind2="0">
+            <subfield code="u">http://www.nusl.cz/ntk/nusl-396596</subfield>
+            <subfield code="z">PID NUŠL</subfield>
+        </datafield>
+        <datafield tag="909" ind1="C" ind2="O">
+            <subfield code="o">oai:invenio.nusl.cz:396596</subfield>
+            <subfield code="p">openaire</subfield>
+            <subfield code="p">global</subfield>
+            <subfield code="p">base</subfield>
+        </datafield>
+        <datafield tag="970" ind1=" " ind2=" ">
+            <subfield code="a">55245</subfield>
+        </datafield>
+        <datafield tag="980" ind1=" " ind2=" ">
+            <subfield code="a">bakalarske_prace</subfield>
+        </datafield>
+        <datafield tag="996" ind1=" " ind2=" ">
+            <subfield code="a">Plný text je dostupný v digitálním repozitáři JČU.</subfield>
+            <subfield code="b">
+                Fulltext is available in the Digital Repository of University of South Bohemia.
+            </subfield>
+        </datafield>
+        <datafield tag="998" ind1=" " ind2=" ">
+            <subfield code="a">jihoceska_univerzita_v_ceskych_budejovicich</subfield>
+        </datafield>
+    </record>
 </collection>
