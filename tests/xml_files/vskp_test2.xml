@@ -1276,4 +1276,217 @@
             <subfield code="a">jihoceska_univerzita_v_ceskych_budejovicich</subfield>
         </datafield>
     </record>
+    <record>
+        <controlfield tag="001">259678</controlfield>
+        <controlfield tag="005">20181003165439.0</controlfield>
+        <datafield tag="035" ind1=" " ind2=" ">
+            <subfield code="a">oai:czu.cz:vskp/x211079</subfield>
+        </datafield>
+        <datafield tag="041" ind1="0" ind2="7">
+            <subfield code="a">cze</subfield>
+        </datafield>
+        <datafield tag="046" ind1=" " ind2=" ">
+            <subfield code="j">2015-08-19</subfield>
+            <subfield code="k">2015</subfield>
+        </datafield>
+        <datafield tag="245" ind1="0" ind2="0">
+            <subfield code="a">
+                Geochemie rizikových prvků v oblasti postižené těžbou a zpracováním polymetalických rud - Namibie,
+                Afrika
+            </subfield>
+            <subfield code="b">
+                Geochemistry of risk elements in areas affected by mining and processing of polymetallic ores - Namibia,
+                Africa
+            </subfield>
+        </datafield>
+        <datafield tag="260" ind1=" " ind2=" ">
+            <subfield code="b">Česká zemědělská univerzita v Praze</subfield>
+        </datafield>
+        <datafield tag="520" ind1=" " ind2=" ">
+            <subfield code="a">
+                Písemná práce ke státní doktorské zkoušce se zabývá tématem, jak důlní a metalurgická oblast ovlivňuje
+                životní prostředí. Teoretická část se zabývá geochemií a chováním (mobilita, biodostupnost)rizikových
+                prvků v půdě se zaměřením na selen a molybden v oblastech ovlivněných těžbou a zpracováním
+                polymetalických rud Kombat a Berg Akuas, Namibie. Vlastní práce se věnuje analýze a rozboru selenu a
+                molybdenu. Po rozboru budou následovat doporučení, jak zabráni zvýšené mobilitě a nebezpečnému až
+                toxickému působení selenu a molybdenu v těchto oblastech.
+            </subfield>
+            <subfield code="9">cze</subfield>
+        </datafield>
+        <datafield tag="520" ind1=" " ind2=" ">
+            <subfield code="a">
+                The aim of this thesis is to understand how mining and processing of polymetallic ores in areas Kombat
+                and Berg Aukas of Namibia may affect the geochemistry and behavior of hazardous elements (selenium and
+                molybdenum), especially then their mobility and bioavailability in the soil environment and consequently
+                assess their potential hazardous properties and factors affecting them.
+            </subfield>
+            <subfield code="9">eng</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">geochemie</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">selen</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">molybden</subfield>
+        </datafield>
+        <datafield tag="656" ind1=" " ind2="7">
+            <subfield code="a">Využití a ochrana přírodních zdrojů</subfield>
+        </datafield>
+        <datafield tag="720" ind1=" " ind2=" ">
+            <subfield code="a">Skipalová, Klára</subfield>
+        </datafield>
+        <datafield tag="720" ind1=" " ind2=" ">
+            <subfield code="i">Borůvka, Luboš</subfield>
+            <subfield code="e">advisor</subfield>
+        </datafield>
+        <datafield tag="856" ind1="4" ind2="0">
+            <subfield code="u">
+                https://is.czu.cz/zp/index.pl?podrobnosti_zp=211079
+            </subfield>
+            <subfield code="z">Odkaz na původní záznam</subfield>
+        </datafield>
+        <datafield tag="856" ind1="4" ind2="0">
+            <subfield code="u">http://www.nusl.cz/ntk/nusl-259678</subfield>
+            <subfield code="z">PID NUŠL</subfield>
+        </datafield>
+        <datafield tag="909" ind1="C" ind2="O">
+            <subfield code="o">oai:invenio.nusl.cz:259678</subfield>
+            <subfield code="p">etds</subfield>
+            <subfield code="p">global</subfield>
+            <subfield code="p">base</subfield>
+            <subfield code="q">openaire</subfield>
+            <subfield code="q">licensed</subfield>
+        </datafield>
+        <datafield tag="980" ind1=" " ind2=" ">
+            <subfield code="a">disertacni_prace</subfield>
+        </datafield>
+        <datafield tag="996" ind1=" " ind2=" ">
+            <subfield code="a">
+                Dostupné registrovaným uživatelům v repozitáři ČZU.
+            </subfield>
+            <subfield code="b">
+                Available to registered users in the CZU repository.
+            </subfield>
+        </datafield>
+        <datafield tag="998" ind1=" " ind2=" ">
+            <subfield code="a">ceska_zemedelska_univerzita</subfield>
+        </datafield>
+    </record>
+    <record>
+        <controlfield tag="001">258349</controlfield>
+        <controlfield tag="005">20181003165349.0</controlfield>
+        <datafield tag="035" ind1=" " ind2=" ">
+            <subfield code="a">oai:czu.cz:vskp/b204181</subfield>
+        </datafield>
+        <datafield tag="041" ind1="0" ind2="7">
+            <subfield code="a">cze</subfield>
+        </datafield>
+        <datafield tag="046" ind1=" " ind2=" ">
+            <subfield code="j">2016-05-03</subfield>
+            <subfield code="k">2016</subfield>
+        </datafield>
+        <datafield tag="245" ind1="0" ind2="0">
+            <subfield code="a">
+                Vlastnosti Thermowoodu v závislosti na ochranných látkách
+            </subfield>
+            <subfield code="b">
+                Thermowood properties depending on the protective substances
+            </subfield>
+        </datafield>
+        <datafield tag="260" ind1=" " ind2=" ">
+            <subfield code="b">Česká zemědělská univerzita v Praze</subfield>
+        </datafield>
+        <datafield tag="502" ind1=" " ind2=" ">
+            <subfield code="b">Bc.</subfield>
+            <subfield code="g">Bakalářský studijní program</subfield>
+        </datafield>
+        <datafield tag="520" ind1=" " ind2=" ">
+            <subfield code="a">
+                Bakalářská práce Vlastnosti Thermowoodu v závislosti na ochranných látkách je rozdělena do několika
+                kapitol. První kapitola objasňuje pojem ThermoWood, kapitola druhá je zaměřena na modifikaci dřeva,
+                třetí kapitola se věnuje vlastnostem dřeva ThermoWood. Čtvrtá kapitola poukazuje na vliv ThermoWood na
+                životní prostředí. Pátá kapitola se zaměřuje na analýzu literárních poznatků, šestá kapitola se věnuje
+                rozboru využití nátěrových hmot v praxi. Předposlední sedmá kapitola je věnována novým trendům v této
+                oblasti a poslední osmá kapitola poukazuje na grafy finské společnosti ThermoWood, jež jsou zaměřeny na
+                výrobní statistiku.
+            </subfield>
+            <subfield code="9">cze</subfield>
+        </datafield>
+        <datafield tag="520" ind1=" " ind2=" ">
+            <subfield code="a">
+                Bachelor thesis Thermowood properties depending on the protective substances is divided into several
+                chapters. The first chapter explains the concept ThermoWood, the second chapter focuses on wood
+                modification, the third chapter deals with the properties of wood ThermoWood. The fourth chapter shows
+                the impact on the environment ThermoWood. The fifth chapter focuses on the analysis of literary
+                knowledge, chapter sixth chapter is devoted to the analysis of the use of paints in practice. The
+                penultimate seventh chapter is dedicated to new trends in this area and the last eighth chapter shows
+                the graphs of the Finnish ThermoWood companies that are focused on production statistics.
+            </subfield>
+            <subfield code="9">eng</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">Modifikace dřeva</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">nátěrové látky</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">ochrana dřeva</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">vlastnosti dřeva</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">ThermoWood</subfield>
+        </datafield>
+        <datafield tag="656" ind1=" " ind2="7">
+            <subfield code="a">
+                Podnikání ve dřevozpracujícím a nábytkářském průmyslu
+            </subfield>
+        </datafield>
+        <datafield tag="720" ind1=" " ind2=" ">
+            <subfield code="a">Kroupa, Michal</subfield>
+        </datafield>
+        <datafield tag="720" ind1=" " ind2=" ">
+            <subfield code="i">Gaff, Milan</subfield>
+            <subfield code="e">advisor</subfield>
+        </datafield>
+        <datafield tag="720" ind1=" " ind2=" ">
+            <subfield code="i">Sarvašová Kvietková, Monika</subfield>
+            <subfield code="e">referee</subfield>
+        </datafield>
+        <datafield tag="856" ind1="4" ind2="0">
+            <subfield code="u">
+                https://is.czu.cz/zp/index.pl?podrobnosti_zp=204181
+            </subfield>
+            <subfield code="z">Odkaz na původní záznam</subfield>
+        </datafield>
+        <datafield tag="856" ind1="4" ind2="0">
+            <subfield code="u">http://www.nusl.cz/ntk/nusl-258349</subfield>
+            <subfield code="z">PID NUŠL</subfield>
+        </datafield>
+        <datafield tag="909" ind1="C" ind2="O">
+            <subfield code="o">oai:invenio.nusl.cz:258349</subfield>
+            <subfield code="p">global</subfield>
+            <subfield code="p">base</subfield>
+            <subfield code="q">openaire</subfield>
+            <subfield code="q">licensed</subfield>
+        </datafield>
+        <datafield tag="980" ind1=" " ind2=" ">
+            <subfield code="a">bakalarske_prace</subfield>
+        </datafield>
+        <datafield tag="996" ind1=" " ind2=" ">
+            <subfield code="a">
+                Dostupné registrovaným uživatelům v repozitáři ČZU.
+            </subfield>
+            <subfield code="b">
+                Available to registered users in the CZU repository.
+            </subfield>
+        </datafield>
+        <datafield tag="998" ind1=" " ind2=" ">
+            <subfield code="a">ceska_zemedelska_univerzita</subfield>
+        </datafield>
+    </record>
 </collection>

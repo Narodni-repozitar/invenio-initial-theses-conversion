@@ -1,6 +1,8 @@
-from sqlalchemy.orm.exc import NoResultFound
+import uuid
 
-from flask_taxonomies.models import Taxonomy, TaxonomyTerm
+from invenio_db import db
+
+from flask_taxonomies.models import Taxonomy
 from flask_taxonomies.utils import find_in_json, find_in_json_contains
 from invenio_initial_theses_conversion.nusl_overdo import single_value, merge_results, extra_argument
 from invenio_initial_theses_conversion.scripts.link import link_self
@@ -19,7 +21,7 @@ def studyProgramme_Field(self, key, value, grantor, doc_type):
     study = value.get("a")
     tax = Taxonomy.get("studyfields", required=True)
     if "/" not in study:
-        return studyfield_ref(study, tax, grantor, doc_type)
+        return studyfield_ref(study.strip(), tax, grantor, doc_type)
     else:
         programme, field = study.split("/", maxsplit=1)
         field = field.strip()
@@ -35,7 +37,25 @@ def studyfield_ref(study, tax, grantor, doc_type):
     if len(fields) == 0:
         fields = aliases(tax, study)
     if len(fields) == 0:
-        raise NoResultFound
+        field = find_in_json_contains(study, tax, "source_data").first()
+        if field is None:
+            not_valid = tax.get_term("no_valid_studyfield")
+            slug = f"no_valid_{uuid.uuid4()}"
+            field = not_valid.create_term(
+                slug=slug,
+                extra_data={
+                    "title": {
+                        "value": "Nevalidní obor nebo program",
+                        "lang": "cze"
+                    },
+                    "source_data": study
+                }
+            )
+            db.session.add(field)
+            db.session.commit()
+        return {
+            "studyField": [{"$ref": link_self(tax.slug, field)}]
+        }
     if len(fields) > 1:
         fields = filter(fields, doc_type, grantor)
 
