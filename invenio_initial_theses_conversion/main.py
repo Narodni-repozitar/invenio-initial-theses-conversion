@@ -123,7 +123,8 @@ def run_chunks(ctx, url, break_on_error, cache_dir, clean_output_dir, start, sto
               default=True)
 @click.option('--start',
               default=1)
-@click.option('--stop')
+@click.option('--stop',
+              default=100000000000000)
 @cli.with_appcontext
 def run(url, break_on_error, cache_dir, clean_output_dir, start, stop):
     """
