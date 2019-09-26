@@ -31,7 +31,7 @@ def language(self, key, value):
 
 
 def get_ref(lang, languages, taxonomy):
-    lang_tax = taxonomy.get_term("bla")
+    lang_tax = taxonomy.get_term(lang)
     if lang_tax is None:
         return None
     languages.append({
