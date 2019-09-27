@@ -1,11 +1,13 @@
+from collections import OrderedDict
 from functools import lru_cache
 from urllib.parse import urlparse
 
+from dojson.utils import GroupableOrderedDict
 from invenio_db import db
-from sqlalchemy.exc import IntegrityError
 from werkzeug.utils import cached_property
 
 from flask_taxonomies.models import Taxonomy, TaxonomyTerm
+from flask_taxonomies.utils import find_in_json_contains
 from invenio_initial_theses_conversion.nusl_overdo import append_results, list_value, handled_values
 from invenio_initial_theses_conversion.scripts.link import link_self
 from invenio_nusl.cli import create_slug
@@ -45,7 +47,7 @@ constants = Constants()
 @append_results
 @list_value
 @handled_values('0', '2', 'a', 'j', '7')
-def subject(self, key, value):
+def subject(self, key, value): # TODO: akceptovat term a vracet rovnou link
     """Subject."""
     subject_taxonomy = constants.subject_taxonomy
     extra_data = extra_data_dict(value)
@@ -93,15 +95,16 @@ def taxonomy_ref(keyword, parent_term, extra_data=None, taxonomy=None, url=None,
         subject = search_json_by_slug(id, parent_term)
 
     if len(subject) == 0:
-        try:
-            slug = add_to_taxonomy(keyword, parent_term, extra_data=extra_data, id=id, url=url, lang=lang)
-        except IntegrityError:
-            slug = create_slug(keyword)
-        subject = taxonomy.get_term(slug)
-
-        return {
-            "$ref": link_self(taxonomy.slug, subject)
-        }
+        return
+        # try:
+        #     slug = add_to_taxonomy(keyword, parent_term, extra_data=extra_data, id=id, url=url, lang=lang)
+        # except IntegrityError:
+        #     slug = create_slug(keyword)
+        # subject = taxonomy.get_term(slug)
+        #
+        # return {
+        #     "$ref": link_self(taxonomy.slug, subject)
+        # }
     if len(subject) == 1:
         return {
             "$ref": link_self(taxonomy.slug, subject[0])
@@ -195,15 +198,46 @@ def add_to_taxonomy(keyword, taxonomy_term=None, extra_data=None, lang=None, id=
 @list_value
 @handled_values('a')
 def keyword(self, key, value):
+    tax = Taxonomy.get("subject")
     """Subject."""
     if key == '653__':
-        return {
-            "name": value.get("a"),
-            "lang": "cze"
-        }
+        name = value.get("a")
+        psh_list_terms = find_in_json_contains(name, tax, "title").all()
+        if len(psh_list_terms) == 0:
+            psh_list_terms = find_in_json_contains(name, tax, "altTitle").all()
+        term = psh_term_filter(psh_list_terms, name)
+        if len(psh_list_terms) == 0 or term is None:
+            return {
+                "name": name,
+                "lang": "cze"
+            }
+        value = dict(value)
+        value["0"] = term.extra_data["uri"]
+        value["2"] = "PSH"
+        value = GroupableOrderedDict(OrderedDict(value))
+        #TODO: Dodělat chybu
+        subject(self, '650_7', value)
 
     if key == '6530_':
+        name = value.get("a")
         return {
-            "name": value.get("a"),
+            "name": name,
             "lang": "eng"
         }
+
+
+def psh_term_filter(psh_list_terms, name):
+    if len(psh_list_terms) == 0:
+        return None
+    matched_terms = []
+    for term in psh_list_terms:
+        match = False
+        for dict in term.extra_data["title"]:
+            for v in dict.values():
+                if v == name:
+                    match = True
+        if match:
+            matched_terms.append(term)
+    if len(matched_terms) > 0:
+        return matched_terms[0]
+    return None

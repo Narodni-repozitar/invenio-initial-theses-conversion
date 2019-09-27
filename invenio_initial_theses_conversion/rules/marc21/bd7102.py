@@ -1,9 +1,8 @@
 from flask_taxonomies.models import Taxonomy, TaxonomyTerm
 from flask_taxonomies.utils import find_in_json
 from invenio_initial_theses_conversion.nusl_overdo import handled_values, extra_argument
-from ..model import old_nusl
-from sqlalchemy.orm.exc import NoResultFound
 from invenio_initial_theses_conversion.scripts.link import link_self
+from ..model import old_nusl
 
 
 @old_nusl.over('degreeGrantor', '^7102_')
