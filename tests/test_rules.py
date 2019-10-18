@@ -1,6 +1,6 @@
 from dojson.contrib.marc21.utils import create_record, split_stream
 
-from invenio_initial_theses_conversion.main import fix_grantor, fix_keywords
+from invenio_initial_theses_conversion.utils import fix_grantor, fix_keywords
 from invenio_initial_theses_conversion.rules.model import old_nusl
 from invenio_nusl_theses.marshmallow import ThesisMetadataSchemaV1
 

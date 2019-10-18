@@ -8,7 +8,8 @@ import click
 from dojson.contrib.marc21.utils import create_record
 from flask import cli
 
-from invenio_initial_theses_conversion.main import url_nusl_data_generator, file_nusl_data_generator, fix_grantor
+from invenio_initial_theses_conversion.main import url_nusl_data_generator, file_nusl_data_generator
+from invenio_initial_theses_conversion.utils import fix_grantor
 
 ERROR_DIR = "/tmp/import-nusl-theses"
 
@@ -84,8 +85,6 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
     finally:
         with open("departments.json", "w") as f:
             json.dump(list(org_units), f)
-
-
 
 
 def aslist(x):
