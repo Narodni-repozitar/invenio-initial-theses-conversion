@@ -21,7 +21,10 @@ from dojson.utils import GroupableOrderedDict
 from flask import cli, current_app
 from marshmallow import ValidationError
 
+from flask_taxonomies.models import Taxonomy
+from flask_taxonomies.utils import find_in_json_contains
 from invenio_initial_theses_conversion.rules.model import old_nusl
+from invenio_initial_theses_conversion.utils import psh_term_filter
 from invenio_nusl_theses.marshmallow import ThesisMetadataSchemaV1
 from invenio_nusl_theses.proxies import nusl_theses
 from invenio_oarepo.current_api import current_api
@@ -196,8 +199,11 @@ def data_loop_collector(break_on_error, error_counts, error_documents, gen, proc
                 fix_language(datafield, "520", " ", " ", "9")
                 fix_language(datafield, "540", " ", " ", "9")
 
+            # Fix data before transformation into JSON
             rec = create_record(data)  # PŘEVOD XML NA GroupableOrderedDict
             rec = fix_grantor(rec)  # Sjednocení grantora pod pole 7102
+            rec = fix_keywords(rec)
+
             if rec.get('980__') and rec['980__'].get('a') not in (
                     # test jestli doctype je vysokoškolská práce, ostatní nezpracováváme
                     'bakalarske_prace',
@@ -303,6 +309,43 @@ def fix_grantor(data):
             ]
         data["7102_"] = tuple(data["7102_"])
 
+    return GroupableOrderedDict(OrderedDict(data))
+
+
+def fix_keywords(data):
+    tax = Taxonomy.get("subject")
+    data = dict(data)
+    subject_tuple = []
+    if "653__" in data or "6530_" in data:
+        values = data.get("653__")
+        delete_position = []
+        for idx, value in enumerate(values):
+            parsed_keyword = value.get("a")
+            psh_list_terms = find_in_json_contains(parsed_keyword, tax, "title").all()
+            if len(psh_list_terms) == 0:
+                psh_list_terms = find_in_json_contains(parsed_keyword, tax, "altTitle").all()
+            term = psh_term_filter(psh_list_terms, parsed_keyword)
+            if len(psh_list_terms) == 0 or term is None:
+                continue
+            record_dict = {
+                "2": "psh",
+                "7": term.slug,
+                "a": parsed_keyword
+            }
+            subject_tuple.append(GroupableOrderedDict(OrderedDict(record_dict)))
+            delete_position.append(idx)
+
+        if len(delete_position) > 0:
+            keyword_list = list(data["653__"])
+            for position in reversed(delete_position):
+                del keyword_list[position]
+            data["653__"] = tuple(keyword_list)
+
+        if len(subject_tuple) > 0:
+            if "650_7" in data:
+                old_subject_tuple = list(data["650_7"])
+                subject_tuple.extend(old_subject_tuple)
+            data["650_7"] = tuple(subject_tuple)
     return GroupableOrderedDict(OrderedDict(data))
 
 
