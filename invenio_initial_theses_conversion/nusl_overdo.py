@@ -168,6 +168,7 @@ def extra_argument(name, marc, single=True, default=None):
 
 def handled_values(*args):
     args = set(args)
+
     def outer(f):
         @functools.wraps(f)
         def wrapper(self, key, values, **kwargs):
@@ -178,7 +179,7 @@ def handled_values(*args):
             for value in test_values:
                 extra_args = set(value.keys()) - args
                 if extra_args:
-                    raise AttributeError(f"Unhandled case { {k: value.get(k) for k in extra_args} } in {f.__name__}")
+                    raise AttributeError(f"Unhandled case {{k: value.get(k) for k in extra_args}} in {f.__name__}")
 
             return f(self, key, values, **kwargs)
 

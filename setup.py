@@ -72,6 +72,7 @@ setup(
 
         'flask.commands': [
             'initial_theses_conversion = invenio_initial_theses_conversion.main:run',
+            'initial_theses_conversion_chunks = invenio_initial_theses_conversion.main:run_chunks',
             'collect-org-units = invenio_initial_theses_conversion.extract_departments:run'
         ],
     },

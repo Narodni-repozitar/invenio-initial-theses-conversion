@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://invenio.nusl.cz/css/oai2.xsl.v1.0" ?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+<responseDate>2019-10-18T08:18:12Z</responseDate><request verb="GetRecord" metadataPrefix="marcxml" identifier="oai:invenio.nusl.cz:403469">http://invenio.nusl.cz/oai2d</request><GetRecord>
+<record><header><identifier>oai:invenio.nusl.cz:403469</identifier><datestamp>2019-08-26T07:30:08Z</datestamp><setSpec>openaire</setSpec><setSpec>global</setSpec></header><metadata><marc:record xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd" type="Bibliographic">
+     <marc:leader>00000coc  2200000uu 4500</marc:leader>
+  <marc:controlfield tag="001">403469</marc:controlfield>
+  <marc:controlfield tag="005">20190827113941.0</marc:controlfield>
+  <marc:datafield tag="035" ind1=" " ind2=" ">
+    <marc:subfield code="a">oai:dspace.cuni.cz:20.500.11956/108479</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="041" ind1="0" ind2="7">
+    <marc:subfield code="a">cze</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="046" ind1=" " ind2=" ">
+    <marc:subfield code="k">2009-06-15</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="245" ind1="0" ind2="0">
+    <marc:subfield code="a">Vývoj kampaní nadace naše dítě proti týrání dětí od roku 2005 do současnosti</marc:subfield>
+    <marc:subfield code="b">The Development of the our Child Foundation Campaign since 2005</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="502" ind1=" " ind2=" ">
+    <marc:subfield code="c">Univerzita Karlova</marc:subfield>
+    <marc:subfield code="b">Bc.</marc:subfield>
+    <marc:subfield code="d">2009</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="586" ind1=" " ind2=" ">
+    <marc:subfield code="a">obhájeno</marc:subfield>
+    <marc:subfield code="b">successfully defended</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="710" ind1="2" ind2=" ">
+    <marc:subfield code="a">Univerzita Karlova</marc:subfield>
+    <marc:subfield code="9">cze</marc:subfield>
+    <marc:subfield code="b">Katedra marketingové komunikace a public relations</marc:subfield>
+    <marc:subfield code="g">Fakulta sociálních věd</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="710" ind1="2" ind2=" ">
+    <marc:subfield code="a">Charles University</marc:subfield>
+    <marc:subfield code="9">eng</marc:subfield>
+    <marc:subfield code="b">Department of Marketing Communication and Public Relations</marc:subfield>
+    <marc:subfield code="g">Faculty of Social Sciences</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="720" ind1=" " ind2=" ">
+    <marc:subfield code="a">Kmeťová, Markéta</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="720" ind1=" " ind2=" ">
+    <marc:subfield code="i">Jirků, Vojtěch</marc:subfield>
+    <marc:subfield code="e">advisor</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="720" ind1=" " ind2=" ">
+    <marc:subfield code="i">Dolanská, Nora</marc:subfield>
+    <marc:subfield code="e">referee</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="856" ind1="4" ind2="0">
+    <marc:subfield code="z">Odkaz na původní záznam</marc:subfield>
+    <marc:subfield code="u">http://hdl.handle.net/20.500.11956/108479</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="856" ind1="4" ind2="0">
+    <marc:subfield code="u">http://www.nusl.cz/ntk/nusl-403469</marc:subfield>
+    <marc:subfield code="z">PID NUŠL</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="909" ind1="C" ind2="O">
+    <marc:subfield code="o">oai:invenio.nusl.cz:403469</marc:subfield>
+    <marc:subfield code="p">openaire</marc:subfield>
+    <marc:subfield code="p">global</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="980" ind1=" " ind2=" ">
+    <marc:subfield code="a">bakalarske_prace</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="996" ind1=" " ind2=" ">
+    <marc:subfield code="a">Dostupné v digitálním repozitáři UK.</marc:subfield>
+    <marc:subfield code="9">1</marc:subfield>
+    <marc:subfield code="b">Available in the Charles University Digital Repository.</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="998" ind1=" " ind2=" ">
+    <marc:subfield code="a">univerzita_karlova_v_praze</marc:subfield>
+  </marc:datafield>
+</marc:record>
+</metadata></record></GetRecord>
+</OAI-PMH>
+

@@ -9,7 +9,7 @@ import shutil
 import sys
 import traceback
 import uuid
-from collections import Counter, defaultdict, OrderedDict
+from collections import Counter, defaultdict
 from io import BytesIO, RawIOBase, BufferedReader
 from logging import StreamHandler
 from xml.etree import ElementTree
@@ -17,11 +17,11 @@ from xml.etree import ElementTree
 import click
 import requests
 from dojson.contrib.marc21.utils import split_stream, create_record
-from dojson.utils import GroupableOrderedDict
-from flask import cli, current_app
+from flask import cli
 from marshmallow import ValidationError
 
 from invenio_initial_theses_conversion.rules.model import old_nusl
+from invenio_initial_theses_conversion.utils import fix_language, fix_grantor, fix_keywords
 from invenio_nusl_theses.marshmallow import ThesisMetadataSchemaV1
 from invenio_nusl_theses.proxies import nusl_theses
 from invenio_oarepo.current_api import current_api
@@ -33,7 +33,6 @@ from invenio_records_draft.marshmallow import DraftSchemaWrapper
 ERROR_DIR = "/tmp/import-nusl-theses"
 IGNORED_ERROR_FIELDS = {"title", "dateAccepted", "language", "degreeGrantor",
                         "subject"}  # "studyProgramme", "studyField"
-LANGUAGE_EXCEPTIONS = {"scc": "srp", "scr": "hrv"}
 
 
 def path_safe(text):
@@ -87,6 +86,29 @@ logging.basicConfig(
 )
 
 
+@click.command("initial-theses-conversion-chunks")
+@click.option('--url',
+              default='https://invenio.nusl.cz/search?ln=cs&p=&f=&action_search=Hledej&c=Vysoko%C5%A1kolsk%C3%A9+kvalifika%C4%8Dn%C3%AD+pr%C3%A1ce&rg=1000&sc=0&of=xm',
+              help='Collection URL')
+@click.option('--cache-dir',
+              help='Cache dir')
+@click.option('--break-on-error/--no-break-on-error',
+              default=True,
+              help='Break on first error')
+@click.option('--clean-output-dir/--no-clean-output-dir',
+              default=True)
+@click.option('--start',
+              default=1)
+@click.option('--stop')
+@cli.with_appcontext
+@click.pass_context
+def run_chunks(ctx, url, break_on_error, cache_dir, clean_output_dir, start, stop):
+    while True:
+        start = int(start)
+        ctx.forward(run, start=start, stop=stop)
+        start += int(stop)
+
+
 @click.command("initial-theses-conversion")
 @click.option('--url',
               default='https://invenio.nusl.cz/search?ln=cs&p=&f=&action_search=Hledej&c=Vysoko%C5%A1kolsk%C3%A9+kvalifika%C4%8Dn%C3%AD+pr%C3%A1ce&rg=1000&sc=0&of=xm',
@@ -100,13 +122,25 @@ logging.basicConfig(
               default=True)
 @click.option('--start',
               default=1)
+@click.option('--stop',
+              default=100000000000000)
 @cli.with_appcontext
-def run(url, break_on_error, cache_dir, clean_output_dir, start):
+def run(url, break_on_error, cache_dir, clean_output_dir, start, stop):
+    """
+    Fetch data from old nusl and convert into new nusl as json.
+    :param url: Url for data collection
+    :param break_on_error: If true the script break at the error, oterwise it will log and continue with next record.
+    :param cache_dir: Path to the cache directory
+    :param clean_output_dir:
+    :param start: Number of starting record
+    :param stop: Number of records that will be fetched
+    :return:
+    """
     with current_api.app_context():
-        _run(url, break_on_error, cache_dir, clean_output_dir, start)
+        _run(url, break_on_error, cache_dir, clean_output_dir, start, stop)
 
 
-def _run(url, break_on_error, cache_dir, clean_output_dir, start):
+def _run(url, break_on_error, cache_dir, clean_output_dir, start, stop):
     processed_ids = set()
     if clean_output_dir and os.path.exists(ERROR_DIR):
         shutil.rmtree(ERROR_DIR)
@@ -118,59 +152,7 @@ def _run(url, break_on_error, cache_dir, clean_output_dir, start):
         else:
             gen = file_nusl_data_generator(start, url, cache_dir)
 
-        for data in gen:
-
-            for cf in data.iter('{http://www.loc.gov/MARC21/slim}controlfield'):
-                if cf.attrib['tag'] == '001':
-                    recid = cf.text
-                    break
-            else:
-                recid = str(uuid.uuid4())
-
-            ch.setRecord(data, recid)
-
-            if recid in processed_ids:
-                logging.warning('Record with id %s already parsed, probably end of stream', recid)
-                return
-
-            processed_ids.add(recid)
-            marshmallowed = None
-            try:
-                for datafield in data:
-                    fix_language(datafield, "041", "0", "7", "a")
-                    fix_language(datafield, "520", " ", " ", "9")
-                    fix_language(datafield, "540", " ", " ", "9")
-
-                rec = create_record(data)  # PŘEVOD XML NA GroupableOrderedDict
-                rec = fix_grantor(rec)  # Sjednocení grantora pod pole 7102
-                if rec.get('980__') and rec['980__'].get('a') not in (
-                        # test jestli doctype je vysokoškolská práce, ostatní nezpracováváme
-                        'bakalarske_prace',
-                        'diplomove_prace',
-                        'disertacni_prace',
-                        'habilitacni_prace',
-                        'rigorozni_prace'
-                ):
-                    continue
-
-                transformed = old_nusl.do(rec)  # PŘEVOD GroupableOrderedDict na Dict
-                ch.setTransformedRecord(transformed)
-                try:
-                    marshmallowed = nusl_theses.validate(DraftSchemaWrapper(ThesisMetadataSchemaV1), transformed)
-                except ValidationError as e:
-                    for field in e.field_names:
-                        error_counts[field] += 1
-                        error_documents[field].append(recid)
-                    if set(e.field_names) - IGNORED_ERROR_FIELDS:
-                        raise
-                    continue
-
-                nusl_theses.import_record(marshmallowed)
-            except Exception as e:
-                logging.exception('Error in transformation')
-                logging.error('data %s', marshmallowed)
-                if break_on_error:
-                    raise
+        return data_loop_collector(break_on_error, error_counts, error_documents, gen, processed_ids, stop)
 
     finally:
         if not os.path.exists('/tmp/import-nusl-theses'):
@@ -185,82 +167,67 @@ def _run(url, break_on_error, cache_dir, clean_output_dir, start):
                 print(" ", file=f)
 
 
-def fix_language(datafield, tag, ind1, ind2, code):
-    if datafield.attrib["tag"] == tag and datafield.attrib["ind1"] == ind1 and datafield.attrib["ind2"] == ind2:
-        for subfield in datafield:
-            if subfield.attrib["code"] == code:
-                subfield.text = LANGUAGE_EXCEPTIONS.get(subfield.text, subfield.text)
+def data_loop_collector(break_on_error, error_counts, error_documents, gen, processed_ids, stop):
+    i = 0
+    for data in gen:
+        i += 1
+        if i >= int(stop):
+            break
 
+        for cf in data.iter('{http://www.loc.gov/MARC21/slim}controlfield'):
+            if cf.attrib['tag'] == '001':
+                recid = cf.text
+                break
+        else:
+            recid = str(uuid.uuid4())
 
-def fix_grantor(data):
-    data = dict(data)
-    if "502__" in data:
-        value = data.get("502__")
-        parsed_grantor = value.get("c")
-        if parsed_grantor is not None:
-            if "," in value.get("c"):
-                parsed_grantor = [x.strip() for x in value.get("c").split(",", maxsplit=2) if x.strip()]
-            elif "." in value.get("c"):
-                parsed_grantor = [x.strip() for x in value.get("c").split(".", maxsplit=2) if x.strip()]
-            else:
-                parsed_grantor = [parsed_grantor]
+        ch.setRecord(data, recid)
 
-            if parsed_grantor:
-                if "7102_" not in data:
-                    data["7102_"] = [
-                        {
-                            "a": parsed_grantor[0],
-                            "9": "cze"
-                        }
-                    ]
-                    if len(parsed_grantor) > 1:
-                        data["7102_"][0].update(
-                            {
-                                "g": parsed_grantor[1]
-                            }
-                        )
-                        if len(parsed_grantor) > 2:
-                            data["7102_"][0].update(
-                                {
-                                    "b": parsed_grantor[2]
-                                }
-                            )
-                    data["7102_"] = tuple(data["7102_"])
+        if recid in processed_ids:
+            logging.warning('Record with id %s already parsed, probably end of stream', recid)
+            return
 
-        del data["502__"]
+        processed_ids.add(recid)
+        marshmallowed = None
+        try:
+            for datafield in data:
+                fix_language(datafield, "041", "0", "7", "a")
+                fix_language(datafield, "520", " ", " ", "9")
+                fix_language(datafield, "540", " ", " ", "9")
 
-    if ("502__" not in data) and ("7102_" not in data) and ("998__" in data):
-        if data["998__"]["a"] == "vutbr":
-            data["7102_"] = [
-                {
-                    "a": "Vysoké učení technické v Brně",
-                    "9": "cze"
-                }
-            ]
-        if data["998__"]["a"] == "ceska_zemedelska_univerzita":
-            data["7102_"] = [
-                {
-                    "a": "Česká zemědělská univerzita v Praze",
-                    "9": "cze"
-                }
-            ]
-        if data["998__"]["a"] == "jihoceska_univerzita_v_ceskych_budejovicich":
-            data["7102_"] = [
-                {
-                    "a": "Jihočeská univerzita v Českých Budějovicích",
-                    "9": "cze"
-                }
-            ]
-        if data["998__"]["a"] == "mendelova_univerzita_v_brne":
-            data["7102_"] = [
-                {
-                    "a": "Mendelova univerzita v Brně",
-                    "9": "cze"
-                }
-            ]
-        data["7102_"] = tuple(data["7102_"])
+            # Fix data before transformation into JSON
+            rec = create_record(data)  # PŘEVOD XML NA GroupableOrderedDict
+            rec = fix_grantor(rec)  # Sjednocení grantora pod pole 7102
+            rec = fix_keywords(rec)
 
-    return GroupableOrderedDict(OrderedDict(data))
+            if rec.get('980__') and rec['980__'].get('a') not in (
+                    # test jestli doctype je vysokoškolská práce, ostatní nezpracováváme
+                    'bakalarske_prace',
+                    'diplomove_prace',
+                    'disertacni_prace',
+                    'habilitacni_prace',
+                    'rigorozni_prace'
+            ):
+                continue
+
+            transformed = old_nusl.do(rec)  # PŘEVOD GroupableOrderedDict na Dict
+            ch.setTransformedRecord(transformed)
+            try:
+                marshmallowed = nusl_theses.validate(DraftSchemaWrapper(ThesisMetadataSchemaV1), transformed)
+            except ValidationError as e:
+                for field in e.field_names:
+                    error_counts[field] += 1
+                    error_documents[field].append(recid)
+                if set(e.field_names) - IGNORED_ERROR_FIELDS:
+                    raise
+                continue
+
+            nusl_theses.import_old_nusl_record(marshmallowed)
+        except Exception as e:
+            logging.exception('Error in transformation')
+            logging.error('data %s', marshmallowed)
+            if break_on_error:
+                raise
 
 
 def session():
