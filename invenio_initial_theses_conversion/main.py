@@ -21,7 +21,7 @@ from flask import cli
 from marshmallow import ValidationError
 
 from invenio_initial_theses_conversion.rules.model import old_nusl
-from invenio_initial_theses_conversion.utils import fix_language, fix_grantor, fix_keywords
+from invenio_initial_theses_conversion.utils import fix_language, fix_grantor, fix_keywords, split_stream_oai_nusl
 from invenio_nusl_theses.marshmallow import ThesisMetadataSchemaV1
 from invenio_nusl_theses.proxies import nusl_theses
 from invenio_oarepo.current_api import current_api
@@ -147,7 +147,9 @@ def _run(url, break_on_error, cache_dir, clean_output_dir, start, stop):
     error_counts = Counter()
     error_documents = defaultdict(list)
     try:
-        if url.startswith('http'):
+        if "oai" in url:
+            gen = url_nusl_data_generator(start, url, cache_dir, oai=True)
+        elif url.startswith('http'):
             gen = url_nusl_data_generator(start, url, cache_dir)
         else:
             gen = file_nusl_data_generator(start, url, cache_dir)
@@ -190,15 +192,8 @@ def data_loop_collector(break_on_error, error_counts, error_documents, gen, proc
         processed_ids.add(recid)
         marshmallowed = None
         try:
-            for datafield in data:
-                fix_language(datafield, "041", "0", "7", "a")
-                fix_language(datafield, "520", " ", " ", "9")
-                fix_language(datafield, "540", " ", " ", "9")
-
-            # Fix data before transformation into JSON
-            rec = create_record(data)  # PŘEVOD XML NA GroupableOrderedDict
-            rec = fix_grantor(rec)  # Sjednocení grantora pod pole 7102
-            rec = fix_keywords(rec)
+            # PŘEVOD XML NA GroupableOrderedDict
+            rec = create_record(data)
 
             if rec.get('980__') and rec['980__'].get('a') not in (
                     # test jestli doctype je vysokoškolská práce, ostatní nezpracováváme
@@ -210,9 +205,15 @@ def data_loop_collector(break_on_error, error_counts, error_documents, gen, proc
             ):
                 continue
 
+            # Fix data before transformation into JSON
+            rec = fix_language(rec)
+            rec = fix_grantor(rec)  # Sjednocení grantora pod pole 7102
+            rec = fix_keywords(rec)
+
             transformed = old_nusl.do(rec)  # PŘEVOD GroupableOrderedDict na Dict
             ch.setTransformedRecord(transformed)
             try:
+                # Validace dat podle Marshmallow a JSON schematu
                 marshmallowed = nusl_theses.validate(DraftSchemaWrapper(ThesisMetadataSchemaV1), transformed)
             except ValidationError as e:
                 for field in e.field_names:
@@ -222,6 +223,7 @@ def data_loop_collector(break_on_error, error_counts, error_documents, gen, proc
                     raise
                 continue
 
+            # uložení do databáze/invenia
             nusl_theses.import_old_nusl_record(marshmallowed)
         except Exception as e:
             logging.exception('Error in transformation')
@@ -254,17 +256,37 @@ def session():
         return requests.Session()
 
 
-def url_nusl_data_generator(start, url, cache_dir):
+def url_nusl_data_generator(start, url, cache_dir, oai=False):
+    """
+
+    :param start:
+    :param url:
+    :param cache_dir:
+    :param oai:
+    :return:
+    """
     ses = session()
+    token = None
     while True:
-        print('\r%08d' % start, end='', file=sys.stderr)
+        print('\r%08d' % start, end='', file=sys.stderr)  # vytiskne červeně číslo záznamu (start)
         sys.stderr.flush()
-        resp, parsed = fetch_nusl_data(url, start, cache_dir, ses)
-        count = len(list(parsed.iter('{http://www.loc.gov/MARC21/slim}record')))
+        if not oai:
+            resp, parsed = fetch_nusl_data(url, start, cache_dir,
+                                           ses)  # return response of one record from server and parsed response
+            stream_generator = split_stream(BytesIO(resp))
+        else:
+            resp, parsed, token = fetch_nusl_data(url, start, cache_dir,
+                                                  ses, oai=True, res_token=token)
+            stream_generator = split_stream_oai_nusl(BytesIO(resp))
+
+        count = len(
+            list(parsed.iter('{http://www.loc.gov/MARC21/slim}record')))  # return number of records from one response
         if count:
-            for data in split_stream(BytesIO(resp)):
+            for data in stream_generator:
                 yield data
         start += count
+        if token == "":
+            break
 
 
 def chain_streams(streams, buffer_size=io.DEFAULT_BUFFER_SIZE):
@@ -332,8 +354,25 @@ def file_nusl_data_generator(start, filename, cache_dir):
                 start += 1
 
 
-def fetch_nusl_data(url, start, cache_dir, ses):
-    full_url = f'{url}&jrec={start}'
+def fetch_nusl_data(url, start, cache_dir, ses=requests.Session(), oai=False, res_token=None):
+    """
+    The function returns request response and parsed xml.
+    :param url: Endpoint
+    :param start:
+    :param cache_dir: Directory where is saved cache
+    :param ses: Request session
+    :param oai: If the endpoint is oai: https://invenio.nusl.cz/oai2d/?verb=ListRecords&metadataPrefix=marcxml
+    :param res_token: Resumption token that is responsible for pagination
+    :return: Tuple with response, parsed XML (ElementTree) and resumptionToken
+    """
+    if oai:
+        if res_token is None:
+            full_url = f"{url}?verb=ListRecords&metadataPrefix=marcxml"
+        else:
+            full_url = f"{url}?verb=ListRecords&resumptionToken={res_token}"
+    else:
+        full_url = f'{url}&jrec={start}'  # full url address of concrete record
+    # Reading from cache
     if cache_dir:
         hash_val = hashlib.sha512(full_url.encode('utf-8')).hexdigest()
         if not os.path.exists(cache_dir):
@@ -347,15 +386,22 @@ def fetch_nusl_data(url, start, cache_dir, ses):
                     return ret, parsed
             except:
                 traceback.print_exc()
-
+    # if record is not present in cache
     resp = ses.get(full_url).content
+    # save into cache
     if cache_dir:
-        with gzip.open(cache_path, 'wb') as f:
+        with gzip.open(cache_path, 'wb') as f:  # data compression
             f.write(resp)
 
-    parsed = ElementTree.fromstring(resp)
+    parsed = ElementTree.fromstring(resp)  # parsování XML
 
-    return resp, parsed
+    # resumption token
+    if oai:
+        token = parsed.find(".//{http://www.openarchives.org/OAI/2.0/}resumptionToken").text
+    else:
+        token = None
+
+    return resp, parsed, token
 
 
 if __name__ == '__main__':
