@@ -16,6 +16,7 @@ def psh_term_filter(psh_list_terms, keyword):
     :param keyword:
     :return: taxonomy_term
     """
+    psh_list_terms = [term for term in psh_list_terms if "PSH" in term.tree_path]
     if len(psh_list_terms) == 0:
         return None
     matched_terms = []
@@ -114,7 +115,8 @@ def fix_grantor(data):
                                     "b": parsed_grantor[2]
                                 }
                             )
-                    data["7102_"] = tuple(data["7102_"])
+                    if data.get("7102_") is not None:
+                        data["7102_"] = tuple(data["7102_"])
 
         del data["502__"]
 
@@ -147,7 +149,8 @@ def fix_grantor(data):
                     "9": "cze"
                 }
             ]
-        data["7102_"] = tuple(data["7102_"])
+        if data.get("7102_") is not None:
+            data["7102_"] = tuple(data["7102_"])
 
     return GroupableOrderedDict(OrderedDict(data))
 
@@ -199,7 +202,7 @@ def fix_keywords(data):
     return GroupableOrderedDict(OrderedDict(data))
 
 
-# Stream splitting of OAI from NUSL - splited stream = single record
+# Stream splitting of OAI from NUSL - splitted stream = single record
 
 def split_stream_oai_nusl(stream):
     """Yield record elements from given stream."""

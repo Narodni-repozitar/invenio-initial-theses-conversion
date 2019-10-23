@@ -129,7 +129,7 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start, stop):
     """
     Fetch data from old nusl and convert into new nusl as json.
     :param url: Url for data collection
-    :param break_on_error: If true the script break at the error, oterwise it will log and continue with next record.
+    :param break_on_error: If true the script break at the error, otherwise it will log and continue with next record.
     :param cache_dir: Path to the cache directory
     :param clean_output_dir:
     :param start: Number of starting record

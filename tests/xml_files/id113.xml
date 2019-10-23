@@ -1,0 +1,120 @@
+<record>
+    <controlfield tag="001">113</controlfield>
+    <controlfield tag="005">20170629111516.0</controlfield>
+    <datafield tag="041" ind1="0" ind2="7">
+        <subfield code="a">cze</subfield>
+    </datafield>
+    <datafield tag="046" ind1=" " ind2=" ">
+        <subfield code="k">2006-06-12</subfield>
+        <subfield code="j">2012-04-30</subfield>
+    </datafield>
+    <datafield tag="245" ind1="0" ind2="0">
+        <subfield code="a">
+            Studie využitelnosti Internetu pro přenos EDIFACTu v oblasti dopravy v ČR
+        </subfield>
+    </datafield>
+    <datafield tag="260" ind1=" " ind2=" ">
+        <subfield code="b">Vysoká škola ekonomická v Praze</subfield>
+    </datafield>
+    <datafield tag="502" ind1=" " ind2=" ">
+        <subfield code="a">2006-06-15</subfield>
+        <subfield code="b">Ing.</subfield>
+        <subfield code="c">Vysoká škola ekonomická v Praze</subfield>
+        <subfield code="g">Magisterský studijní program</subfield>
+    </datafield>
+    <datafield tag="520" ind1=" " ind2=" ">
+        <subfield code="a">
+            Cílem práce je zpřístupnit dostupné prostředky pro přenos EDIFACTu v internetu, seznámit s
+            bezpečnostními aspekty, které z daného vyplývají a přiblížit je oboru dopravy v ČR v návaznosti na
+            automatizované informační systémy i jim předcházející prvotní vkládání dat z webových formulářů,
+            především menšími institucemi. Práce nově představuje normy AS1, AS2 a AS3 skupiny EDIINT pro přenos EDI
+            zpráv internetem pod protokoly SMTP, HTTP a FTP.
+        </subfield>
+        <subfield code="9">cze</subfield>
+    </datafield>
+    <datafield tag="650" ind1="1" ind2="7">
+        <subfield code="a">internet</subfield>
+        <subfield code="j">internet</subfield>
+        <subfield code="0">http://psh.ntkcz.cz/skos/PSH12361</subfield>
+        <subfield code="2">PSH</subfield>
+    </datafield>
+    <datafield tag="650" ind1="1" ind2="7">
+        <subfield code="a">doprava</subfield>
+        <subfield code="j">transport</subfield>
+        <subfield code="0">http://psh.ntkcz.cz/skos/PSH1038</subfield>
+        <subfield code="2">PSH</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+        <subfield code="a">Česká republika</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+        <subfield code="a">doprava</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+        <subfield code="a">AS3</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+        <subfield code="a">AS2</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+        <subfield code="a">AS1</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+        <subfield code="a">EDI</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+        <subfield code="a">EDIFACT</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+        <subfield code="a">Internet</subfield>
+    </datafield>
+    <datafield tag="656" ind1=" " ind2="7">
+        <subfield code="a">
+            Aplikovaná informatika/Informační a znalostní inženýrství
+        </subfield>
+    </datafield>
+    <datafield tag="720" ind1=" " ind2=" ">
+        <subfield code="a">Jung, Roman</subfield>
+    </datafield>
+    <datafield tag="720" ind1=" " ind2=" ">
+        <subfield code="i">Kastl, Jan</subfield>
+        <subfield code="e">advisor</subfield>
+    </datafield>
+    <datafield tag="720" ind1=" " ind2=" ">
+        <subfield code="i">Nováček, Jan</subfield>
+        <subfield code="e">referee</subfield>
+    </datafield>
+    <datafield tag="720" ind1=" " ind2=" ">
+        <subfield code="i">Svoboda, Karel</subfield>
+        <subfield code="e">referee</subfield>
+    </datafield>
+    <datafield tag="856" ind1="4" ind2="0">
+        <subfield code="u">http://www.vse.cz/vskp/eid/205</subfield>
+        <subfield code="z">Odkaz na původní záznam</subfield>
+    </datafield>
+    <datafield tag="856" ind1="4" ind2="0">
+        <subfield code="u">http://www.nusl.cz/ntk/nusl-113</subfield>
+        <subfield code="z">PID NUŠL</subfield>
+    </datafield>
+    <datafield tag="909" ind1="C" ind2="O">
+        <subfield code="o">oai:invenio.nusl.cz:113</subfield>
+        <subfield code="p">etds</subfield>
+        <subfield code="p">openaire</subfield>
+        <subfield code="p">global</subfield>
+        <subfield code="p">opengrey</subfield>
+        <subfield code="p">licensed</subfield>
+    </datafield>
+    <datafield tag="980" ind1=" " ind2=" ">
+        <subfield code="a">diplomove_prace</subfield>
+    </datafield>
+    <datafield tag="996" ind1=" " ind2=" ">
+        <subfield code="a">Dostupné v digitálním repozitáři VŠE.</subfield>
+        <subfield code="b">
+            Available in the digital repository of the University of Economics, Prague.
+        </subfield>
+        <subfield code="9">1</subfield>
+    </datafield>
+    <datafield tag="998" ind1=" " ind2=" ">
+        <subfield code="a">vysoka_skola_ekonomicka_v_praze</subfield>
+    </datafield>
+</record>

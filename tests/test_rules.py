@@ -1,3 +1,4 @@
+import pytest
 from dojson.contrib.marc21.utils import create_record, split_stream
 
 from invenio_initial_theses_conversion.utils import fix_grantor, fix_keywords, split_stream_oai_nusl, fix_language
@@ -314,10 +315,33 @@ result = [
      'title': [{'name': 'Vlastnosti Thermowoodu v závislosti na ochranných látkách', 'lang': 'cze'}],
      'accessibility': [{'name': 'Dostupné registrovaným uživatelům v repozitáři ČZU.', 'lang': 'cze'},
                        {'name': 'Available to registered users in the CZU repository.', 'lang': 'eng'}],
-     'dateAccepted': '2016-01-01', 'language': [{'$ref': 'https://localhost/api/taxonomies/languages/cze'}]}
+     'dateAccepted': '2016-01-01', 'language': [{'$ref': 'https://localhost/api/taxonomies/languages/cze'}]},
+    {'contributor': [{'role': 'advisor', 'name': 'Kastl, Jan'}, {'role': 'referee', 'name': 'Nováček, Jan'},
+                     {'role': 'referee', 'name': 'Svoboda, Karel'}], 'id': '113', 'studyField': [
+        {'$ref': 'https://localhost/api/taxonomies/studyfields/no_valid_dd3100ed-53cc-4d5c-b4f8-74c04b177db6'}],
+     'accessRights': 'open', 'creator': [{'name': 'Jung, Roman'}], 'abstract': [{'lang': 'cze',
+                                                                                 'name': 'Cílem práce je zpřístupnit dostupné prostředky pro přenos EDIFACTu v internetu, seznámit s\n                bezpečnostními aspekty, které z daného vyplývají a přiblížit je oboru dopravy v ČR v návaznosti na\n                automatizované informační systémy i jim předcházející prvotní vkládání dat z webových formulářů,\n                především menšími institucemi. Práce nově představuje normy AS1, AS2 a AS3 skupiny EDIINT pro přenos EDI\n                zpráv internetem pod protokoly SMTP, HTTP a FTP.'}],
+     'dateAccepted': '2006-06-12',
+     'provider': {'$ref': 'https://localhost/api/taxonomies/provider/vysoka_skola_ekonomicka_v_praze'},
+     'doctype': {'$ref': 'https://localhost/api/taxonomies/doctype/diplomove_prace'},
+     'keywords': [{'lang': 'cze', 'name': 'Česká republika'}, {'lang': 'cze', 'name': 'AS3'},
+                  {'lang': 'cze', 'name': 'AS2'}, {'lang': 'cze', 'name': 'AS1'}, {'lang': 'cze', 'name': 'EDI'},
+                  {'lang': 'cze', 'name': 'EDIFACT'}, {'lang': 'cze', 'name': 'Internet'}],
+     'subject': [{'$ref': 'https://localhost/api/taxonomies/subject/PSH1038'}],
+     'title': [{'lang': 'cze', 'name': 'Studie využitelnosti Internetu pro přenos EDIFACTu v oblasti dopravy v ČR'}],
+     'degreeGrantor': [{'$ref': 'https://localhost/api/taxonomies/universities/61384399_no_faculty_no_department'}],
+     'identifier': [{'type': 'originalRecord', 'value': 'http://www.vse.cz/vskp/eid/205'},
+                    {'type': 'nusl', 'value': 'http://www.nusl.cz/ntk/nusl-113'},
+                    {'type': 'nuslOAI', 'value': 'oai:invenio.nusl.cz:113'}],
+     'language': [{'$ref': 'https://localhost/api/taxonomies/languages/cze'}],
+     'accessibility': [{'lang': 'cze', 'name': 'Dostupné v digitálním repozitáři VŠE.'}, {'lang': 'eng',
+                                                                                          'name': 'Available in the digital repository of the University of Economics, Prague.'}],
+     'modified': '2017-06-29T11:15:16'}
+
 ]
 
 
+# @pytest.mark.skip(reason=None)
 def test_rules(app, db):
     array = [create_record(data) for data in
              split_stream(
@@ -331,11 +355,28 @@ def test_rules(app, db):
         schema = ThesisMetadataSchemaV1()
         marshmallowed = schema.load(transformed).data
         marshmallowed = schema.dump(marshmallowed).data
+        print(marshmallowed)
         assert marshmallowed == result[idx]
         # print(transformed)
+
+
+@pytest.mark.skip(reason="Problem with subjects was fixed")
+def test_rules_2(app, db):
+    array = [create_record(data) for data in
+             split_stream(
+                 open('/home/semtex/Projekty/nusl/invenio-initial-theses-conversion/tests/xml_files/id113.xml',
+                      'rb'))]
+    for idx, field in enumerate(array):
+        rec = fix_grantor(field)
+        rec = fix_keywords(rec)
+        rec = fix_language(rec)
+        transformed = old_nusl.do(rec)
+        schema = ThesisMetadataSchemaV1()
+        marshmallowed = schema.load(transformed).data
+        marshmallowed = schema.dump(marshmallowed).data
         print(marshmallowed)
 
-
+@pytest.mark.skip(reason=None)
 def test_rules_oai(app, db):
     array = [create_record(data) for data in
              split_stream_oai_nusl(
