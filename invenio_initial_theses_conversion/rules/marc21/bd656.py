@@ -84,6 +84,8 @@ def filter(fields, doc_type, grantor):
 
 def doc_filter(fields, doc_type):
     if doc_type is not None:
+        if doc_type == "rigorozni_prace":
+            doc_type = "disertacni_prace"
         degree_dict = {
             "Bakalářský": "bakalarske_prace",
             "Magisterský": "diplomove_prace",
