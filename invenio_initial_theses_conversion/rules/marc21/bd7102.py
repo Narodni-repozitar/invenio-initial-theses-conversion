@@ -19,6 +19,14 @@ def degree_grantor(self, key, values, provider):
 
 
 def uni_ref(item, uni_name, universities, provider=None):
+    """
+    Return references to the taxonomy of university
+    :param item:
+    :param uni_name:
+    :param universities:
+    :param provider:
+    :return: Dict with references to the taxonomy of university, faculty and department
+    """
     university = find_in_json(uni_name, universities, tree_address=("title", 0, "value")).one_or_none()
     if university is not None:
         if item.get("g") is not None:
