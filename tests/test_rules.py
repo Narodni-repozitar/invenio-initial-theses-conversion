@@ -341,7 +341,7 @@ result = [
 ]
 
 
-# @pytest.mark.skip(reason=None)
+@pytest.mark.skip(reason=None)
 def test_rules(app, db):
     array = [create_record(data) for data in
              split_stream(
@@ -375,6 +375,24 @@ def test_rules_2(app, db):
         marshmallowed = schema.load(transformed).data
         marshmallowed = schema.dump(marshmallowed).data
         print(marshmallowed)
+
+
+# @pytest.mark.skip(reason="Problem with subjects was fixed")
+def test_rules_3(app, db):
+    array = [create_record(data) for data in
+             split_stream(
+                 open('/home/semtex/Projekty/nusl/invenio-initial-theses-conversion/tests/xml_files/keywords_pipe.xml',
+                      'rb'))]
+    for idx, field in enumerate(array):
+        rec = fix_grantor(field)
+        rec = fix_keywords(rec)
+        rec = fix_language(rec)
+        transformed = old_nusl.do(rec)
+        schema = ThesisMetadataSchemaV1()
+        marshmallowed = schema.load(transformed).data
+        marshmallowed = schema.dump(marshmallowed).data
+        print(marshmallowed)
+
 
 @pytest.mark.skip(reason=None)
 def test_rules_oai(app, db):

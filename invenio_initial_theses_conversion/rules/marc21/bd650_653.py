@@ -43,7 +43,7 @@ constants = Constants()
 @append_results
 @list_value
 @handled_values('0', '2', 'a', 'j', '7')
-def subject(self, key, value): # TODO: akceptovat term a vracet rovnou link
+def subject(self, key, value):  # TODO: akceptovat term a vracet rovnou link
     """Subject."""
     subject_taxonomy = constants.subject_taxonomy
     extra_data = extra_data_dict(value)
@@ -92,15 +92,6 @@ def taxonomy_ref(keyword, parent_term, extra_data=None, taxonomy=None, url=None,
 
     if len(subject) == 0:
         return
-        # try:
-        #     slug = add_to_taxonomy(keyword, parent_term, extra_data=extra_data, id=id, url=url, lang=lang)
-        # except IntegrityError:
-        #     slug = create_slug(keyword)
-        # subject = taxonomy.get_term(slug)
-        #
-        # return {
-        #     "$ref": link_self(taxonomy.slug, subject)
-        # }
     if len(subject) == 1:
         return {
             "$ref": link_self(taxonomy.slug, subject[0])
@@ -162,33 +153,6 @@ def extra_data_dict(value):
     return subject
 
 
-# def add_to_taxonomy(keyword, taxonomy_term=None, extra_data=None, lang=None, id=None, url=None):
-#     if id is None:
-#         slug = create_slug(keyword)
-#     else:
-#         slug = id
-#     if extra_data is None:
-#         extra_data = {
-#             "title": [
-#                 {
-#                     "value": keyword,
-#                     "lang": lang
-#                 }
-#             ]
-#         }
-#     if id is not None:
-#         extra_data["id"] = id
-#     if url is not None:
-#         extra_data["url"] = url
-#     subject = taxonomy_term.create_term(
-#         slug=slug,
-#         extra_data=extra_data
-#     )
-#     db.session.add(subject)
-#     db.session.commit()
-#     return slug
-
-
 @old_nusl.over("keywords", '^653')
 @append_results
 @list_value
@@ -208,4 +172,3 @@ def keyword(self, key, value):
             "name": name,
             "lang": "eng"
         }
-

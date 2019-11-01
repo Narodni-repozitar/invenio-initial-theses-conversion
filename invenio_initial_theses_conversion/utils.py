@@ -1,3 +1,4 @@
+import re
 from collections import OrderedDict
 
 from dojson.utils import GroupableOrderedDict
@@ -171,6 +172,8 @@ def fix_keywords(data):
     subject_tuple = []
     if "653__" in data:
         values = data.get("653__")
+        values = split_keywords(values)
+        data["653__"] = values
         delete_position = []
         for idx, value in enumerate(values):
             parsed_keyword = value.get("a")
@@ -199,7 +202,36 @@ def fix_keywords(data):
                 old_subject_tuple = list(data["650_7"])
                 subject_tuple.extend(old_subject_tuple)
             data["650_7"] = tuple(subject_tuple)
+    if "6530_" in data:
+        values = data.get("6530_")
+        values = split_keywords(values)
+        data["6530_"] = values
     return GroupableOrderedDict(OrderedDict(data))
+
+
+def split_keywords(data):
+    """
+
+    :param data: tuple of GrupableOrderedDict of MARC record
+    :type: tuple
+    :return: List of splitted keywords
+    """
+    new_data = []
+    if isinstance(data, GroupableOrderedDict):
+        data = [data]
+        data = tuple(data)
+    if len(data) >= 3:
+        return data
+    for keyword in data:
+        value = keyword.get("a") or ""
+        if "|" in value or "-" in value:
+            value_array = re.split(r'[|\-]', value)
+            for word in value_array:
+                new_keyword = GroupableOrderedDict(OrderedDict({"a": word.strip()}))
+                new_data.append(new_keyword)
+        else:
+            new_data.append(keyword)
+    return tuple(new_data)
 
 
 # Stream splitting of OAI from NUSL - splitted stream = single record
