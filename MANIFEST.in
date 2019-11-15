@@ -1,0 +1,3 @@
+recursive-include invenio_initial_theses_conversion *.csv
+recursive-include invenio_initial_theses_conversion *.txt
+recursive-include tests *.xml
