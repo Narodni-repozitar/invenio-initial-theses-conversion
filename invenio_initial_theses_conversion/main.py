@@ -271,7 +271,7 @@ def url_nusl_data_generator(start, url, cache_dir, oai=False):
         print('\r%08d' % start, end='', file=sys.stderr)  # vytiskne červeně číslo záznamu (start)
         sys.stderr.flush()
         if not oai:
-            resp, parsed = fetch_nusl_data(url, start, cache_dir,
+            resp, parsed, token = fetch_nusl_data(url, start, cache_dir,
                                            ses)  # return response of one record from server and parsed response
             stream_generator = split_stream(BytesIO(resp))
         else:
@@ -383,7 +383,8 @@ def fetch_nusl_data(url, start, cache_dir, ses=requests.Session(), oai=False, re
                 with gzip.open(cache_path, 'rb') as f:
                     ret = f.read()
                     parsed = ElementTree.fromstring(ret)
-                    return ret, parsed
+                    token = get_token(oai, parsed)
+                    return ret, parsed, token
             except:
                 traceback.print_exc()
     # if record is not present in cache
@@ -395,13 +396,18 @@ def fetch_nusl_data(url, start, cache_dir, ses=requests.Session(), oai=False, re
 
     parsed = ElementTree.fromstring(resp)  # parsování XML
 
+    token = get_token(oai, parsed)
+
+    return resp, parsed, token
+
+
+def get_token(oai, parsed):
     # resumption token
     if oai:
         token = parsed.find(".//{http://www.openarchives.org/OAI/2.0/}resumptionToken").text
     else:
         token = None
-
-    return resp, parsed, token
+    return token
 
 
 if __name__ == '__main__':
