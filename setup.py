@@ -3,12 +3,10 @@
 
 """NUSL theses data model."""
 
-import os
-
 from setuptools import find_packages, setup
 
 tests_require = [
-
+    "pytest"
 ]
 
 setup_requires = [
@@ -19,7 +17,11 @@ install_requires = [
     'invenio-nusl-theses>=1.0.0',
     "dojson>=1.4.0",
     "langdetect",
-    "pycountry"
+    "pycountry",
+    'click',
+    'requests',
+    'flask',
+    'marshmallow'
 ]
 
 packages = find_packages()

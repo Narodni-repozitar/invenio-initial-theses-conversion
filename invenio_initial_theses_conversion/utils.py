@@ -1,6 +1,8 @@
+import re
 from collections import OrderedDict
 
 from dojson.utils import GroupableOrderedDict
+from lxml import etree
 
 from flask_taxonomies.models import Taxonomy
 from flask_taxonomies.utils import find_in_json_contains
@@ -8,7 +10,14 @@ from flask_taxonomies.utils import find_in_json_contains
 LANGUAGE_EXCEPTIONS = {"scc": "srp", "scr": "hrv"}
 
 
-def psh_term_filter(psh_list_terms, name):
+def psh_term_filter(psh_list_terms, keyword):
+    """
+    Filter one subject from a list of keywords that matched the taxonomy.
+    :param psh_list_terms: List of keywords.
+    :param keyword:
+    :return: taxonomy_term
+    """
+    psh_list_terms = [term for term in psh_list_terms if "PSH" in term.tree_path]
     if len(psh_list_terms) == 0:
         return None
     matched_terms = []
@@ -16,7 +25,7 @@ def psh_term_filter(psh_list_terms, name):
         match = False
         for dict in term.extra_data["title"]:
             for v in dict.values():
-                if v == name:
+                if v == keyword:
                     match = True
         if match:
             matched_terms.append(term)
@@ -25,14 +34,56 @@ def psh_term_filter(psh_list_terms, name):
     return None
 
 
-def fix_language(datafield, tag, ind1, ind2, code):
-    if datafield.attrib["tag"] == tag and datafield.attrib["ind1"] == ind1 and datafield.attrib["ind2"] == ind2:
-        for subfield in datafield:
-            if subfield.attrib["code"] == code:
-                subfield.text = LANGUAGE_EXCEPTIONS.get(subfield.text, subfield.text)
+#############################################################################
+#                                LANGUAGE FIX                               #
+#############################################################################
+
+def fix_language(data):
+    data = dict(data)
+    if "04107" in data:
+        fix_language_by_field(data, "04107", "a")
+    if "520__" in data:
+        fix_language_by_field(data, "520__", "9")
+    if "540__" in data:
+        fix_language_by_field(data, "540__", "9")
+    return GroupableOrderedDict(OrderedDict(data))
+
+
+def fix_language_by_field(data, field, subfield):
+    language = data.get(field)
+    if isinstance(language, GroupableOrderedDict):
+        language = fix_lang_groupable_ordered_dict(language, subfield)
+        data[field] = GroupableOrderedDict(OrderedDict(language))
+    if isinstance(language, tuple):
+        fix_lang_tuple(data, language, field, subfield)
+
+
+def fix_lang_groupable_ordered_dict(language, subfield):
+    language = dict(language)
+    language[subfield] = LANGUAGE_EXCEPTIONS.get(language[subfield], language[subfield])
+    return language
+
+
+def fix_lang_tuple(data, languages, field, subfield):
+    languages = list(languages)
+    new_languages = []
+    for language in languages:
+        language = fix_lang_groupable_ordered_dict(language, subfield)
+        new_languages.append(GroupableOrderedDict(OrderedDict(language)))
+    data[field] = tuple(new_languages)
+
+
+#############################################################################
+#                                GRANTOR FIX                                #
+#############################################################################
 
 
 def fix_grantor(data):
+    """
+    Consolidates the degree grantor field inconsistency.
+    :param data: GroupableOrderedDict of all fields
+    :return: Fixed GroupableOrderedDict
+    """
     data = dict(data)
     if "502__" in data:
         value = data.get("502__")
@@ -65,7 +116,8 @@ def fix_grantor(data):
                                     "b": parsed_grantor[2]
                                 }
                             )
-                    data["7102_"] = tuple(data["7102_"])
+                    if data.get("7102_") is not None:
+                        data["7102_"] = tuple(data["7102_"])
 
         del data["502__"]
 
@@ -98,17 +150,30 @@ def fix_grantor(data):
                     "9": "cze"
                 }
             ]
-        data["7102_"] = tuple(data["7102_"])
+        if data.get("7102_") is not None:
+            data["7102_"] = tuple(data["7102_"])
 
     return GroupableOrderedDict(OrderedDict(data))
 
 
+#############################################################################
+#                                KEYWORDS FIX                               #
+#############################################################################
+
+
 def fix_keywords(data):
+    """
+    Converts keywords that match PSH to subject field.
+    :param data: GroupableOrderedDict of all fields
+    :return: Fixed GroupableOrderedDict
+    """
     tax = Taxonomy.get("subject")
     data = dict(data)
     subject_tuple = []
-    if "653__" in data or "6530_" in data:
+    if "653__" in data:
         values = data.get("653__")
+        values = split_keywords(values)
+        data["653__"] = values
         delete_position = []
         for idx, value in enumerate(values):
             parsed_keyword = value.get("a")
@@ -137,4 +202,41 @@ def fix_keywords(data):
                 old_subject_tuple = list(data["650_7"])
                 subject_tuple.extend(old_subject_tuple)
             data["650_7"] = tuple(subject_tuple)
+    if "6530_" in data:
+        values = data.get("6530_")
+        values = split_keywords(values)
+        data["6530_"] = values
     return GroupableOrderedDict(OrderedDict(data))
+
+
+def split_keywords(data):
+    """
+
+    :param data: tuple of GrupableOrderedDict of MARC record
+    :type: tuple
+    :return: List of splitted keywords
+    """
+    new_data = []
+    if isinstance(data, GroupableOrderedDict):
+        data = [data]
+        data = tuple(data)
+    if len(data) >= 3:
+        return data
+    for keyword in data:
+        value = keyword.get("a") or ""
+        if "|" in value or "-" in value:
+            value_array = re.split(r'[|\-]', value)
+            for word in value_array:
+                new_keyword = GroupableOrderedDict(OrderedDict({"a": word.strip()}))
+                new_data.append(new_keyword)
+        else:
+            new_data.append(keyword)
+    return tuple(new_data)
+
+
+# Stream splitting of OAI from NUSL - splitted stream = single record
+
+def split_stream_oai_nusl(stream):
+    """Yield record elements from given stream."""
+    for _, element in etree.iterparse(stream, tag='{http://www.loc.gov/MARC21/slim}record'):
+        yield element

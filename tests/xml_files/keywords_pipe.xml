@@ -1,0 +1,121 @@
+<record>
+    <controlfield tag="001">389998</controlfield>
+    <controlfield tag="005">20181208155628.0</controlfield>
+    <datafield tag="041" ind1="0" ind2="7">
+        <subfield code="a">cze</subfield>
+    </datafield>
+    <datafield tag="046" ind1=" " ind2=" ">
+        <subfield code="k">2018-09-04</subfield>
+    </datafield>
+    <datafield tag="245" ind1="0" ind2="0">
+        <subfield code="a">
+            Internacionalismy a neologismy v současném kulturním a politickém zpravodajství
+        </subfield>
+        <subfield code="b">
+            Internationalisms and neologisms in contemporary cultural and political news
+        </subfield>
+    </datafield>
+    <datafield tag="502" ind1=" " ind2=" ">
+        <subfield code="c">Univerzita Karlova</subfield>
+        <subfield code="b">Bc.</subfield>
+        <subfield code="d">2018</subfield>
+    </datafield>
+    <datafield tag="520" ind1=" " ind2=" ">
+        <subfield code="a">
+            The bachelor thesis is devoted to description and analysis of contemporary vocabulary of selected Czech
+            journals, that are focused on news from the political and cultural field. The aim of this thesis is to prove
+            the usage of lexice internationalism and neologism and to characterize them closely from the process point
+            of view and the level of adaptation in the Czech language, the specificity of the creation of the words and
+            lexice semantics including its pragmatical mening. The thesis will use the methodology based on the theory
+            of key words and on this basis selected naming (lexems) relevant for the field of politics and culture will
+            be selected from the Neologism dictionary 1,2 and also from the Academic dictionary of foreign words.
+            Occurrence and usage of selected lexems will be subsequently documented in journals MF DNES and Lidove
+            noviny within a period of three months: June, July and August 2017. Excerpted material will be used to
+            compare semantics and style characteristics of key names as they presented in the mentioned dictionaries and
+            the realized in the texts, prospective updated will be evaluated. Keywords Internationalism, neologism,
+            lexical semantics, pragmatics, culture, politics, news, daily
+        </subfield>
+        <subfield code="9">eng</subfield>
+    </datafield>
+    <datafield tag="520" ind1=" " ind2=" ">
+        <subfield code="a">
+            Bakalářská práce se věnuje popisu a rozboru současné slovní zásoby vybraných českých deníků, tematicky se
+            zaměřuje na zprávy z oblasti politiky a kultury. Cílem práce je doložit užívání lexikálních
+            internacionalismů a neologismů, blíže je charakterizovat z hlediska procesu a stupně adaptace v češtině,
+            specifičnosti slovotvorných způsobů a lexikální sémantiky včetně pragmatických významů. Práce metodologicky
+            vychází z teorie klíčových slov, na jejím základě jsou vybrána pojmenování (lexémy) relevantní pro oblast
+            politiky a kultury ze Slovníků neologizmů 1, 2 a Akademického slovníku cizích slov. Výskyt a užívání
+            vybraných lexémů jsou doloženy v denících MF DNES a Lidové noviny v období tří měsíců: červen, červenec a
+            srpen 2017. Excerpovaný materiál je využit k porovnání sémantiky a stylové charakteristiky klíčových
+            pojmenování, jak jsou prezentovány v uvedených slovnících a realizovány v textech; posouzeny budou případné
+            aktualizace. Klíčová slova internacionalismus, neologismus, lexikální sémantika, pragmatika, kultura,
+            politika, zpravodajství, deník
+        </subfield>
+        <subfield code="9">cze</subfield>
+    </datafield>
+    <datafield tag="586" ind1=" " ind2=" ">
+        <subfield code="a">neobhájeno</subfield>
+        <subfield code="b">not defended</subfield>
+    </datafield>
+    <datafield tag="653" ind1=" " ind2=" ">
+        <subfield code="a">
+            internacionalismus|neologismus|lexikální sémantika|pragmatika|kultura|politika|zpravodajství|deník
+        </subfield>
+    </datafield>
+    <datafield tag="653" ind1="0" ind2=" ">
+        <subfield code="a">
+            internationalism|neologism|lexical semantics|pragmatics|culture|politics|news|daily
+        </subfield>
+    </datafield>
+    <datafield tag="710" ind1="2" ind2=" ">
+        <subfield code="a">Univerzita Karlova</subfield>
+        <subfield code="9">cze</subfield>
+        <subfield code="b">Ústav českého jazyka a teorie komunikace</subfield>
+        <subfield code="g">Filozofická fakulta</subfield>
+    </datafield>
+    <datafield tag="710" ind1="2" ind2=" ">
+        <subfield code="a">Charles University</subfield>
+        <subfield code="9">eng</subfield>
+        <subfield code="b">
+            Institute of Czech Language and Theory of Communication
+        </subfield>
+        <subfield code="g">Faculty of Arts</subfield>
+    </datafield>
+    <datafield tag="720" ind1=" " ind2=" ">
+        <subfield code="a">Ivasková, Jarmila</subfield>
+    </datafield>
+    <datafield tag="720" ind1=" " ind2=" ">
+        <subfield code="i">Bozděchová, Ivana</subfield>
+        <subfield code="e">advisor</subfield>
+    </datafield>
+    <datafield tag="720" ind1=" " ind2=" ">
+        <subfield code="i">Martínek, František</subfield>
+        <subfield code="e">referee</subfield>
+    </datafield>
+    <datafield tag="856" ind1="4" ind2="0">
+        <subfield code="z">Odkaz na původní záznam</subfield>
+        <subfield code="u">http://hdl.handle.net/20.500.11956/103747</subfield>
+    </datafield>
+    <datafield tag="856" ind1="4" ind2="0">
+        <subfield code="u">http://www.nusl.cz/ntk/nusl-389998</subfield>
+        <subfield code="z">PID NUŠL</subfield>
+    </datafield>
+    <datafield tag="909" ind1="C" ind2="O">
+        <subfield code="o">oai:invenio.nusl.cz:389998</subfield>
+        <subfield code="p">openaire</subfield>
+        <subfield code="p">global</subfield>
+    </datafield>
+    <datafield tag="980" ind1=" " ind2=" ">
+        <subfield code="a">bakalarske_prace</subfield>
+    </datafield>
+    <datafield tag="996" ind1=" " ind2=" ">
+        <subfield code="a">Dostupné v digitálním repozitáři UK.</subfield>
+        <subfield code="9">1</subfield>
+        <subfield code="b">
+            Available in the Charles University Digital Repository.
+        </subfield>
+    </datafield>
+    <datafield tag="998" ind1=" " ind2=" ">
+        <subfield code="a">univerzita_karlova_v_praze</subfield>
+    </datafield>
+</record>
