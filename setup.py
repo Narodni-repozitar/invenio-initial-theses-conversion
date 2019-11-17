@@ -28,7 +28,7 @@ packages = find_packages()
 
 # Get the version string. Cannot be done with import!
 g = {}
-version = "1.1.1"
+version = "1.1.2"
 
 setup(
     name='invenio-initial-theses-conversion',
