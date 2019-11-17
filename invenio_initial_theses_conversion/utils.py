@@ -46,6 +46,8 @@ def fix_language(data):
         fix_language_by_field(data, "520__", "9")
     if "540__" in data:
         fix_language_by_field(data, "540__", "9")
+    if "__order__" in data:
+        del data["__order__"]
     return GroupableOrderedDict(OrderedDict(data))
 
 
@@ -87,6 +89,8 @@ def fix_grantor(data):
     data = dict(data)
     if "502__" in data:
         value = data.get("502__")
+        if isinstance(value, tuple):
+            value = value[0]
         parsed_grantor = value.get("c")
         if parsed_grantor is not None:
             if "," in value.get("c"):
@@ -122,28 +126,31 @@ def fix_grantor(data):
         del data["502__"]
 
     if ("502__" not in data) and ("7102_" not in data) and ("998__" in data):
-        if data["998__"]["a"] == "vutbr":
+        provider = data["998__"]
+        if isinstance(provider, tuple):
+            provider = provider[0]
+        if provider["a"] == "vutbr":
             data["7102_"] = [
                 {
                     "a": "Vysoké učení technické v Brně",
                     "9": "cze"
                 }
             ]
-        if data["998__"]["a"] == "ceska_zemedelska_univerzita":
+        if provider["a"] == "ceska_zemedelska_univerzita":
             data["7102_"] = [
                 {
                     "a": "Česká zemědělská univerzita v Praze",
                     "9": "cze"
                 }
             ]
-        if data["998__"]["a"] == "jihoceska_univerzita_v_ceskych_budejovicich":
+        if provider["a"] == "jihoceska_univerzita_v_ceskych_budejovicich":
             data["7102_"] = [
                 {
                     "a": "Jihočeská univerzita v Českých Budějovicích",
                     "9": "cze"
                 }
             ]
-        if data["998__"]["a"] == "mendelova_univerzita_v_brne":
+        if provider["a"] == "mendelova_univerzita_v_brne":
             data["7102_"] = [
                 {
                     "a": "Mendelova univerzita v Brně",
@@ -152,7 +159,8 @@ def fix_grantor(data):
             ]
         if data.get("7102_") is not None:
             data["7102_"] = tuple(data["7102_"])
-
+    if "__order__" in data:
+        del data["__order__"]
     return GroupableOrderedDict(OrderedDict(data))
 
 
@@ -206,6 +214,8 @@ def fix_keywords(data):
         values = data.get("6530_")
         values = split_keywords(values)
         data["6530_"] = values
+    if "__order__" in data:
+        del data["__order__"]
     return GroupableOrderedDict(OrderedDict(data))
 
 

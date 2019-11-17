@@ -341,7 +341,7 @@ result = [
 ]
 
 
-@pytest.mark.skip(reason=None)
+# @pytest.mark.skip(reason=None)
 def test_rules(app, db):
     array = [create_record(data) for data in
              split_stream(
@@ -360,7 +360,7 @@ def test_rules(app, db):
         # print(transformed)
 
 
-@pytest.mark.skip(reason="Problem with subjects was fixed")
+# @pytest.mark.skip(reason="Problem with subjects was fixed")
 def test_rules_2(app, db):
     array = [create_record(data) for data in
              split_stream(
@@ -394,7 +394,7 @@ def test_rules_3(app, db):
         print(marshmallowed)
 
 
-@pytest.mark.skip(reason=None)
+# @pytest.mark.skip(reason=None)
 def test_rules_oai(app, db):
     array = [create_record(data) for data in
              split_stream_oai_nusl(

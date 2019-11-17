@@ -2,7 +2,7 @@ from collections import OrderedDict
 
 from dojson.utils import GroupableOrderedDict
 
-from invenio_initial_theses_conversion.utils import split_keywords
+from invenio_initial_theses_conversion.utils import fix_grantor, split_keywords
 
 
 def test_split_keywords_1():
@@ -46,3 +46,13 @@ def test_split_keywords_2():
         GroupableOrderedDict(OrderedDict({'a': 'zpravodajství'})),
         GroupableOrderedDict(OrderedDict({'a': 'deník'}))
     )
+
+
+# def test_fix_grantor():
+#     data = GroupableOrderedDict(
+#         (
+#             ('502__', GroupableOrderedDict((('a', '2019-07-10'), ('b', 'Bc.'),
+#                                             ('c', 'JIHOČESKÁ UNIVERZITA V ČESKÝCH BUDĚJOVICÍCH'), ('g', 'Bachelor')))),
+#         )
+#     )
+#     fix_grantor(data)
