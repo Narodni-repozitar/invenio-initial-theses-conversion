@@ -17,7 +17,8 @@ def test_url_nusl_data_generator():
 
     if os.path.isdir(cache):
         shutil.rmtree('/tmp/cache')
-    gen = url_nusl_data_generator(1, "https://invenio.nusl.cz/oai2d/?verb=ListRecords&metadataPrefix=marcxml", "/tmp/cache",
-                            oai=True)
+    gen = url_nusl_data_generator(1, "https://invenio.nusl.cz/oai2d/?verb=ListRecords&metadataPrefix=marcxml",
+                                  "/tmp/cache",
+                                  oai=True)
     for data in gen:
         print(data)
