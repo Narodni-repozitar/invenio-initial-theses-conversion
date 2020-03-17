@@ -6,7 +6,7 @@ from werkzeug.utils import cached_property
 from flask_taxonomies.models import Taxonomy, TaxonomyTerm
 from invenio_initial_theses_conversion.nusl_overdo import append_results, list_value, handled_values
 from invenio_initial_theses_conversion.scripts.link import link_self
-from invenio_nusl.cli import create_slug
+from invenio_nusl_taxonomies.utils import create_slug
 from ..model import old_nusl
 
 
@@ -21,19 +21,19 @@ class Constants:
 
     @cached_property
     def mednas(self):
-        return self.subject_taxonomy.get_term("MEDNAS")
+        return self.subject_taxonomy.get_term("mednas")
 
     @cached_property
     def czmesh(self):
-        return self.subject_taxonomy.get_term("CZMESH")
+        return self.subject_taxonomy.get_term("czmesh")
 
     @cached_property
     def psh(self):
-        return self.subject_taxonomy.get_term("PSH")
+        return self.subject_taxonomy.get_term("psh")
 
     @cached_property
     def czenas(self):
-        return self.subject_taxonomy.get_term("CZENAS")
+        return self.subject_taxonomy.get_term("czenas")
 
 
 constants = Constants()
