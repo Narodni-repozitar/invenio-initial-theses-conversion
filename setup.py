@@ -2,6 +2,7 @@
 
 
 """NUSL theses data model."""
+import os
 
 from setuptools import find_packages, setup
 
@@ -35,7 +36,9 @@ packages = find_packages()
 
 # Get the version string. Cannot be done with import!
 g = {}
-version = "1.1.2"
+with open(os.path.join('invenio_initial_theses_conversion', 'version.py'), 'rt') as fp:
+    exec(fp.read(), g)
+version = g['__version__']
 
 setup(
     name='invenio-initial-theses-conversion',
