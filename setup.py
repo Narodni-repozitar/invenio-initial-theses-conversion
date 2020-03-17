@@ -21,8 +21,15 @@ install_requires = [
     'click',
     'requests',
     'flask',
-    'marshmallow'
+    'marshmallow',
+    'invenio-nusl-taxonomies'
 ]
+
+extras_require = {
+    'docs': [
+        'sphinx'
+    ]
+}
 
 packages = find_packages()
 
@@ -58,7 +65,6 @@ setup(
             'bd24633 = invenio_initial_theses_conversion.rules.marc21.bd24633',
             'bd598 = invenio_initial_theses_conversion.rules.marc21.bd598',
             'bd7102 = invenio_initial_theses_conversion.rules.marc21.bd7102',
-            'bd005=invenio_initial_theses_conversion.rules.marc21.bd005',
             'bd300xx=invenio_initial_theses_conversion.rules.marc21.bd300xx',
             'bd520=invenio_initial_theses_conversion.rules.marc21.bd520',
             'bd540=invenio_initial_theses_conversion.rules.marc21.bd540',
@@ -82,6 +88,7 @@ setup(
     install_requires=install_requires,
     setup_requires=setup_requires,
     tests_require=tests_require,
+    extras_require=extras_require,
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',

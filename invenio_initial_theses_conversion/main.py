@@ -21,7 +21,8 @@ from flask import cli
 from marshmallow import ValidationError
 
 from invenio_initial_theses_conversion.rules.model import old_nusl
-from invenio_initial_theses_conversion.utils import fix_language, fix_grantor, fix_keywords, split_stream_oai_nusl
+from invenio_initial_theses_conversion.utils import fix_language, fix_grantor, fix_keywords, \
+    split_stream_oai_nusl
 from invenio_nusl_theses.marshmallow import ThesisMetadataSchemaV1
 from invenio_nusl_theses.proxies import nusl_theses
 from invenio_oarepo.current_api import current_api
@@ -88,7 +89,8 @@ logging.basicConfig(
 
 @click.command("initial-theses-conversion-chunks")
 @click.option('--url',
-              default='https://invenio.nusl.cz/search?ln=cs&p=&f=&action_search=Hledej&c=Vysoko%C5%A1kolsk%C3%A9+kvalifika%C4%8Dn%C3%AD+pr%C3%A1ce&rg=1000&sc=0&of=xm',
+              default='https://invenio.nusl.cz/search?ln=cs&p=&f=&action_search=Hledej&c=Vysoko'
+                      '%C5%A1kolsk%C3%A9+kvalifika%C4%8Dn%C3%AD+pr%C3%A1ce&rg=1000&sc=0&of=xm',
               help='Collection URL')
 @click.option('--cache-dir',
               help='Cache dir')
@@ -111,7 +113,8 @@ def run_chunks(ctx, url, break_on_error, cache_dir, clean_output_dir, start, sto
 
 @click.command("initial-theses-conversion")
 @click.option('--url',
-              default='https://invenio.nusl.cz/search?ln=cs&p=&f=&action_search=Hledej&c=Vysoko%C5%A1kolsk%C3%A9+kvalifika%C4%8Dn%C3%AD+pr%C3%A1ce&rg=1000&sc=0&of=xm',
+              default='https://invenio.nusl.cz/search?ln=cs&p=&f=&action_search=Hledej&c=Vysoko'
+                      '%C5%A1kolsk%C3%A9+kvalifika%C4%8Dn%C3%AD+pr%C3%A1ce&rg=1000&sc=0&of=xm',
               help='Collection URL')
 @click.option('--cache-dir',
               help='Cache dir')
@@ -129,7 +132,8 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start, stop):
     """
     Fetch data from old nusl and convert into new nusl as json.
     :param url: Url for data collection
-    :param break_on_error: If true the script break at the error, otherwise it will log and continue with next record.
+    :param break_on_error: If true the script break at the error, otherwise it will log and
+    continue with next record.
     :param cache_dir: Path to the cache directory
     :param clean_output_dir:
     :param start: Number of starting record
@@ -154,7 +158,8 @@ def _run(url, break_on_error, cache_dir, clean_output_dir, start, stop):
         else:
             gen = file_nusl_data_generator(start, url, cache_dir)
 
-        return data_loop_collector(break_on_error, error_counts, error_documents, gen, processed_ids, stop)
+        return data_loop_collector(break_on_error, error_counts, error_documents, gen,
+                                   processed_ids, stop)
 
     finally:
         if not os.path.exists('/tmp/import-nusl-theses'):
@@ -214,12 +219,12 @@ def data_loop_collector(break_on_error, error_counts, error_documents, gen, proc
             ch.setTransformedRecord(transformed)
             try:
                 # Validace dat podle Marshmallow a JSON schematu
-                marshmallowed = nusl_theses.validate(DraftSchemaWrapper(ThesisMetadataSchemaV1), transformed)
+                marshmallowed = nusl_theses.validate(DraftSchemaWrapper(ThesisMetadataSchemaV1),
+                                                     transformed)
             except ValidationError as e:
-                for field in e.field_names:
-                    error_counts[field] += 1
-                    error_documents[field].append(recid)
-                if set(e.field_names) - IGNORED_ERROR_FIELDS:
+                error_counts[e.field_name] += 1
+                error_documents[e.field_name].append(recid)
+                if e.field_name not in IGNORED_ERROR_FIELDS:
                     raise
                 continue
 
@@ -251,7 +256,8 @@ def session():
                 print("Login or password were wrong. Please retry sign in again.")
                 i += 1
             if i == 3:
-                raise Exception("Your credentials was inserted three times wrong. Run program again.")
+                raise Exception(
+                    "Your credentials was inserted three times wrong. Run program again.")
     else:
         return requests.Session()
 
@@ -272,7 +278,8 @@ def url_nusl_data_generator(start, url, cache_dir, oai=False):
         sys.stderr.flush()
         if not oai:
             resp, parsed, token = fetch_nusl_data(url, start, cache_dir,
-                                           ses)  # return response of one record from server and parsed response
+                                                  ses)  # return response of one record from
+            # server and parsed response
             stream_generator = split_stream(BytesIO(resp))
         else:
             resp, parsed, token = fetch_nusl_data(url, start, cache_dir,
@@ -280,7 +287,9 @@ def url_nusl_data_generator(start, url, cache_dir, oai=False):
             stream_generator = split_stream_oai_nusl(BytesIO(resp))
 
         count = len(
-            list(parsed.iter('{http://www.loc.gov/MARC21/slim}record')))  # return number of records from one response
+            list(parsed.iter(
+                '{http://www.loc.gov/MARC21/slim}record')))  # return number of records from one
+        # response
         if count:
             for data in stream_generator:
                 yield data
@@ -347,7 +356,8 @@ def file_nusl_data_generator(start, filename, cache_dir):
     while True:
         with gzip.open(filename, 'rb') as f:
             for data in split_stream(
-                    chain_streams([BytesIO(b'<root xmlns="http://www.loc.gov/MARC21/slim">'), f, BytesIO(b'</root>')])):
+                    chain_streams([BytesIO(b'<root xmlns="http://www.loc.gov/MARC21/slim">'), f,
+                                   BytesIO(b'</root>')])):
                 if not start % 1000:
                     print('\r%08d' % start, end='', file=sys.stderr)
                 yield data
@@ -361,7 +371,8 @@ def fetch_nusl_data(url, start, cache_dir, ses=requests.Session(), oai=False, re
     :param start:
     :param cache_dir: Directory where is saved cache
     :param ses: Request session
-    :param oai: If the endpoint is oai: https://invenio.nusl.cz/oai2d/?verb=ListRecords&metadataPrefix=marcxml
+    :param oai: If the endpoint is oai:
+    https://invenio.nusl.cz/oai2d/?verb=ListRecords&metadataPrefix=marcxml
     :param res_token: Resumption token that is responsible for pagination
     :return: Tuple with response, parsed XML (ElementTree) and resumptionToken
     """

@@ -60,7 +60,7 @@ def run(url, break_on_error, cache_dir, clean_output_dir, start):
                     continue
                 for org_unit in aslist(rec["7102_"]):
                     if not isinstance(org_unit, dict):
-                        print(org_unit, recid)
+                        print("Org unit is not an object: ", org_unit, recid)
                         continue
                     university = org_unit.get("a")
                     faculty = org_unit.get("g")

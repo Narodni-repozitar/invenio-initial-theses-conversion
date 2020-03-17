@@ -32,27 +32,26 @@ def studyfield_ref(study, tax, grantor, doc_type):
     # https://docs.sqlalchemy.org/en/13/dialects/postgresql.html#sqlalchemy.dialects.postgresql.JSON
     # https://github.com/sqlalchemy/sqlalchemy/issues/3859  # issuecomment-441935478
     fields = find_in_json(study, tax, tree_address=("title", 0, "value")).all()
-    # fields = tax.descendants.filter(
-    #     TaxonomyTerm.extra_data[("title", 0, "value")].astext == study).all()
     if len(fields) == 0:
         fields = aliases(tax, study)
     if len(fields) == 0:
         field = find_in_json_contains(study, tax, "source_data").first()
         if field is None:
-            not_valid = tax.get_term("no_valid_studyfield")
-            slug = f"no_valid_{uuid.uuid4()}"
-            field = not_valid.create_term(
-                slug=slug,
-                extra_data={
-                    "title": {
-                        "value": "Nevalidní obor nebo program",
-                        "lang": "cze"
-                    },
-                    "source_data": study
-                }
-            )
-            db.session.add(field)
-            db.session.commit()
+            return ""
+            # not_valid = tax.get_term("no_valid_studyfield")
+            # slug = f"no_valid_{uuid.uuid4()}"
+            # field = not_valid.create_term(
+            #     slug=slug,
+            #     extra_data={
+            #         "title": {
+            #             "value": "Nevalidní obor nebo program",
+            #             "lang": "cze"
+            #         },
+            #         "source_data": study
+            #     }
+            # )
+            # db.session.add(field)
+            # db.session.commit()
         return {
             "studyField": [{"$ref": link_self(tax.slug, field)}]
         }

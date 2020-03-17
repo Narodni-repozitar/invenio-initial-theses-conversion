@@ -13,10 +13,11 @@ def provider(self, key, value):
     data = value.get('a')
     tax = Taxonomy.get("provider", required=True)
     provider = tax.descendants.filter(
-        TaxonomyTerm.slug == data).one()  # viz: https://stackoverflow.com/questions/29974143/python-sqlalchemy-and-postgres-how-to-query-a-json-element
+        TaxonomyTerm.slug == data).one()  # viz:
+    # https://stackoverflow.com/questions/29974143/python-sqlalchemy-and-postgres-how-to-query-a
+    # -json-element
     result = {
         "$ref": link_self(tax.slug, provider)
     }
 
     return result
-
