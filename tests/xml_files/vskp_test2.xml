@@ -1609,4 +1609,153 @@
             <subfield code="a">vysoka_skola_ekonomicka_v_praze</subfield>
         </datafield>
     </record>
+    <record>
+        <controlfield tag="001">46524</controlfield>
+        <controlfield tag="005">20181003160502.0</controlfield>
+        <datafield tag="041" ind1="0" ind2="7">
+            <subfield code="a">cze</subfield>
+        </datafield>
+        <datafield tag="046" ind1=" " ind2=" ">
+            <subfield code="k">2007-05-14</subfield>
+        </datafield>
+        <datafield tag="245" ind1="0" ind2="0">
+            <subfield code="a">
+                Problémy s navazováním sociálních vztahů u pacientek/pacientů s mentální anorexií
+            </subfield>
+            <subfield code="b">
+                Social relation problems of patients with anorexia nervosa
+            </subfield>
+        </datafield>
+        <datafield tag="300" ind1=" " ind2=" ">
+            <subfield code="a">47 s.</subfield>
+        </datafield>
+        <datafield tag="500" ind1=" " ind2=" ">
+            <subfield code="a">
+                POSPÍCHALOVÁ, Štěpánka. Problémy s navazováním sociálních vztahů u pacientek/pacientů s mentální
+                anorexií. Č. Budějovice, 2007. bakalářská práce (Bc.). JIHOČESKÁ UNIVERZITA V ČESKÝCH BUDĚJOVICÍCH.
+                Zdravotně sociální fakulta
+            </subfield>
+        </datafield>
+        <datafield tag="502" ind1=" " ind2=" ">
+            <subfield code="a">2007-06-18</subfield>
+            <subfield code="b">Bc.</subfield>
+            <subfield code="c">JIHOČESKÁ UNIVERZITA V ČESKÝCH BUDĚJOVICÍCH</subfield>
+            <subfield code="g">Bachelor</subfield>
+        </datafield>
+        <datafield tag="520" ind1=" " ind2=" ">
+            <subfield code="a">
+                Cílem práce bylo zmapování situace v sociálních interakcích nemocných s mentální anorexií. Zabývala jsem
+                se osobními dokumenty - deníky jedné pacientky s mentální anorexií. Jeden z deníků jsem podrobila
+                obsahové analýze. Na jejím základě jsem si udělala obraz o sociálních interakcích pacientky. Pro
+                doplnění výpovědí dívky jsem vedla polostrukturované rozhovory s jejím otcem a matkou. Rodiče
+                retrospektivně vypovídali o kamarádech pacientky a o vztazích mezi členy rodiny. Tyto tři zdroje jsem
+                vzájemně porovnala a dopracovala jsem se k výsledkům, které odpovídají na základní výzkumnou otázku:
+                {\clqq}Jak navazují sociální vazby pacientky/pacienti s mentální anorexií?`` Cíl práce byl splněn.
+                Výsledky jsem shrnula do 8 bodů. Každý bod jasně vymezuje vztahový problém u dívky s mentální anorexií.
+                Výsledky dosažené v mém výzkumu jsem porovnala s literaturou. V závěru práce se věnuji komplexnosti
+                problému poruch příjmu potravy. Pacientka je učebnicovým příkladem mentální anorexie. Její sociální
+                interakce jsou komplikované, případně vůbec nejsou. Vztahy v rodině jsou narušené, dívka vyhledává
+                kontakty mimo rodinu, tyto kontakty jsou však nestálé a trvají pouze krátkou dobu. Při aplikaci výzkumu
+                na větší vzorek nemocných by bylo dosaženo kvalitnějších výsledků, které by potvrdily problém v
+                sociálních interakcích. Po kvalitativním výzkumu by mohl následovat výzkum kvantitativní, který by
+                ukázal do jaké míry jsou vztahy pro pacientky s mentální anorexií problematické. Na základě těchto
+                výsledků by měla být věnována při léčení pacientek větší pozornost vazbám k ostatní populaci.
+            </subfield>
+            <subfield code="9">cze</subfield>
+        </datafield>
+        <datafield tag="520" ind1=" " ind2=" ">
+            <subfield code="a">
+                Purpose of this work was to describe situation in social interaction of people with anorexia nervosa. I
+                dealt with personal diaries of a patient who had anorexia nervosa and deeply examined one of the
+                diaries. Personal thoughts desribed in diaries were analysed and resulted in picture of social
+                interaction of the person. I also inteviewed father and mother who desribed retrospectively friends of
+                the girl and relations between family members. Comparing these three sources I came up with answer on
+                the basic research question: How patiens with anorexia nervosa make social relations. By doing this the
+                objective of the work was accomplished. Results were summed up in 8 points. Each point clearly describes
+                relation problem of the patient. Findings were compared to literature. The end of the work is devoted to
+                the problem of eating disorders generally. Patient is a copybook example of anorexia nervosa. Her social
+                interaction is complicated or even does not exist at all. Family relations are disturbed, the girl is
+                looking for contacts outside family but these are unstable and short term only. Better results would be
+                accomplished if sample of objects was bigger than only one patient. Following qualitative research there
+                could be quantitative research which would show how interaction is problematic for patients with
+                anorexia nervosa. Based on the results of my work larger interest should be dedicated to ties of
+                patients with outside population.
+            </subfield>
+            <subfield code="9">eng</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">BMI (body mass index)</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">kognitivně behaviorální terapie</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">mentální anorexie</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">pedanterie</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">poruchy příjmu potravy</subfield>
+        </datafield>
+        <datafield tag="653" ind1=" " ind2=" ">
+            <subfield code="a">psychosomatika</subfield>
+        </datafield>
+        <datafield tag="653" ind1="0" ind2=" ">
+            <subfield code="a">BMI (body mass index)</subfield>
+        </datafield>
+        <datafield tag="653" ind1="0" ind2=" ">
+            <subfield code="a">cognitive behavioural therapy</subfield>
+        </datafield>
+        <datafield tag="653" ind1="0" ind2=" ">
+            <subfield code="a">anorexia nervosa</subfield>
+        </datafield>
+        <datafield tag="653" ind1="0" ind2=" ">
+            <subfield code="a">pedantry</subfield>
+        </datafield>
+        <datafield tag="653" ind1="0" ind2=" ">
+            <subfield code="a">eating disorders</subfield>
+        </datafield>
+        <datafield tag="653" ind1="0" ind2=" ">
+            <subfield code="a">psychosomatic medicine</subfield>
+        </datafield>
+        <datafield tag="656" ind1=" " ind2="7">
+            <subfield code="a">
+                Rehabilitace/Rehabilitační - psychosociální péče o postižené děti, dospělé a staré osoby
+            </subfield>
+            <subfield code="2">AKVO</subfield>
+        </datafield>
+        <datafield tag="720" ind1=" " ind2=" ">
+            <subfield code="a">POSPÍCHALOVÁ, Štěpánka</subfield>
+        </datafield>
+        <datafield tag="856" ind1="4" ind2="0">
+            <subfield code="u">http://www.jcu.cz/vskp/7143</subfield>
+            <subfield code="z">Odkaz na původní záznam</subfield>
+        </datafield>
+        <datafield tag="856" ind1="4" ind2="0">
+            <subfield code="u">http://www.nusl.cz/ntk/nusl-46524</subfield>
+            <subfield code="z">PID NUŠL</subfield>
+        </datafield>
+        <datafield tag="909" ind1="C" ind2="O">
+            <subfield code="o">oai:invenio.nusl.cz:46524</subfield>
+            <subfield code="p">openaire</subfield>
+            <subfield code="p">global</subfield>
+            <subfield code="p">base</subfield>
+        </datafield>
+        <datafield tag="970" ind1=" " ind2=" ">
+            <subfield code="a">7143</subfield>
+        </datafield>
+        <datafield tag="980" ind1=" " ind2=" ">
+            <subfield code="a">bakalarske_prace</subfield>
+        </datafield>
+        <datafield tag="996" ind1=" " ind2=" ">
+            <subfield code="a">Plný text je dostupný v digitálním repozitáři JČU.</subfield>
+            <subfield code="b">
+                Fulltext is available in the Digital Repository of University of South Bohemia.
+            </subfield>
+        </datafield>
+        <datafield tag="998" ind1=" " ind2=" ">
+            <subfield code="a">jihoceska_univerzita_v_ceskych_budejovicich</subfield>
+        </datafield>
+    </record>
 </collection>
