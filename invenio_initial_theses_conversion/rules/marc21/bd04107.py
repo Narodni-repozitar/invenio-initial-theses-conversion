@@ -1,7 +1,8 @@
 import pycountry
-
 from flask_taxonomies.models import Taxonomy
-from invenio_initial_theses_conversion.nusl_overdo import single_value, append_results, list_value, handled_values
+
+from flask_taxonomies_es.proxies import current_flask_taxonomies_es
+from invenio_initial_theses_conversion.nusl_overdo import single_value, handled_values
 from invenio_initial_theses_conversion.scripts.link import link_self
 from ..model import old_nusl
 
@@ -16,27 +17,36 @@ def language(self, key, value):
     if not value.get("a"):
         return None
     if "a" in value:
-        lang = value.get("a")
-        lang = ensure_lang_code(lang)
+        lang = get_lang("a", value)
         if lang is None:
             return None
-        get_ref(lang, languages, tax)
+        languages.append(get_ref(lang, tax))
     if "b" in value:
-        lang = value.get("b")
-        lang = ensure_lang_code(lang)
+        lang = get_lang("b", value)
         if lang is None:
             return None
-        get_ref(lang, languages, tax)
+        languages.append(get_ref(lang, tax))
     return languages
 
 
-def get_ref(lang, languages, taxonomy):
+def get_lang(key, value):
+    lang = value.get(key)
+    lang = ensure_lang_code(lang)
+    return lang
+
+
+def get_ref(lang, taxonomy):
+    res = current_flask_taxonomies_es.get("languages", lang)
+    if len(res) > 0 and isinstance(res, dict):
+        return {
+            "$ref": res["links"]["self"]
+        }
     lang_tax = taxonomy.get_term(lang)
     if lang_tax is None:
         return None
-    languages.append({
+    return {
         "$ref": link_self(taxonomy.slug, lang_tax)
-    })
+    }
 
 
 def ensure_lang_code(lang):
