@@ -23,7 +23,8 @@ install_requires = [
     'requests',
     'flask',
     'marshmallow',
-    'invenio-nusl-taxonomies'
+    'invenio-nusl-taxonomies',
+    'flask-taxonomies-es'
 ]
 
 extras_require = {
