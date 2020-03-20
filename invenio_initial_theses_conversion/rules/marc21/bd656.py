@@ -1,10 +1,11 @@
-import uuid
-
-from invenio_db import db
-
+from elasticsearch_dsl import Q
 from flask_taxonomies.models import Taxonomy
 from flask_taxonomies.utils import find_in_json, find_in_json_contains
-from invenio_initial_theses_conversion.nusl_overdo import single_value, merge_results, extra_argument
+
+from flask_taxonomies_es.proxies import current_flask_taxonomies_es
+from flask_taxonomies_es.serializer import get_taxonomy_term
+from invenio_initial_theses_conversion.nusl_overdo import single_value, merge_results, \
+    extra_argument
 from invenio_initial_theses_conversion.scripts.link import link_self
 from ..model import old_nusl
 
@@ -14,64 +15,69 @@ from ..model import old_nusl
 @single_value
 @extra_argument('grantor', '^7102', single=True)
 @extra_argument('doc_type', '^980', single=True)
-def studyProgramme_Field(self, key, value, grantor, doc_type):
+def study_programme_field(self, key, value, grantor, doc_type):
     """Study programme."""
     doc_type = doc_type.get("a")
     grantor = grantor.get("a").lower()
-    study = value.get("a")
+    slug = value.get("a")
     tax = Taxonomy.get("studyfields", required=True)
-    if "/" not in study:
-        return studyfield_ref(study.strip(), tax, grantor, doc_type)
+    if "/" not in slug:
+        return studyfield_ref(slug.strip(), tax, grantor, doc_type)
     else:
-        programme, field = study.split("/", maxsplit=1)
+        programme, field = slug.split("/", maxsplit=1)
         field = field.strip()
         return studyfield_ref(field, tax, grantor, doc_type)
 
 
-def studyfield_ref(study, tax, grantor, doc_type):
+def es_search_title(study, tax):
+    query = Q("term", taxonomy__keyword=tax) & Q("term", title__value__keyword=study)
+    return current_flask_taxonomies_es.search(query)
+
+
+def es_search_aliases(study, tax):
+    query = Q("term", taxonomy__keyword=tax) & Q("term", aliases__keyword=study)
+    return current_flask_taxonomies_es.search(query)
+
+
+def studyfield_ref(study_title, tax, grantor: str, doc_type: str):
     # https://docs.sqlalchemy.org/en/13/dialects/postgresql.html#sqlalchemy.dialects.postgresql.JSON
     # https://github.com/sqlalchemy/sqlalchemy/issues/3859  # issuecomment-441935478
-    fields = find_in_json(study, tax, tree_address=("title", 0, "value")).all()
+    fields = es_search_title(study_title, tax.slug)
     if len(fields) == 0:
-        fields = aliases(tax, study)
+        fields = db_search(study_title, tax, json_address=("title", 0, "value"))
     if len(fields) == 0:
-        field = find_in_json_contains(study, tax, "source_data").first()
-        if field is None:
-            return ""
-            # not_valid = tax.get_term("no_valid_studyfield")
-            # slug = f"no_valid_{uuid.uuid4()}"
-            # field = not_valid.create_term(
-            #     slug=slug,
-            #     extra_data={
-            #         "title": {
-            #             "value": "Nevalidní obor nebo program",
-            #             "lang": "cze"
-            #         },
-            #         "source_data": study
-            #     }
-            # )
-            # db.session.add(field)
-            # db.session.commit()
-        return {
-            "studyField": [{"$ref": link_self(tax.slug, field)}]
-        }
+        fields = aliases(tax, study_title)
+    if len(fields) == 0:
+        return
     if len(fields) > 1:
         fields = filter(fields, doc_type, grantor)
 
     return {
-        "studyField": [{"$ref": link_self(tax.slug, field)} for field in fields],
-
+        "studyField": [{"$ref": field["links"]["self"]} for field in fields],
     }
 
 
+def db_search(study_title, tax, json_address=None):
+    fields = find_in_json(study_title, tax, tree_address=json_address).all()
+    fields = jsonify_fields(fields)
+    return fields
+
+
+def jsonify_fields(fields):
+    new_fields = []
+    for field in fields:
+        new_fields.append(get_taxonomy_term(code=field.taxonomy.slug, slug=field.slug))
+    fields = new_fields
+    return fields
+
+
 def aliases(tax, study):
-    fields = find_in_json(study, tax, tree_address="aliases").all()
-    # fields = tax.descendants.filter(
-    #     TaxonomyTerm.extra_data["aliases"].astext == study).all()
+    fields = es_search_aliases(study, tax.slug)
     if len(fields) == 0:
-        # fields = tax.descendants.filter(
-        #     TaxonomyTerm.extra_data["aliases"].contains([study])).all()
+        fields = db_search(study, tax, json_address="aliases")
+    if len(fields) == 0:
         fields = find_in_json_contains(study, tax, tree_address="aliases").all()
+        fields = jsonify_fields(fields)
     return fields
 
 
@@ -91,15 +97,20 @@ def doc_filter(fields, doc_type):
             "Navazující magisterský": "diplomove_prace",
             "Doktorský": "disertacni_prace"
         }
-        return [field for field in fields if degree_dict.get(field.extra_data.get("degree_level")) == doc_type]
+        new_fields = [field for field in fields if
+                      degree_dict.get(field.get("programme_type")) == doc_type]
+        if len(new_fields) == 0:
+            new_fields = [field for field in fields if "programme_type" not in field.keys()]
+        return new_fields
     return fields
 
 
 def grantor_filter(fields, grantor):
     if grantor is not None:
         matched_fields = [field for field in fields if
-                          field.extra_data.get("grantor") is not None and field.extra_data["grantor"][0][
-                              "university"].lower() == grantor]
+                          field.get("grantor") is not None and
+                          field["grantor"][0][
+                              "university"].lower() == grantor.lower()]
         if len(matched_fields) == 0:
             return fields
         else:
