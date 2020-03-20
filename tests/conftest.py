@@ -14,17 +14,21 @@ import shutil
 import tempfile
 
 import pytest
+from dojson import Overdo
 from flask import Flask
 from invenio_app.factory import create_api
 from invenio_db import InvenioDB
 from invenio_db import db as db_
 from invenio_jsonschemas import InvenioJSONSchemas
 from invenio_records import InvenioRecords
+from invenio_search import InvenioSearch
 from sqlalchemy_utils import create_database, database_exists
 
 from flask_taxonomies import FlaskTaxonomies
 
 from flask_taxonomies.views import blueprint as taxonomies_blueprint
+
+from flask_taxonomies_es import FlaskTaxonomiesES
 
 
 @pytest.fixture(scope='module')
@@ -43,14 +47,17 @@ def app():
         SQLALCHEMY_TRACK_MODIFICATIONS=True,
         SQLALCHEMY_DATABASE_URI=os.environ.get(
             'SQLALCHEMY_DATABASE_URI',
-            'postgresql+psycopg2://{user}:{pw}@{url}/{db}'.format(user="oarepo", pw="oarepo", url="127.0.0.1",
+            'postgresql+psycopg2://{user}:{pw}@{url}/{db}'.format(user="oarepo", pw="oarepo",
+                                                                  url="127.0.0.1",
                                                                   db="oarepo")),
         SERVER_NAME='localhost',
     )
     InvenioJSONSchemas(app)
     InvenioRecords(app)
+    InvenioSearch(app)
     InvenioDB(app)
     FlaskTaxonomies(app)
+    FlaskTaxonomiesES(app)
     with app.app_context():
         app.register_blueprint(taxonomies_blueprint)
         yield app
@@ -64,3 +71,9 @@ def db(app):
     if not database_exists(str(db_.engine.url)):
         create_database(str(db_.engine.url))
     yield db_
+
+
+@pytest.fixture
+def overdo_instance():
+    overdo = Overdo()
+    return overdo
