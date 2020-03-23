@@ -1,85 +1,72 @@
+from elasticsearch_dsl import Q
 from flask_taxonomies.models import Taxonomy, TaxonomyTerm
 from flask_taxonomies.utils import find_in_json
+
+from flask_taxonomies_es.proxies import current_flask_taxonomies_es
 from invenio_initial_theses_conversion.nusl_overdo import handled_values, extra_argument
 from invenio_initial_theses_conversion.scripts.link import link_self
 from ..model import old_nusl
+from ..utils import db_search, jsonify_fields
 
 
 @old_nusl.over('degreeGrantor', '^7102_')
-@handled_values('a', '9', 'g', 'b')
+# @handled_values('a', '9', 'g', 'b')
 @extra_argument('provider', '^998__', single=True)
 def degree_grantor(self, key, values, provider):
     provider = provider.get("a")
-    universities = Taxonomy.get("universities", required=True)
-    for item in values:
-        if item.get("9") == "cze":
-            uni_name = item.get("a")
-            if uni_name is not None:
-                return uni_ref(item, uni_name, universities, provider)
-
-
-def uni_ref(item, uni_name, universities, provider=None):
-    """
-    Return references to the taxonomy of university
-    :param item:
-    :param uni_name:
-    :param universities:
-    :param provider:
-    :return: Dict with references to the taxonomy of university, faculty and department
-    """
-    university = find_in_json(uni_name, universities, tree_address=("title", 0, "value")).one_or_none()
-    if university is not None:
-        if item.get("g") is not None:
-            faculty = fac_ref(item, university)
-            if faculty is not None:
-                if item.get("b") is not None:
-                    department = department_ref(faculty, item)
-                    if department is not None:
-                        return [
-                            {
-                                "$ref": link_self(universities.slug, department)
-                            }
-                        ]
-
-                no_department = universities.get_term(f"{faculty.slug}_no_department")
-                return [
-                    {
-                        "$ref": link_self(universities.slug, no_department)
-                    }
-                ]
-
-        no_department = universities.get_term(f"{university.slug}_no_faculty_no_department")
-        return [
-            {
-                "$ref": link_self(universities.slug, no_department)
-            }
-        ]
-
-    if provider is not None:
-        uni_name = find_uni_name(provider)
-        if uni_name is not None:
-            return uni_ref(item, uni_name, universities)
-
-
-def department_ref(faculty, item):
-    department_name = item.get("b")
-    department = find_in_json(department_name, faculty).first()
-    # department = faculty.descendants.filter(
-    #     TaxonomyTerm.extra_data[("title", 0, "value")].astext == department_name).first()
-    return department
-
-
-def fac_ref(item, university):
-    fac_name = item.get("g")
-    faculty = find_in_json(fac_name, university).all()
-    # faculty = university.descendants.filter(
-    #     TaxonomyTerm.extra_data[("title", 0, "value")].astext == fac_name).all()
-    faculty = [fac for fac in faculty if fac.level == 3]
-    if len(faculty) != 0:
-        faculty = faculty[0]
+    tax = Taxonomy.get("universities", required=True)
+    grantors = [item for item in values if item.get("9") == "cze"]
+    if len(grantors) == 0:
+        grantors = values
+    grantor = grantors[0]
+    university = grantor.get("a")
+    faculty = grantor.get("g")
+    department = grantor.get("b")
+    uni_res = find_university(university, tax, provider)
+    if not uni_res:
+        return
+    faculty_res = get_ref(faculty, tax, university_slug=uni_res["slug"])
+    if not faculty_res:
+        return [{"$ref": uni_res["links"]["self"]}]
+    department_res = get_ref(department, tax, faculty_slug=faculty_res["slug"])
+    if not department_res:
+        return [{"$ref": faculty_res["links"]["self"]}]
     else:
-        return None
-    return faculty
+        return [{"$ref": department_res["links"]["self"]}]
+
+# if department is not None:
+    #     results = get_ref(department, tax)
+    # elif faculty is not None:
+    #     results = get_ref(faculty, tax)
+    # elif university is not None:
+    #     results = get_ref(university, tax)
+    #     if len(results) == 0:
+    #         university = find_uni_name(provider)
+    #         if university is not None:
+    #             results = get_ref(university, tax)
+    # else:
+    #     return
+    # if len(results) == 0:
+    #     return
+    # return [{"$ref": result["links"]["self"]} for result in results]
+
+
+def get_ref(org_unit, taxonomy: Taxonomy, university_slug=None, faculty_slug=None):
+    if not org_unit:
+        return
+    if faculty_slug:
+        query = Q("term", taxonomy__keyword="universities") & Q("match", title__value=org_unit) & Q("term", ancestors__slug__keyword=faculty_slug)
+    elif university_slug:
+        query = Q("term", taxonomy__keyword="universities") & Q("match", title__value=org_unit) & Q("term", ancestors__slug__keyword=university_slug)
+    else:
+        query = Q("term", taxonomy__keyword="universities") & Q("match", title__value=org_unit)
+    results = current_flask_taxonomies_es.search(query, match=True)
+    if len(results) == 0:
+        results = db_search(org_unit, taxonomy, json_address=("title", 0, "value"))
+        results = jsonify_fields(results)
+    if len(results) == 0:
+        return
+    return results[0]
 
 
 def find_uni_name(provider):
@@ -87,7 +74,16 @@ def find_uni_name(provider):
     provider_term = provider_tax.descendants.filter(
         TaxonomyTerm.slug == provider).first()
     try:
-        uni_name = provider_term.extra_data["title"][0]["value"] #TODO: je potřeba změnit, až bude více jazyků
+        uni_name = provider_term.extra_data["title"][0]["value"]  # TODO: je potřeba změnit, až
+        # bude více jazyků
     except KeyError:
         uni_name = None
     return uni_name
+
+
+def find_university(uni_name, taxonomy, provider):
+    university = get_ref(uni_name, taxonomy)
+    if not university:
+        uni_name = find_uni_name(provider)
+        university = get_ref(uni_name, taxonomy)
+    return university
