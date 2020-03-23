@@ -24,7 +24,8 @@ install_requires = [
     'flask',
     'marshmallow',
     'invenio-nusl-taxonomies',
-    'flask-taxonomies-es'
+    'flask-taxonomies-es',
+    'sickle'
 ]
 
 extras_require = {
@@ -84,6 +85,7 @@ setup(
 
         'flask.commands': [
             'initial_theses_conversion = invenio_initial_theses_conversion.main:run',
+            'nusl_stat = invenio_initial_theses_conversion.cli:nusl_stat',
             'initial_theses_conversion_chunks = invenio_initial_theses_conversion.main:run_chunks',
             'collect-org-units = invenio_initial_theses_conversion.extract_departments:run'
         ],
