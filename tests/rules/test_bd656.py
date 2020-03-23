@@ -9,7 +9,8 @@ from .fixtures import grantor_filter_fix, doc_filter_fix
 
 from invenio_initial_theses_conversion.rules.marc21.bd656 import study_programme_field, \
     doc_filter, \
-    es_search_title, grantor_filter, es_search_aliases, db_search, aliases
+    es_search_title, grantor_filter, es_search_aliases, aliases
+from invenio_initial_theses_conversion.rules.utils import db_search
 
 
 def test_study_programme_field_1(app, db, overdo_instance):

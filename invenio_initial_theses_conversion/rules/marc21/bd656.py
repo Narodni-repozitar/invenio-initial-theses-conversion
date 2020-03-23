@@ -1,13 +1,12 @@
 from elasticsearch_dsl import Q
 from flask_taxonomies.models import Taxonomy
-from flask_taxonomies.utils import find_in_json, find_in_json_contains
+from flask_taxonomies.utils import find_in_json_contains
 
 from flask_taxonomies_es.proxies import current_flask_taxonomies_es
-from flask_taxonomies_es.serializer import get_taxonomy_term
 from invenio_initial_theses_conversion.nusl_overdo import single_value, merge_results, \
     extra_argument
-from invenio_initial_theses_conversion.scripts.link import link_self
 from ..model import old_nusl
+from ..utils import db_search, jsonify_fields
 
 
 @old_nusl.over("studyProgramme", '^656_7')
@@ -55,20 +54,6 @@ def studyfield_ref(study_title, tax, grantor: str, doc_type: str):
     return {
         "studyField": [{"$ref": field["links"]["self"]} for field in fields],
     }
-
-
-def db_search(study_title, tax, json_address=None):
-    fields = find_in_json(study_title, tax, tree_address=json_address).all()
-    fields = jsonify_fields(fields)
-    return fields
-
-
-def jsonify_fields(fields):
-    new_fields = []
-    for field in fields:
-        new_fields.append(get_taxonomy_term(code=field.taxonomy.slug, slug=field.slug))
-    fields = new_fields
-    return fields
 
 
 def aliases(tax, study):

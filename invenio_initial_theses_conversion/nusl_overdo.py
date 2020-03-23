@@ -172,7 +172,7 @@ def handled_values(*args):
 
     def outer(f):
         @functools.wraps(f)
-        def wrapper(self, key, values, **kwargs):
+        def wrapper(self, key, values, *arguments, **kwargs):
             if isinstance(values, list):
                 test_values = values
             else:
