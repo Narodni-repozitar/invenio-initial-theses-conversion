@@ -28,7 +28,7 @@ def test_study_programme_field_1(app, db, overdo_instance):
     results = study_programme_field(overdo_instance, "key", [value], grantor, doc_type)
     assert isinstance(results, dict)
     url = urlparse(results["studyField"][0]["$ref"])
-    assert url.path == '/api/taxonomies/studyfields/B7701/7701R012/'
+    assert url.path == '/api/taxonomies/studyfields/7701R012'
 
 
 def test_study_programme_field_2(app, db, overdo_instance):
@@ -46,7 +46,7 @@ def test_study_programme_field_2(app, db, overdo_instance):
     results = study_programme_field(overdo_instance, "key", [value], grantor, doc_type)
     assert isinstance(results, dict)
     url = urlparse(results["studyField"][0]["$ref"])
-    assert url.path == '/api/taxonomies/studyfields/B7701/7701R005/'
+    assert url.path == '/api/taxonomies/studyfields/7701R005'
 
 
 def test_study_programme_field_3(app, db, overdo_instance):
@@ -64,7 +64,7 @@ def test_study_programme_field_3(app, db, overdo_instance):
     results = study_programme_field(overdo_instance, "key", [value], grantor, doc_type)
     assert isinstance(results, dict)
     url = urlparse(results["studyField"][0]["$ref"])
-    assert url.path == '/api/taxonomies/studyfields/N7504/7504T039/'
+    assert url.path == '/api/taxonomies/studyfields/7504T039'
 
 
 def test_study_programme_field_4(app, db, overdo_instance):
@@ -100,7 +100,7 @@ def test_study_programme_field_5(app, db, overdo_instance):
         results = study_programme_field(overdo_instance, "key", [value], grantor, doc_type)
         assert isinstance(results, dict)
         url = urlparse(results["studyField"][0]["$ref"])
-        assert url.path == '/api/taxonomies/studyfields/B7701/7701R012/'
+        assert url.path == '/api/taxonomies/studyfields/7701R012'
     finally:
         with app.app_context():
             current_search_client.indices.delete(
@@ -151,3 +151,7 @@ def test_aliases(app, db):
         with app.app_context():
             current_search_client.indices.delete(
                 index="test_taxonomies_es")
+
+
+def test_650(app, db, overdo_instance):
+    print('ahoj')

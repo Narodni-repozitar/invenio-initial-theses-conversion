@@ -15,7 +15,7 @@ def test_degree_grantor(app, db, overdo_instance):
     results = degree_grantor(overdo_instance, "key", [value], provider)
     assert isinstance(results, list)
     url = urlparse(results[0]["$ref"])
-    assert url.path == '/api/taxonomies/universities/60076658/'
+    assert url.path == '/api/taxonomies/universities/60076658'
 
 
 def test_degree_grantor_2(app, db, overdo_instance):
@@ -32,4 +32,4 @@ def test_degree_grantor_2(app, db, overdo_instance):
     pprint(results)
     assert isinstance(results, list)
     url = urlparse(results[0]["$ref"])
-    assert url.path == '/api/taxonomies/universities/00216208/11230/katedra_zurnalistiky/'
+    assert url.path == '/api/taxonomies/universities/katedra_zurnalistiky'

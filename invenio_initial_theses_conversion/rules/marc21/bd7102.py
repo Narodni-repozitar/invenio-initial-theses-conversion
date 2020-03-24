@@ -6,7 +6,7 @@ from flask_taxonomies_es.proxies import current_flask_taxonomies_es
 from invenio_initial_theses_conversion.nusl_overdo import handled_values, extra_argument
 from invenio_initial_theses_conversion.scripts.link import link_self
 from ..model import old_nusl
-from ..utils import db_search, jsonify_fields
+from ..utils import db_search, jsonify_fields, get_ref_es
 
 
 @old_nusl.over('degreeGrantor', '^7102_')
@@ -27,12 +27,12 @@ def degree_grantor(self, key, values, provider):
         return
     faculty_res = get_ref(faculty, tax, university_slug=uni_res["slug"])
     if not faculty_res:
-        return [{"$ref": uni_res["links"]["self"]}]
+        return [get_ref_es(uni_res)]
     department_res = get_ref(department, tax, faculty_slug=faculty_res["slug"])
     if not department_res:
-        return [{"$ref": faculty_res["links"]["self"]}]
+        return [get_ref_es(faculty_res)]
     else:
-        return [{"$ref": department_res["links"]["self"]}]
+        return [get_ref_es(department_res)]
 
 # if department is not None:
     #     results = get_ref(department, tax)

@@ -6,7 +6,7 @@ from flask_taxonomies_es.proxies import current_flask_taxonomies_es
 from invenio_initial_theses_conversion.nusl_overdo import single_value, merge_results, \
     extra_argument
 from ..model import old_nusl
-from ..utils import db_search, jsonify_fields
+from ..utils import db_search, jsonify_fields, get_ref_es
 
 
 @old_nusl.over("studyProgramme", '^656_7')
@@ -47,12 +47,12 @@ def studyfield_ref(study_title, tax, grantor: str, doc_type: str):
     if len(fields) == 0:
         fields = aliases(tax, study_title)
     if len(fields) == 0:
-        return
+        return []
     if len(fields) > 1:
         fields = filter(fields, doc_type, grantor)
 
     return {
-        "studyField": [{"$ref": field["links"]["self"]} for field in fields],
+        "studyField": [get_ref_es(field) for field in fields],
     }
 
 

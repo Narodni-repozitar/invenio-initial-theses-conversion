@@ -5,6 +5,7 @@ from flask_taxonomies_es.proxies import current_flask_taxonomies_es
 from invenio_initial_theses_conversion.nusl_overdo import single_value, handled_values
 from invenio_initial_theses_conversion.scripts.link import link_self
 from ..model import old_nusl
+from ..utils import get_ref_es
 
 
 @old_nusl.over("language", '^041')
@@ -38,9 +39,7 @@ def get_lang(key, value):
 def get_ref(lang, taxonomy):
     res = current_flask_taxonomies_es.get("languages", lang)
     if len(res) > 0 and isinstance(res, dict):
-        return {
-            "$ref": res["links"]["self"]
-        }
+        return get_ref_es(res)
     lang_tax = taxonomy.get_term(lang)
     if lang_tax is None:
         return None
