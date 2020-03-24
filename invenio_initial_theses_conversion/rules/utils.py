@@ -30,7 +30,7 @@ def get_ref_es(json_dict):
     slug = path_array[-1]
     taxonomy_index = path_array.index(taxonomy)
     path_array = [*path_array[:taxonomy_index + 1], slug]
-    path = "/" + "/".join(path_array)
+    path = "/" + "/".join(path_array) + "/"
     url = url._replace(path=path)
     return {
         "$ref": urlunparse(url)

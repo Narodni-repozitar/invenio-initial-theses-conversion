@@ -213,7 +213,7 @@ def data_loop_collector(break_on_error, error_counts, error_documents, gen, proc
             # Fix data before transformation into JSON
             rec = fix_language(rec)
             rec = fix_grantor(rec)  # Sjednocení grantora pod pole 7102
-            rec = fix_keywords(rec)
+            # rec = fix_keywords(rec)
 
             transformed = old_nusl.do(rec)  # PŘEVOD GroupableOrderedDict na Dict
             ch.setTransformedRecord(transformed)
