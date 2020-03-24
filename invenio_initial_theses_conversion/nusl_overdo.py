@@ -88,9 +88,10 @@ class NuslMarkOverdo(Overdo):
 
                 if single:
                     if len(e) > 1:
-                        raise AttributeError('Extra (%s, marc %s) for rule %s requires only one value, has %s' % (
-                            name, marc, key, e
-                        ))
+                        raise AttributeError(
+                            'Extra (%s, marc %s) for rule %s requires only one value, has %s' % (
+                                name, marc, key, e
+                            ))
                     e = e[0] if e else None
                 extra[name] = e
         return extra
@@ -101,8 +102,8 @@ def result_setter(reduce_func):
         setattr(f, '__output_reduce__', reduce_func)
 
         @functools.wraps(f)
-        def wrapper(self, key, values, **kwargs):
-            return f(self, key, values, **kwargs)
+        def wrapper(self, key, values, *args, **kwargs):
+            return f(self, key, values, *args, **kwargs)
 
         return wrapper
 
@@ -111,12 +112,12 @@ def result_setter(reduce_func):
 
 def list_value(f):
     @functools.wraps(f)
-    def wrapper(self, key, values, **kwargs):
+    def wrapper(self, key, values, *args, **kwargs):
         parsed_values = []
 
         for value in values:
             try:
-                parsed_values.append(f(self, key, value, **kwargs))
+                parsed_values.append(f(self, key, value, *args, **kwargs))
             except IgnoreItem:
                 continue
 
@@ -143,10 +144,10 @@ def append_results(f):
 
 def single_value(f):
     @functools.wraps(f)
-    def wrapper(self, key, values, **kwargs):
+    def wrapper(self, key, values, *args, **kwargs):
         if len(values) > 1:
             raise AttributeError('Too many values for', key, values)
-        return f(self, key, values[0], **kwargs)
+        return f(self, key, values[0], *args, **kwargs)
 
     return wrapper
 
@@ -158,8 +159,8 @@ def extra_argument(name, marc, single=True, default=None):
         f.__extra__.append((name, marc, single, default))
 
         @functools.wraps(f)
-        def wrapper(self, key, values, **kwargs):
-            return f(self, key, values, **kwargs)
+        def wrapper(self, key, values, *args, **kwargs):
+            return f(self, key, values, *args, **kwargs)
 
         return wrapper
 
@@ -171,7 +172,7 @@ def handled_values(*args):
 
     def outer(f):
         @functools.wraps(f)
-        def wrapper(self, key, values, **kwargs):
+        def wrapper(self, key, values, *arguments, **kwargs):
             if isinstance(values, list):
                 test_values = values
             else:
@@ -179,7 +180,8 @@ def handled_values(*args):
             for value in test_values:
                 extra_args = set(value.keys()) - args
                 if extra_args:
-                    raise AttributeError(f"Unhandled case {{k: value.get(k) for k in extra_args}} in {f.__name__}")
+                    raise AttributeError(
+                        f"Unhandled case {{k: value.get(k) for k in extra_args}} in {f.__name__}")
 
             return f(self, key, values, **kwargs)
 

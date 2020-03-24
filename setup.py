@@ -23,7 +23,9 @@ install_requires = [
     'requests',
     'flask',
     'marshmallow',
-    'invenio-nusl-taxonomies'
+    'invenio-nusl-taxonomies',
+    'flask-taxonomies-es',
+    'sickle'
 ]
 
 extras_require = {
@@ -60,7 +62,8 @@ setup(
             'bd24500 = invenio_initial_theses_conversion.rules.marc21.bd24500',
             'bd586 = invenio_initial_theses_conversion.rules.marc21.bd586',
             'bd656 = invenio_initial_theses_conversion.rules.marc21.bd656',
-            'bd650_653=invenio_initial_theses_conversion.rules.marc21.bd650_653',
+            'bd650=invenio_initial_theses_conversion.rules.marc21.bd650',
+            'bd653=invenio_initial_theses_conversion.rules.marc21.bd653',
             'bd04107=invenio_initial_theses_conversion.rules.marc21.bd04107',
             'bd046xx=invenio_initial_theses_conversion.rules.marc21.bd046xx',
             'bd980 = invenio_initial_theses_conversion.rules.marc21.bd980',
@@ -83,6 +86,7 @@ setup(
 
         'flask.commands': [
             'initial_theses_conversion = invenio_initial_theses_conversion.main:run',
+            'nusl_stat = invenio_initial_theses_conversion.cli:nusl_stat',
             'initial_theses_conversion_chunks = invenio_initial_theses_conversion.main:run_chunks',
             'collect-org-units = invenio_initial_theses_conversion.extract_departments:run'
         ],
