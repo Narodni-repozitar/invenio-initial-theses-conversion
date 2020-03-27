@@ -15,7 +15,7 @@ setup_requires = [
 ]
 
 install_requires = [
-    'invenio-nusl-theses>=1.0.0',
+    # 'invenio-nusl-theses>=1.0.0',
     "dojson>=1.4.0",
     "langdetect",
     "pycountry",
@@ -23,7 +23,7 @@ install_requires = [
     'requests',
     'flask',
     'marshmallow',
-    'invenio-nusl-taxonomies',
+    # 'invenio-nusl-taxonomies',
     'flask-taxonomies-es',
     'sickle'
 ]
