@@ -178,6 +178,7 @@ def data_loop_collector(break_on_error, error_counts, error_documents, gen, proc
     i = 0
     for data in gen:
         i += 1
+        print("Record number: ", i)
         if i >= int(stop):
             break
 
