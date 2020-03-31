@@ -80,11 +80,12 @@ def overdo_instance():
 
 # @pytest.yield_fixture()
 def results_fix(results):
+    dir = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(dir,"xml_files/vskp_test2.xml")
     array = [create_record(data) for data in
              split_stream(
                  open(
-                     '/home/semtex/Projekty/nusl/invenio-initial-theses-conversion/tests'
-                     '/xml_files/vskp_test2.xml',
+                     path,
                      'rb'))]
     for idx, field in enumerate(array):
         yield field, results[idx]
