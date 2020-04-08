@@ -11,10 +11,10 @@ from ..utils import get_ref_es
 @handled_values('a')
 def doctype(self, key, values):
     doc_type = values[0].get('a')
-    es_result = current_flask_taxonomies_es.get("doctype", doc_type)
+    es_result = current_flask_taxonomies_es.get("doctypes", doc_type)
     if es_result:
         return get_ref_es(es_result)
-    doctype_tax = Taxonomy.get("doctype", required=True)
+    doctype_tax = Taxonomy.get("doctypes", required=True)
     doctype = doctype_tax.descendants.filter(
         TaxonomyTerm.slug == doc_type).one()
 

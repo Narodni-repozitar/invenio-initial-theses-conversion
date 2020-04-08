@@ -14,9 +14,9 @@ def test_language_1(app, db, overdo_instance):
         assert "$ref" in result.keys()
     url = res[0]["$ref"]
     url = urlparse(url)
-    assert url.path == '/api/taxonomies/languages/cze'
+    assert url.path == '/api/taxonomies/languages/cze/'
     url = res[1]["$ref"]
     url = urlparse(url)
-    assert url.path == '/api/taxonomies/languages/ger'
+    assert url.path == '/api/taxonomies/languages/ger/'
 
 
