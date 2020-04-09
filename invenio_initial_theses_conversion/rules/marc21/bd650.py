@@ -3,44 +3,11 @@ from urllib.parse import urlparse
 
 from elasticsearch_dsl import Q
 from flask_taxonomies.models import Taxonomy, TaxonomyTerm
-from werkzeug.utils import cached_property
 
 from flask_taxonomies_es.proxies import current_flask_taxonomies_es
 from invenio_initial_theses_conversion.nusl_overdo import append_results, list_value, handled_values
 from ..model import old_nusl
 from ..utils import jsonify_fields, get_ref_es
-
-
-# class Constants:
-#
-#     def __init__(self):
-#         self.type = {
-#             "czmesh": self.czmesh,
-#             "psh": self.psh
-#         }
-#
-#     @cached_property
-#     def subject_taxonomy(self):
-#         return Taxonomy.get("subject", required=True)
-#
-#     # @cached_property
-#     # def mednas(self):
-#     #     return self.subject_taxonomy.get_term("mednas")
-#
-#     @cached_property
-#     def czmesh(self):
-#         return self.subject_taxonomy.get_term("czmesh")
-#
-#     @cached_property
-#     def psh(self):
-#         return self.subject_taxonomy.get_term("psh")
-#
-#     # @cached_property
-#     # def czenas(self):
-#     #     return self.subject_taxonomy.get_term("czenas")
-#
-#
-# constants = Constants()
 
 
 @old_nusl.over("subject", '^650_7')
@@ -49,7 +16,7 @@ from ..utils import jsonify_fields, get_ref_es
 @handled_values('0', '2', 'a', 'j', '7')
 def subject(self, key, values):
     """Subject."""
-    taxonomy = Taxonomy.get("subject")
+    taxonomy = Taxonomy.get("subjects")
     return get_subject(taxonomy, values)
 
 
