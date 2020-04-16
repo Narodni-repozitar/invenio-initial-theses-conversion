@@ -1,14 +1,18 @@
+from datetime import datetime
 from functools import lru_cache
 from urllib.parse import urlparse
 
+import validators
 from elasticsearch_dsl import Q
 from flask_taxonomies.models import Taxonomy, TaxonomyTerm
+from invenio_db import db
 
 from flask_taxonomies_es.proxies import current_flask_taxonomies_es
 from invenio_initial_theses_conversion.nusl_overdo import append_results, list_value, handled_values
 from ..model import old_nusl
 from ..utils import jsonify_fields, get_ref_es
 
+from flask_taxonomies_es.serializer import get_taxonomy_term as get_tax_term_es
 
 @old_nusl.over("subject", '^650_7')
 @append_results
@@ -26,32 +30,57 @@ def get_subject(taxonomy, value):
     type = value.get("2")
     cz_keyword = value.get("a")
     eng_keyword = value.get("j")
+    if url:
+        if not validators.url(url):
+            if not id_:
+                id_ = url
+            url = None
     if id_:
         results = find_by_id(id_, taxonomy.slug, type)
-        if len(results) > 0 and results is not None:
+        if results:
             return get_ref_es(results[0])
     if url:
         results = find_by_url(url, taxonomy.slug, type)
-        if len(results) > 0 and results is not None:
+        if results:
             return get_ref_es(results[0])
     if cz_keyword or eng_keyword:
         for keyword in [cz_keyword, eng_keyword]:
             results = find_by_title(keyword, taxonomy.slug, type)
-            if len(results) > 0 and results is not None:
+            if results and (type in results[0]["path"]):
                 return get_ref_es(results[0])
-    return {
+            else:
+                term = create_taxonomy_term(id_, cz_keyword, eng_keyword, type)
+                return get_ref_es(get_tax_term_es(code="subjects", slug=term.slug))
+    return
+
+
+def create_taxonomy_term(slug, cz_keyword, en_keyword, type):
+    tax = Taxonomy.get("subjects")
+    parent_term = tax.get_term(type)
+    if not parent_term:
+        parent_term = tax.create_term(slug=type)
+        db.session.add(parent_term)
+        db.session.commit()
+    extra_data = {
         "title": [
             {
                 "value": cz_keyword,
                 "lang": "cze"
             },
             {
-                "value": eng_keyword,
+                "value": en_keyword,
                 "lang": "eng"
-            },
+            }
         ],
-        "type": type
+        "approved": False
     }
+    term = tax.get_term(slug=slug)
+    if not term:
+        term = parent_term.create_term(slug=slug, extra_data=extra_data)
+        db.session.add(term)
+        db.session.commit()
+        current_flask_taxonomies_es.set(term, timestamp=datetime.utcnow())
+    return term
 
 
 def find_by_title(keyword, tax, type):
@@ -111,6 +140,6 @@ def search_json_by_slug(id, parent_term):
 
 @lru_cache(maxsize=10000)
 def get_taxonomy_term(type: str):
-    taxonomy = Taxonomy.get("subject")
+    taxonomy = Taxonomy.get("subjects")
     taxonomy_term = taxonomy.get_term(type.lower())
     return taxonomy_term

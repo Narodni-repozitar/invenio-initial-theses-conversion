@@ -1,7 +1,8 @@
-from pprint import pprint
+from urllib.parse import urlparse
 
 from flask_taxonomies.models import TaxonomyTerm
 
+from flask_taxonomies_es.proxies import current_flask_taxonomies_es
 from invenio_initial_theses_conversion.rules.marc21.bd650 import subject, get_taxonomy_term
 
 
@@ -40,8 +41,13 @@ def test_subject_1(app, db, overdo_instance):
         },
     ]
     results = subject(overdo_instance, "key", value)
-    assert results[0] == {'$ref': 'http://127.0.0.1:5000/api/taxonomies/subject/D010811'}
-    assert isinstance(results, list)
+    assert len(results) == 6
+    for result in results:
+        assert "$ref" in result.keys()
+        url = urlparse(result["$ref"])
+        path_array = url.path.split("/")
+        slug = path_array[-2]
+        assert current_flask_taxonomies_es.get("subjects", slug) is not None
 
 
 def test_get_taxonomy_term(app, db):
