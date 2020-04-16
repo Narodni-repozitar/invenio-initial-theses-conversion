@@ -9,7 +9,9 @@
 
 from __future__ import absolute_import, print_function
 
+import json
 import os
+import pathlib
 import shutil
 import tempfile
 
@@ -81,7 +83,7 @@ def overdo_instance():
 # @pytest.yield_fixture()
 def results_fix(results):
     dir = os.path.dirname(os.path.abspath(__file__))
-    path = os.path.join(dir,"xml_files/vskp_test2.xml")
+    path = os.path.join(dir, "xml_files/vskp_test2.xml")
     array = [create_record(data) for data in
              split_stream(
                  open(
@@ -89,6 +91,14 @@ def results_fix(results):
                      'rb'))]
     for idx, field in enumerate(array):
         yield field, results[idx]
+
+
+def grantors():
+    dir = pathlib.Path(__file__).parent.absolute()
+    path = dir / "data" / "grantors.json"
+    with open(str(path), "r") as f:
+        array_ = json.load(f)
+        return [_["7102_"] for _ in array_]
 
 
 # @pytest.fixture

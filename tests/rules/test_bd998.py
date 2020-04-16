@@ -10,4 +10,4 @@ def test_provider_1(app, db, overdo_instance):
     res = provider(overdo_instance, "key", [value])
     assert isinstance(res, dict)
     url = urlparse(res["$ref"])
-    assert url.path == '/api/taxonomies/provider/jihoceska_univerzita_v_ceskych_budejovicich'
+    assert url.path == '/api/taxonomies/institutions/60076658/'
