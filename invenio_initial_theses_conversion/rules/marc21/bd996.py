@@ -6,6 +6,7 @@ from invenio_initial_theses_conversion.nusl_overdo import single_value, handled_
 from ..model import old_nusl
 from ..utils import get_ref_es
 from ...scripts.link import link_self
+import re
 
 
 @old_nusl.over('accessibility', '^996__')
@@ -20,7 +21,7 @@ def accessibility(self, key, value):
     access_right_dict = {
         "0": "c_14cb",
         "1": "c_abf2",
-        "2": "c_16ec "
+        "2": "c_16ec"
     }
 
     sentence_dict = {
@@ -46,13 +47,32 @@ def accessibility(self, key, value):
         'Dokument je po domluvě dostupný v budově <a '
         'href=\"http://www.mzp.cz/__C125717D00521D29.nsf/index.html\" '
         'target=\"_blank\">Ministerstva životního prostředí</a>.': "0",
-        "Dostupné registrovaným uživatelům v knihovně Mendelovy univerzity v Brně.": "0"
+        "Dostupné registrovaným uživatelům v knihovně Mendelovy univerzity v Brně.": "0",
+        'Dostupné registrovaným uživatelům v repozitáři ČZU.': "2",
+        'Dokument je dostupný na externích webových stránkách.': "0"
     }
 
     slug = access_right_dict.get(sentence_dict.get(sentence))
-    accessibility = get_ref(slug)
+    if not slug:
+        sentence = sentence.replace("\n", " ")
+        sentence = re.sub(' +', ' ', sentence)
+        slug = access_right_dict.get(sentence_dict.get(sentence.strip()))
+    if not slug:
+        return
+    access_rights = get_ref(slug)
 
-    ret["accessibility"] = accessibility
+    ret["accessRights"] = access_rights
+    accessibility = []
+    for k, lang in (('a', 'cze'), ('b', 'eng')):
+        if k in value:
+            accessibility.append(
+                {
+                    'name': value.get(k).strip(),
+                    'lang': lang
+                }
+            )
+    if accessibility:
+        ret['accessibility'] = accessibility
     return ret
 
 
