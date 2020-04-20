@@ -62,7 +62,8 @@ def fix_language_by_field(data, field, subfield):
 
 def fix_lang_groupable_ordered_dict(language, subfield):
     language = dict(language)
-    language[subfield] = LANGUAGE_EXCEPTIONS.get(language[subfield], language[subfield])
+    lang_code = language.get(subfield, "cze")
+    language[subfield] = LANGUAGE_EXCEPTIONS.get(lang_code, lang_code)
     return language
 
 
