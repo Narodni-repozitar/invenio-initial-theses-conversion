@@ -1,7 +1,10 @@
 import json
+from datetime import datetime
 
 from elasticsearch_dsl import Q
 from flask_taxonomies.models import Taxonomy
+from invenio_db import db
+from slugify import slugify
 
 from flask_taxonomies_es.proxies import current_flask_taxonomies_es
 from invenio_initial_theses_conversion.nusl_overdo import single_value, merge_results
@@ -45,7 +48,24 @@ def studyfield_ref(study_title, tax):
             "studyField": [get_ref_es(field) for field in fields],
         }
     else:
-        return studyfield_ref(aliases(study_title), tax)
+        result = studyfield_ref(aliases(study_title), tax)
+        if result:
+            return result
+        else:
+            slug = "O_" + slugify(study_title)
+            extra_data = {
+                "title": [
+                    {
+                        "value": study_title,
+                        "lang": "cze"
+                    }
+                ],
+                "approved": False
+            }
+            term = tax.get_term(slug=slug, extra_data=extra_data)
+            db.session.add(term)
+            db.session.commit()
+            current_flask_taxonomies_es.set(term, timestamp=datetime.utcnow())
 
 
 def aliases(field):
