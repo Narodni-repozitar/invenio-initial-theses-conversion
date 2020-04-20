@@ -7,6 +7,7 @@ from invenio_db import db
 from slugify import slugify
 
 from flask_taxonomies_es.proxies import current_flask_taxonomies_es
+from flask_taxonomies_es.serializer import get_taxonomy_term
 from invenio_initial_theses_conversion.nusl_overdo import single_value, merge_results
 from ..model import old_nusl
 from ..utils import db_search, get_ref_es
@@ -62,10 +63,11 @@ def studyfield_ref(study_title, tax):
                 ],
                 "approved": False
             }
-            term = tax.get_term(slug=slug, extra_data=extra_data)
+            term = tax.create_term(slug=slug, extra_data=extra_data)
             db.session.add(term)
             db.session.commit()
             current_flask_taxonomies_es.set(term, timestamp=datetime.utcnow())
+            return studyfield_ref(study_title, tax)
 
 
 def aliases(field):
