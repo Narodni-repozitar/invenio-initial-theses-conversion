@@ -7,6 +7,7 @@ from elasticsearch_dsl import Q
 from flask_taxonomies.models import Taxonomy, TaxonomyTerm
 from invenio_db import db
 
+from flask_taxonomies.utils import find_in_json
 from flask_taxonomies_es.proxies import current_flask_taxonomies_es
 from invenio_initial_theses_conversion.nusl_overdo import append_results, list_value, handled_values
 from ..model import old_nusl
@@ -126,8 +127,7 @@ def db_search(slug, type, handler):
 
 @lru_cache(maxsize=10000)
 def search_taxonomy_by_title(keyword, parent_term):
-    subject = parent_term.descendants.filter(
-        TaxonomyTerm.extra_data["title"].contains([{"value": keyword}])).all()
+    subject = find_in_json(keyword, parent_term).all()
     return subject
 
 
