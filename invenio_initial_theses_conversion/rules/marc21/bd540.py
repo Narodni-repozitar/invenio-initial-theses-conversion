@@ -1,14 +1,10 @@
 import json
-import pathlib
-
-from flask_taxonomies.models import Taxonomy
+from pathlib import Path
 
 from flask_taxonomies_es.proxies import current_flask_taxonomies_es
 from flask_taxonomies_es.serializer import get_taxonomy_term
 from invenio_initial_theses_conversion.nusl_overdo import handled_values
 from ..model import old_nusl
-from pathlib import Path
-
 from ..utils import get_ref_es
 
 
