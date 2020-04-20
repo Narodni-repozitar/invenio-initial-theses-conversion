@@ -25,7 +25,8 @@ install_requires = [
     'marshmallow',
     # 'invenio-nusl-taxonomies',
     'flask-taxonomies-es',
-    'sickle'
+    'sickle',
+    'slugify'
 ]
 
 extras_require = {
