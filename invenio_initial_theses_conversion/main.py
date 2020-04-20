@@ -57,18 +57,18 @@ class NuslLogHandler(StreamHandler):
         msg = self.format(record)
         if self.recid:
             print(f'{msg} at {self.recid}')
-            if not os.path.exists('/tmp/import-nusl-theses'):
-                os.makedirs('/tmp/import-nusl-theses')
-
-            with open(f'{ERROR_DIR}/{path_safe(self.recid)}.xml', 'w') as f:
-                f.write(ElementTree.tostring(self.source_record, encoding='unicode', method='xml'))
-
-            with open(f'{ERROR_DIR}/{path_safe(self.recid)}.txt', 'a') as f:
-                print(f'{msg} at {self.recid}', file=f)
-
-            if self.transformed:
-                with open(f'{ERROR_DIR}/{path_safe(self.recid)}.json', 'w') as fp:
-                    json.dump(self.transformed, fp, indent=4, ensure_ascii=False)
+            # if not os.path.exists('/tmp/import-nusl-theses'):
+            #     os.makedirs('/tmp/import-nusl-theses')
+            #
+            # with open(f'{ERROR_DIR}/{path_safe(self.recid)}.xml', 'w') as f:
+            #     f.write(ElementTree.tostring(self.source_record, encoding='unicode', method='xml'))
+            #
+            # with open(f'{ERROR_DIR}/{path_safe(self.recid)}.txt', 'a') as f:
+            #     print(f'{msg} at {self.recid}', file=f)
+            #
+            # if self.transformed:
+            #     with open(f'{ERROR_DIR}/{path_safe(self.recid)}.json', 'w') as fp:
+            #         json.dump(self.transformed, fp, indent=4, ensure_ascii=False)
 
         else:
             super().emit(record)
