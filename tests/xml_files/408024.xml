@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">408024</controlfield>
+  <controlfield tag="005">20200409123958.0</controlfield>
+  <datafield tag="046" ind1=" " ind2=" ">
+    <subfield code="k">2019</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Zkoumání struktur a povlaků tribologicky optimalizovaných ploch tvářecích nástrojů pro zpracování hliníkových plechů</subfield>
+    <subfield code="b">Untersuchung von Strukturen und Beschichtungen für tribologisch optimierte Umformwerkzeugoberflächen für die Aluminiumfeinblechbearbeitung</subfield>
+  </datafield>
+  <datafield tag="260" ind1=" " ind2=" ">
+    <subfield code="b">Vysoké učení technické v Brně. Fakulta strojního inženýrství</subfield>
+  </datafield>
+  <datafield tag="520" ind1=" " ind2=" ">
+    <subfield code="a">
+V rámci bakalářské práce je provedena rešerše ke stavu techniky z pohledu tribologie, tváření hliníku, povlakování, strukturování a v závěru rozdělení tribologických zkoušek a metod jejich hodnocení. V praktické části jsou vyhodnoceny už dříve provedené pokusy na oscilačním tribometru. Následně byly provedeny pokusy tažení pásu s ohybem a bez ohybu s různými parametry pro jednotlivé zkoušky. Testovány byly různé laserové struktury (křížové, liniové, bodové) s variací jejich hloubky a pokrytí vzorků. V závěru práce jsou výsledky pokusů zhodnoceny z pohledu opotřebení, koeficientu tření a stability tribologického systému v průběhu pokusu. Z výsledků vychází doporučení pro následující pokusy a možné oblasti aplikace jednotlivých struktur.
+</subfield>
+  </datafield>
+  <datafield tag="520" ind1=" " ind2=" ">
+    <subfield code="a">
+In the frame of this bachelor thesis the research to the state of the technology from the point of the view of tribology, aluminum forming, coating, structuring was realized. At the end of this part are described tribological tests and evaluation methods. In the practical part are evaluated previously performed experiments on oscillating tribometer. Subsequently,strip drawing test with and without bending were made with dierent process parameters. Various geometrical structures (cross, line, point) were tested with variations in their depth and degree of the coverage of samples. At the end of the work, the results of the experiments are evaluated in terms of wear, friction coecient and stability of the tribological system during the experiment. From the results recommendation are given for the following experiments and possible areas of application of individual structures.
+</subfield>
+    <subfield code="9">eng</subfield>
+  </datafield>
+  <datafield tag="653" ind1="0" ind2=" ">
+    <subfield code="a">tribology</subfield>
+  </datafield>
+  <datafield tag="653" ind1="0" ind2=" ">
+    <subfield code="a">structuring</subfield>
+  </datafield>
+  <datafield tag="653" ind1="0" ind2=" ">
+    <subfield code="a">laser</subfield>
+  </datafield>
+  <datafield tag="653" ind1="0" ind2=" ">
+    <subfield code="a">coating</subfield>
+  </datafield>
+  <datafield tag="653" ind1="0" ind2=" ">
+    <subfield code="a">forming tool</subfield>
+  </datafield>
+  <datafield tag="720" ind1=" " ind2=" ">
+    <subfield code="a">Kořenek, Jakub</subfield>
+  </datafield>
+  <datafield tag="720" ind1=" " ind2=" ">
+    <subfield code="i">Hänel, Thomas</subfield>
+    <subfield code="e">referee</subfield>
+  </datafield>
+  <datafield tag="720" ind1=" " ind2=" ">
+    <subfield code="i">Blecha, Petr</subfield>
+    <subfield code="e">advisor</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2="0">
+    <subfield code="z">Odkaz na původní záznam</subfield>
+    <subfield code="u">http://hdl.handle.net/11012/180753</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2="0">
+    <subfield code="u">http://www.nusl.cz/ntk/nusl-408024</subfield>
+    <subfield code="z">PID NUŠL</subfield>
+  </datafield>
+  <datafield tag="909" ind1="C" ind2="O">
+    <subfield code="o">oai:invenio.nusl.cz:408024</subfield>
+    <subfield code="p">global</subfield>
+  </datafield>
+  <datafield tag="980" ind1=" " ind2=" ">
+    <subfield code="a">bakalarske_prace</subfield>
+  </datafield>
+  <datafield tag="996" ind1=" " ind2=" ">
+    <subfield code="a">Plný text je dostupný v Digitální knihovně VUT.</subfield>
+    <subfield code="b">Fulltext is available in the Brno University of Technology Digital Library.</subfield>
+  </datafield>
+  <datafield tag="998" ind1=" " ind2=" ">
+    <subfield code="a">vutbr</subfield>
+  </datafield>
+</record>
+</collection>
