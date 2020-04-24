@@ -51,7 +51,8 @@ def find_uni_by_name(name, parent_name=None, parent_slug=None, query_type="term"
         query = Q("term", taxonomy__keyword=TAXONOMY_CODE) & Q(query_type,
                                                                title__value=name)
     else:
-        query = Q("term", taxonomy__keyword=TAXONOMY_CODE) & Q(query_type, title__value__keyword=name)
+        query = Q("term", taxonomy__keyword=TAXONOMY_CODE) & Q(query_type,
+                                                               title__value__keyword=name)
     if parent_slug or parent_name:
         if parent_slug:
             parent_query = Q("term", ancestors__slug__keyword=parent_slug)
@@ -92,43 +93,6 @@ def find_org_by_slug(slug):
     return get_ref_es(result)
 
 
-#     uni_res = find_university(university, tax, provider)
-#     if not uni_res:
-#         return
-#     faculty_res = get_ref(faculty, tax, university_slug=uni_res["slug"])
-#     if not faculty_res:
-#         return [get_ref_es(uni_res)]
-#     department_res = get_ref(department, tax, faculty_slug=faculty_res["slug"])
-#     if not department_res:
-#         return [get_ref_es(faculty_res)]
-#     else:
-#         return [get_ref_es(department_res)]
-#
-#
-# def get_ref(org_unit, taxonomy: Taxonomy, university_slug=None, faculty_slug=None):
-#     if not org_unit:
-#         return
-#     if faculty_slug:
-#         query = Q("term", taxonomy__keyword="institutions") & Q("match", title__value=org_unit)
-#         & Q(
-#             "term", ancestors__slug__keyword=faculty_slug)
-#     elif university_slug:
-#         query = Q("term", taxonomy__keyword="institutions") & Q("term",
-#                                                                 title__value__keyword=org_unit)
-#                                                                 & Q(
-#             "term", ancestors__slug__keyword=university_slug)
-#     else:
-#         query = Q("term", taxonomy__keyword="institutions") & Q("match", title__value=org_unit)
-#     results = current_flask_taxonomies_es.search(query, match=True)
-#     if len(results) == 0:
-#         results = db_search(org_unit, taxonomy, json_address=("title", 0, "value"))
-#     if len(results) == 0:
-#         return
-#     return results[0]
-
-
-#
-#
 def get_ref_by_provider(provider):
     provider_slug = get_slug(provider)
     if not provider_slug:
@@ -137,19 +101,3 @@ def get_ref_by_provider(provider):
     if provider:
         return provider
     return get_taxonomy_term(TAXONOMY_CODE, provider_slug)
-    # provider_term = provider_tax.descendants.filter(
-    #     TaxonomyTerm.slug == provider).first()
-    # try:
-    #     # TODO: je potřeba změnit až bude více jazyků
-    #     uni_name = provider_term.extra_data["title"][0]["value"]
-    # except KeyError:
-    #     uni_name = None
-    # return uni_name
-#
-#
-# def find_university(uni_name, taxonomy, provider):
-#     university = get_ref(uni_name, taxonomy)
-#     if not university:
-#         uni_name = get_ref_by_provider(provider)
-#         university = get_ref(uni_name, taxonomy)
-#     return university
