@@ -1,12 +1,10 @@
 import gzip
 import hashlib
 import io
-import json
 import logging
 import os
 import re
 import shutil
-import sys
 import traceback
 import uuid
 from collections import Counter, defaultdict
@@ -16,20 +14,17 @@ from xml.etree import ElementTree
 
 import click
 import requests
+import sys
 from dojson.contrib.marc21.utils import split_stream, create_record
 from flask import cli
-from marshmallow import ValidationError
-
 from invenio_initial_theses_conversion.rules.model import old_nusl
-from invenio_initial_theses_conversion.utils import fix_language, fix_grantor, fix_keywords, \
-    split_stream_oai_nusl
-from invenio_nusl_theses.marshmallow import ThesisMetadataSchemaV1
+from invenio_initial_theses_conversion.utils import fix_language, fix_grantor, split_stream_oai_nusl
 from invenio_nusl_theses.proxies import nusl_theses
 from invenio_oarepo.current_api import current_api
+from marshmallow import ValidationError
 
 # logging.basicConfig()
 # logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO) #logování SQLAlchemy
-from invenio_records_draft.marshmallow import DraftSchemaWrapper
 
 ERROR_DIR = "/tmp/import-nusl-theses"
 IGNORED_ERROR_FIELDS = {"title", "dateAccepted", "language", "degreeGrantor",
@@ -220,8 +215,7 @@ def data_loop_collector(break_on_error, error_counts, error_documents, gen, proc
             ch.setTransformedRecord(transformed)
             try:
                 # Validace dat podle Marshmallow a JSON schematu
-                marshmallowed = nusl_theses.validate(DraftSchemaWrapper(ThesisMetadataSchemaV1),
-                                                     transformed)
+                marshmallowed = nusl_theses.validate(transformed)
             except ValidationError as e:
                 error_counts[e.field_name] += 1
                 error_documents[e.field_name].append(recid)

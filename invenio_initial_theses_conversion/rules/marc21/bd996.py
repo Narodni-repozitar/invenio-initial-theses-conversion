@@ -67,7 +67,7 @@ def accessibility(self, key, value):
         if k in value:
             accessibility.append(
                 {
-                    'name': value.get(k).strip(),
+                    'value': value.get(k).strip(),
                     'lang': lang
                 }
             )

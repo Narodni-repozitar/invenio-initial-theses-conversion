@@ -9,6 +9,6 @@ from ..model import old_nusl
 def abstract(self, key, value, language):
     """Abstract"""
     return {
-        "name": value.get("a"),
+        "value": value.get("a"),
         "lang": value.get("9") or (language.get('a') if language else 'unk')
     }

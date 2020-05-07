@@ -11,13 +11,13 @@ def keyword(self, key, value):
     if key == '653__':
         name = value.get("a")
         return {
-            "name": name,
+            "value": name,
             "lang": "cze"
         }
 
     if key == '6530_':
         name = value.get("a")
         return {
-            "name": name,
+            "value": name,
             "lang": "eng"
         }

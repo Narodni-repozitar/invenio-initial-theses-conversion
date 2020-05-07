@@ -10,11 +10,11 @@ def title_value(self, key, value, language):
     """Language Code."""
     if "a" in value:
         return {
-            "name": value.get('a'),
+            "value": value.get('a'),
             "lang": language.get('a') if language else 'unk'
         }
     if "b" in value:
         return {
-            "name": value.get('b'),
+            "value": value.get('b'),
             "lang": "eng"
         }
