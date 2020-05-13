@@ -10,7 +10,7 @@ from flask_taxonomies_es.proxies import current_flask_taxonomies_es
 from flask_taxonomies_es.serializer import get_taxonomy_term
 from invenio_initial_theses_conversion.nusl_overdo import single_value, merge_results
 from ..model import old_nusl
-from ..utils import db_search, get_ref_es
+from ..utils import db_search, get_ref_es, jsonify_fields
 
 
 @old_nusl.over("studyProgramme", '^656_7')
@@ -63,6 +63,15 @@ def studyfield_ref(study_title, tax):
                 ],
                 "approved": False
             }
+            if len(slug) > 64:
+                slug = slug[:64]
+            term = tax.get_term(slug=slug)
+            if term:
+                terms = [term]
+                fields = jsonify_fields(terms)
+                return {
+                    "studyField": [get_ref_es(field) for field in fields],
+                }
             term = tax.create_term(slug=slug, extra_data=extra_data)
             db.session.add(term)
             db.session.commit()

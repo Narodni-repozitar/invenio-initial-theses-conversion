@@ -16,11 +16,11 @@ def subtitle_value(self, key, value, language):
     if "a" in value:
         a_lang = assert_language(value.get('a'), record_lang)
         return {
-            "name": value.get('a'),
+            "value": value.get('a'),
             "lang": a_lang
         }
     if "b" in value:
         return {
-            "name": value.get('b'),
+            "value": value.get('b'),
             "lang": "eng"
         }

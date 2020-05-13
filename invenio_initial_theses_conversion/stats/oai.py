@@ -1,13 +1,11 @@
 import os
 import traceback
 from datetime import datetime
-from pprint import pprint
-
-from invenio_search import current_search_client
-from sickle import Sickle
 
 from invenio_initial_theses_conversion import config
 from invenio_initial_theses_conversion.stats.parsers import MarcXMLParser
+from invenio_search import current_search_client
+from sickle import Sickle
 
 
 class OAIRunner:

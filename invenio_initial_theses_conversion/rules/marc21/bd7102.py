@@ -1,5 +1,5 @@
 from elasticsearch_dsl import Q
-from flask_taxonomies.models import Taxonomy, TaxonomyTerm
+from flask_taxonomies.models import Taxonomy
 
 from flask_taxonomies_es.proxies import current_flask_taxonomies_es
 from flask_taxonomies_es.serializer import get_taxonomy_term
@@ -22,6 +22,10 @@ def degree_grantor(self, key, values, provider):
     university_name = grantor.get("a")
     faculty_name = grantor.get("g")
     department_name = grantor.get("b")
+    return get_degree_grantor(university_name, faculty_name, department_name, provider)
+
+
+def get_degree_grantor(university_name, faculty_name=None, department_name=None, provider=None):
     university_dict = find_org_unit(name=university_name)
     if not university_dict:
         university_dict = get_ref_by_provider(provider)
