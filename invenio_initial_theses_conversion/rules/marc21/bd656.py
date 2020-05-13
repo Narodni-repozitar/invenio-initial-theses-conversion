@@ -63,6 +63,8 @@ def studyfield_ref(study_title, tax):
                 ],
                 "approved": False
             }
+            if len(slug) > 64:
+                slug = slug[:64]
             term = tax.get_term(slug=slug)
             if term:
                 terms = [term]
