@@ -1,3 +1,4 @@
+import logging
 import os
 import traceback
 from datetime import datetime
@@ -6,6 +7,9 @@ from invenio_initial_theses_conversion import config
 from invenio_initial_theses_conversion.stats.parsers import MarcXMLParser
 from invenio_search import current_search_client
 from sickle import Sickle
+
+oai_logger = logging.getLogger(__name__)
+oai_logger.setLevel(logging.DEBUG)
 
 
 class OAIRunner:
@@ -30,8 +34,11 @@ class OAIRunner:
         sickle = Sickle('http://invenio.nusl.cz/oai2d/')
         sickle.class_mapping['ListRecords'] = MarcXMLParser
         sickle.class_mapping['GetRecord'] = MarcXMLParser
+        oai_logger.info("Loading records")
         records = sickle.ListRecords(metadataPrefix='marcxml')
-        for record in records:
+        for idx, record in enumerate(records):
+            print(f"{idx}. {record.id}")
+            oai_logger.info(f"{idx}. {record.id}")
             try:
                 current_search_client.index(
                     index=self.index,
