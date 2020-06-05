@@ -108,7 +108,7 @@ def run_chunks(ctx, url, break_on_error, cache_dir, clean_output_dir, start, sto
 
 @click.command("initial-theses-conversion")
 @click.option('--url',
-              default='https://invenio.nusl.cz/search?ln=cs&p=&f=&action_search=Hledej&c=Vysoko'
+              default='http://invenio.nusl.cz/search?ln=cs&p=&f=&action_search=Hledej&c=Vysoko'
                       '%C5%A1kolsk%C3%A9+kvalifika%C4%8Dn%C3%AD+pr%C3%A1ce&rg=1000&sc=0&of=xm',
               help='Collection URL')
 @click.option('--cache-dir',
