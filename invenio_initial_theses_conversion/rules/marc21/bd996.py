@@ -15,9 +15,7 @@ import re
 @single_value
 def accessibility(self, key, value):
     ret = {}
-    sentence = value.get("a")
-    if not sentence:
-        return
+    sentence = value.get("a", 'Default')
     access_right_dict = {
         "0": "c_14cb",
         "1": "c_abf2",
@@ -49,7 +47,8 @@ def accessibility(self, key, value):
         'target=\"_blank\">Ministerstva životního prostředí</a>.': "0",
         "Dostupné registrovaným uživatelům v knihovně Mendelovy univerzity v Brně.": "0",
         'Dostupné registrovaným uživatelům v repozitáři ČZU.': "2",
-        'Dokument je dostupný na externích webových stránkách.': "0"
+        'Dokument je dostupný na externích webových stránkách.': "0",
+        'Default': '0'
     }
 
     slug = access_right_dict.get(sentence_dict.get(sentence))

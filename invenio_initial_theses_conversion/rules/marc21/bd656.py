@@ -7,7 +7,6 @@ from invenio_db import db
 from slugify import slugify
 
 from flask_taxonomies_es.proxies import current_flask_taxonomies_es
-from flask_taxonomies_es.serializer import get_taxonomy_term
 from invenio_initial_theses_conversion.nusl_overdo import single_value, merge_results
 from ..model import old_nusl
 from ..utils import db_search, get_ref_es, jsonify_fields
