@@ -22,7 +22,7 @@ def rights(self, key, values):
             res.add(json.dumps(get_term(rights_dict.get(value.get("a"), "copyright")),sort_keys=True))
     res = list(res)
     res = [json.loads(item) for item in res]
-    return {"rights": res}
+    return res
 
 
 def get_term(slug):
